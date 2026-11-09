@@ -142,7 +142,7 @@
       if(action==="select") result=rows.filter(matches);
       if(action==="insert"){
         const incoming=payload.map(x=>({...x,id:x.id??(table+"-"+Date.now()+"-"+Math.random().toString(36).slice(2,7)),created_at:x.created_at||now(),updated_at:x.updated_at||now()}));
-        rows.push(...incoming);write(table,rows);result=incoming;
+        rows.push(...incoming);write(table,rows);if(table==="store_chat_messages"){const conversations=read("store_chat_conversations",[]);for(const message of incoming){const conversation=conversations.find(item=>String(item.id)===String(message.conversation_id));if(conversation){conversation.last_message=message.body||"";conversation.last_message_at=message.created_at;conversation.updated_at=now();}}write("store_chat_conversations",conversations);}result=incoming;
       }
       if(action==="upsert"){
         result=payload.map(x=>{const idx=rows.findIndex(r=>(x.id!=null&&String(r.id)===String(x.id))||(x.slug&&r.slug===x.slug)||(x.code&&r.code===x.code));if(idx>=0){rows[idx]={...rows[idx],...x,updated_at:now()};return rows[idx];}const item={...x,id:x.id??(table+"-"+Date.now()+"-"+Math.random().toString(36).slice(2,7)),created_at:x.created_at||now(),updated_at:now()};rows.push(item);return item;});write(table,rows);
