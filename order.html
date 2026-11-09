@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head><script src="js/local-store.js"></script>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Cek Pesanan — LEOOSTORE</title>
+
+  <meta
+    name="description"
+    content="Cek status dan riwayat pesanan LEOOSTORE."
+  >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="css/style.css?v=20261017-drawer-brand-right-close1"
+  >
+  <link rel="stylesheet" href="css/style-pages.css?v=20261022-order-bg2">
+
+<link rel="stylesheet" href="css/checkout-fixes.css?v=20260919-49">
+
+<style id="leoostore-text-brand-override">
+/* Final override: show text-only LEOOSTORE.id · LOCAL DEMO brand on every storefront page. */
+.site-header a.header-brand,
+.site-header .container > a.header-brand,
+.site-header .header-inner > a.header-brand{
+  display:inline-flex!important; align-items:center!important; justify-content:flex-start!important;
+  flex:0 0 auto!important; width:auto!important; min-width:0!important; height:auto!important;
+  max-width:100%!important; overflow:visible!important; gap:0!important;
+}
+.site-header .header-brand img.header-logo{display:none!important; visibility:hidden!important; width:0!important; height:0!important;}
+.site-header .header-brand .header-brand-text,
+.site-header a.header-brand > span.header-brand-text{
+  display:inline-block!important; visibility:visible!important; opacity:1!important;
+  position:relative!important; width:auto!important; height:auto!important; max-width:none!important;
+  margin:0!important; padding:0!important; overflow:visible!important;
+  color:#f5f8ff!important;
+  background:linear-gradient(100deg,#b78aff 0%,#9b5cff 36%,#7c3aed 68%,#d8b4fe 100%)!important;
+  -webkit-background-clip:text!important; background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  font-family:'Orbitron','Plus Jakarta Sans',Arial,sans-serif!important;
+  font-size:clamp(16px,2.3vw,21px)!important; font-weight:900!important;
+  font-style:normal!important; letter-spacing:-.045em!important; line-height:1.15!important;
+  white-space:nowrap!important; text-decoration:none!important; text-shadow:none!important;
+  transform:none!important;
+}
+@media(max-width:600px){
+ .site-header .header-brand .header-brand-text,
+ .site-header a.header-brand > span.header-brand-text{font-size:17px!important;}
+}
+
+/* TARGETED FIX ONLY: nudge the inner-page text brand right by 10px.
+   These pages use .container > .header-brand (not .header-inner > .header-brand).
+   Do not alter the Home header or any other layout. */
+body:not(.home-page) .site-header > .container > .header-brand,
+body:not(.home-page) .site-header .container > .header-brand {
+  margin-left: 10px !important;
+}
+</style>
+<link rel="stylesheet" href="css/logo-text-animation.css?v=20261017-navbar-matched-drawer1">
+
+
+<style id="leo-language-theme-fix">
+.leo-language-wrap{position:relative!important;display:inline-flex!important;align-items:center!important;z-index:2147483000!important;isolation:isolate!important}
+button.leo-language-button{appearance:none!important;-webkit-appearance:none!important;display:flex!important;align-items:center!important;gap:7px!important;min-height:36px!important;padding:7px 11px!important;border:1px solid #6d4bd1!important;border-radius:999px!important;background:linear-gradient(135deg,#17233b,#0a1221)!important;color:#f5f3ff!important;font:600 12px/1.2 inherit!important;box-shadow:0 0 14px #713cff35!important;white-space:nowrap!important;cursor:pointer!important;touch-action:manipulation!important}
+.leo-language-menu{position:absolute!important;top:calc(100% + 9px)!important;right:0!important;left:auto!important;display:flex!important;flex-direction:column!important;gap:3px!important;width:218px!important;max-width:calc(100vw - 32px)!important;padding:7px!important;border:1px solid #514078!important;border-radius:15px!important;background:#091426!important;box-shadow:0 14px 38px #000b!important;z-index:2147483001!important;overflow:hidden!important}
+.leo-language-menu[hidden]{display:none!important}
+button.leo-language-menu button,.leo-language-menu button{appearance:none!important;-webkit-appearance:none!important;display:flex!important;align-items:center!important;width:100%!important;min-height:39px!important;padding:9px 11px!important;border:0!important;border-radius:9px!important;background:transparent!important;color:#e7eaff!important;font:500 13px/1.25 inherit!important;text-align:left!important;white-space:normal!important;box-shadow:none!important;cursor:pointer!important;touch-action:manipulation!important}
+.leo-language-menu button:hover,.leo-language-menu button.selected{background:#6d3bd64a!important;color:#fff!important}
+.goog-te-banner-frame,.goog-te-banner-frame.skiptranslate,iframe.goog-te-banner-frame,#goog-gt-tt,.goog-te-balloon-frame,.goog-te-menu-frame{display:none!important;visibility:hidden!important;height:0!important}
+body{top:0!important}.skiptranslate iframe{display:none!important}.goog-logo-link,.goog-te-gadget span{display:none!important}
+@media(max-width:600px){button.leo-language-button{min-height:32px!important;padding:6px 8px!important;font-size:11px!important}.leo-language-menu{width:205px!important;right:0!important}}
+</style>
+
+<style id="order-uniform-background-override">
+/* ORDER PAGE: use one flat, uninterrupted background from header to footer. */
+html:has(body.order-page),
+body.order-page,
+body.order-page > main,
+body.order-page main,
+body.order-page .order-section,
+body.order-page main > section,
+body.order-page .site-footer.checkout-footer-inline {
+  background: #080f1d !important;
+  background-color: #080f1d !important;
+  background-image: none !important;
+  background-attachment: initial !important;
+}
+body.order-page {
+  min-height: 100vh !important;
+}
+body.order-page main {
+  min-height: 0 !important;
+}
+</style>
+</head>
+
+
+<body class="order-page">
+
+
+  <!-- HEADER -->
+
+  <header class="site-header home-header">
+  <div class="container header-inner"><a href="index.html" class="header-brand">
+  <span class="header-brand-text">LEOOSTORE.id · LOCAL DEMO</span>
+</a>
+<div class="header-actions">
+  
+  <button type="button" class="header-action search-button" id="searchButton" aria-label="Cari"><span class="header-icon">⌕</span></button>
+  <div class="leo-language-wrap">
+  <button type="button" class="leo-language-button" id="leoLanguageButton" aria-haspopup="true" aria-expanded="false"><span id="leoLanguageFlag">🇮🇩</span><span id="leoLanguageLabel">ID / IDR</span><span class="leo-language-chevron">▾</span></button>
+  <div class="leo-language-menu" id="leoLanguageMenu" hidden>
+    <button type="button" data-lang="id">🇮🇩 Bahasa Indonesia</button><button type="button" data-lang="en">🇬🇧 English</button><button type="button" data-lang="ms">🇲🇾 Bahasa Melayu</button><button type="button" data-lang="zh-CN">🇨🇳 中文 (Mandarin)</button><button type="button" data-lang="ja">🇯🇵 日本語</button><button type="button" data-lang="ko">🇰🇷 한국어</button><button type="button" data-lang="es">🇪🇸 Español</button>
+  </div>
+</div>
+  <button type="button" class="header-action menu-button" id="menuButton" aria-label="Buka menu" aria-expanded="false"><span class="menu-icon"><span></span><span></span><span></span></span></button>
+</div></div>
+</header>
+
+
+  <!-- MAIN -->
+
+  <div class="search-panel" id="searchPanel"><div class="search-panel-inner"><input type="search" id="siteSearch" placeholder="Cari game..." autocomplete="off"><button type="button" id="searchClose" aria-label="Tutup pencarian">×</button></div></div>
+<div class="menu-overlay" id="menuOverlay"></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true">
+  <div class="side-menu-header"><a href="index.html" class="header-brand"><span class="header-brand-text">LEOOSTORE.id · LOCAL DEMO</span></a><button type="button" class="side-menu-close" id="menuClose" aria-label="Tutup menu">×</button></div>
+  <div class="side-menu-divider"></div>
+  <nav class="side-menu-nav">
+    <a href="index.html" class="side-menu-item"><span>Home</span><span class="side-menu-icon">⌂</span></a>
+    <a href="shop.html" class="side-menu-item"><span>Top Up</span><span class="side-menu-icon">🛒</span></a>
+    <a href="order.html" class="side-menu-item"><span>Cek Transaksi</span><span class="side-menu-icon">✓</span></a>
+    <a href="leaderboard.html" class="side-menu-item"><span>Leaderboard</span><span class="side-menu-icon">🏆</span></a>
+    <a href="artikel.html" class="side-menu-item"><span>Artikel</span><span class="side-menu-icon">📰</span></a>
+    <a href="kalkulator.html" class="side-menu-item"><span>Kalkulator Win Rate</span><span class="side-menu-arrow">→</span></a>
+    <a href="#" class="side-menu-item side-menu-login"><span>Masuk</span><span class="side-menu-icon">⇥</span></a>
+  </nav>
+</aside>
+<main>
+
+    <section class="order-section">
+
+      <div class="container">
+
+        <div
+          id="orderContainer"
+          class="order-container"
+        >
+
+          <div class="checkout-loading">
+
+            <strong>
+              Memuat pesanan...
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+<footer class="site-footer checkout-footer-inline universal-social-footer"><div class="footer-inner"><div class="footer-closure"><a href="index.html" class="footer-brand-text" aria-label="LEOOSTORE.id · LOCAL DEMO">LEOOSTORE.id · LOCAL DEMO</a><h3>Top Up Game dan Jual Beli Akun Favoritmu dengan Lebih Mudah</h3><p>LEOOSTORE.id · LOCAL DEMO menyediakan berbagai pilihan top up game, mulai dari diamond, Robux, hingga produk digital lainnya. Kami juga menghadirkan layanan jual beli akun game dengan proses yang praktis dan garansi sesuai ketentuan yang berlaku. Dengan pilihan produk yang beragam, informasi harga yang jelas, dan proses pemesanan yang mudah, LEOOSTORE.id · LOCAL DEMO siap menemani berbagai kebutuhan gaming kamu.</p></div><div class="footer-links"><div class="footer-column footer-social-column"><h4>Ikuti Kami</h4><div class="footer-social-row"><a href="https://wa.me/6285823538473" class="social-link social-whatsapp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/whatsapp.svg" alt=""></a><a href="https://www.instagram.com/leoostore791?stkn=MWVhMDNsd3hicWNzbA==" class="social-link social-instagram" target="_blank" rel="noopener noreferrer"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/instagram.svg" alt=""></a><a href="https://www.tiktok.com/@leoostore791?_r=1&_t=ZS-99sj3AXKOcD" class="social-link social-tiktok" target="_blank" rel="noopener noreferrer"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/tiktok.svg" alt=""></a><a href="https://t.me/leovbriansyah" class="social-link social-telegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/telegram.svg" alt=""></a><a href="mailto:leovbriansyh791@gmail.com" class="social-link social-email" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/gmail.svg" alt=""></a></div><div class="footer-social-copyright">LEOOSTORE.id · LOCAL DEMO © 2026 · Fast. Trusted. Delivered.</div></div>
+</div></div><style>.universal-social-footer .footer-social-column .footer-social-row{display:flex;flex-direction:row;align-items:center;justify-content:center;flex-wrap:nowrap;gap:12px;width:100%}.universal-social-footer .footer-social-column .social-link{flex:0 0 40px;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center}.universal-social-footer .footer-social-column .social-link img{width:19px;height:19px;display:block}.universal-social-footer .footer-social-column .footer-social-copyright{display:block;width:100%;margin-top:14px;text-align:center;line-height:1.5}@media(max-width:360px){.universal-social-footer .footer-social-column .footer-social-row{gap:8px}.universal-social-footer .footer-social-column .social-link{flex-basis:36px;width:36px;height:36px}}</style></footer>
+
+  <script src="js/order.js?v=20260922-1"></script>
+
+
+<a class="leo-floating-admin" href="chat-admin.html" aria-label="Chat Admin" title="Chat Admin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2Z"/><path d="M20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z"/><path d="M15 19c-.7 1-1.7 1.5-3 1.5"/></svg></a>
+<div id="google_translate_element" style="display:none!important"></div><script src="js/language-selector.js?v=20261017-languages3" defer></script>
+
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+ const menuButton=document.getElementById("menuButton"),menuClose=document.getElementById("menuClose"),sideMenu=document.getElementById("sideMenu"),menuOverlay=document.getElementById("menuOverlay"),searchButton=document.getElementById("searchButton"),searchPanel=document.getElementById("searchPanel"),searchClose=document.getElementById("searchClose"),siteSearch=document.getElementById("siteSearch");
+ function openMenu(){sideMenu?.classList.add("active");menuOverlay?.classList.add("active");sideMenu?.setAttribute("aria-hidden","false");menuButton?.setAttribute("aria-expanded","true");document.body.style.overflow="hidden"}
+ function closeMenu(){sideMenu?.classList.remove("active");menuOverlay?.classList.remove("active");sideMenu?.setAttribute("aria-hidden","true");menuButton?.setAttribute("aria-expanded","false");document.body.style.overflow=""}
+ menuButton?.addEventListener("click",openMenu);menuClose?.addEventListener("click",closeMenu);menuOverlay?.addEventListener("click",closeMenu);
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeMenu();searchPanel?.classList.remove("active")}});
+ searchButton?.addEventListener("click",function(){searchPanel?.classList.toggle("active");if(searchPanel?.classList.contains("active"))setTimeout(function(){siteSearch?.focus()},200)});
+ searchClose?.addEventListener("click",function(){searchPanel?.classList.remove("active");if(siteSearch)siteSearch.value=""});
+});
+</script>
+
+<script src="js/header-auth.js?v=20261020-auth1" defer></script>
+
+</body>
+
+</html>

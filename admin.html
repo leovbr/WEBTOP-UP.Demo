@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head><script src="js/local-store.js"></script>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Admin Dashboard — LEOOSTORE.id · LOCAL DEMO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/logo-text-animation.css?v=20261015-whiteshine-admin1">
+  <style>
+    .admin-header.site-header{position:relative;z-index:100;overflow:visible}
+    .admin-brand.header-brand{display:flex;align-items:center;gap:14px;text-decoration:none;min-width:0}
+    .admin-brand .brand-icon{display:none!important}
+    .admin-brand .header-brand-text{font-family:Orbitron,system-ui,sans-serif;font-size:clamp(17px,3.2vw,27px);font-weight:900;letter-spacing:-.8px;white-space:nowrap;line-height:1.25}
+    .admin-brand .admin-brand-subtitle{display:block;margin-top:6px;color:#9ca8bd;font:500 12px/1.4 "Plus Jakarta Sans",sans-serif;letter-spacing:.2px}
+    .admin-header-actions{position:relative;display:flex;align-items:center;flex-shrink:0}
+    .admin-menu-toggle{appearance:none;width:48px;height:48px;display:flex;align-items:center;justify-content:center;padding:0;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.035);color:#f5f7fb}
+    .admin-menu-toggle .menu-icon{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:24px;height:24px}
+    .admin-menu-toggle .menu-icon span{display:block;width:21px;height:2px;margin:0;background:#e8edf7;border-radius:2px;transition:transform .2s,opacity .2s}
+    .admin-menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .admin-menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2){opacity:0}
+    .admin-menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .admin-menu{position:absolute;top:calc(100% + 12px);right:0;width:min(290px,calc(100vw - 36px));padding:8px;background:#0d1726;border:1px solid #29364a;border-radius:16px;box-shadow:0 18px 48px #0008;display:none;z-index:120}
+    .admin-menu.open{display:block;animation:adminMenuIn .18s ease-out both}
+    .admin-menu a{display:flex;align-items:center;gap:12px;padding:14px 13px;border-radius:10px;color:#edf2fb;text-decoration:none;font-weight:700;font-size:14px}
+    .admin-menu a:hover,.admin-menu a:focus-visible{background:#1b2940;outline:none}
+    .admin-menu a span{width:24px;text-align:center;font-size:17px}
+    .admin-menu .admin-menu-divider{height:1px;background:#263247;margin:5px 8px}
+    @keyframes adminMenuIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:480px){.admin-header{gap:10px}.admin-brand{gap:0!important}.admin-brand .header-brand-text{font-size:clamp(15px,4.1vw,20px);letter-spacing:-.9px}.admin-brand .admin-brand-subtitle{font-size:11px}.admin-menu-toggle{width:48px;height:48px}}
+    @media(prefers-reduced-motion:reduce){.admin-menu.open{animation:none}}
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================
+       HEADER
+       ===================================== -->
+
+  <header class="admin-header site-header">
+    <a class="admin-brand header-brand" href="index.html" aria-label="LEOOSTORE.id · LOCAL DEMO — Store">
+      <div>
+        <span class="header-brand-text">LEOOSTORE.id · LOCAL DEMO</span>
+        <span class="admin-brand-subtitle">Admin Dashboard</span>
+      </div>
+    </a>
+    <div class="admin-header-actions">
+      <button class="admin-menu-toggle" id="adminMenuToggle" type="button" aria-label="Buka menu admin" aria-expanded="false" aria-controls="adminMenu"><span class="menu-icon"><span></span><span></span><span></span></span></button>
+      <nav class="admin-menu" id="adminMenu" aria-label="Navigasi admin">
+        <a href="index.html"><span>⌂</span> Kembali ke Store</a>
+        <a href="admin.html"><span>▦</span> Dashboard Transaksi</a>
+        <a href="admin-catalog.html"><span>▤</span> Manajemen Katalog</a>
+        <a href="admin-chat.html"><span>💬</span> Live Chat Customer</a>
+        <a href="admin-accounts.html"><span>🎮</span> Manajemen Akun</a>
+        <a href="admin-promos.html"><span>%</span> Kode Promo</a>
+        <a href="admin-artikel.html"><span>📰</span> Kelola Artikel</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- =====================================
+       MAIN
+       ===================================== -->
+
+  <main class="admin-main">
+
+
+    <!-- =====================================
+         PAGE HEADER
+         ===================================== -->
+
+    <section class="admin-title">
+
+      <div>
+
+        <span class="eyebrow">
+          MANAGEMENT
+        </span>
+
+        <h2>
+          Dashboard
+        </h2>
+
+        <p>
+          Pantau transaksi dan aktivitas
+          LEOOSTORE.
+        </p>
+
+      </div>
+
+
+      <button
+        id="refreshBtn"
+        class="refresh-btn"
+        type="button"
+      >
+        ↻ Refresh
+      </button>
+
+      <div class="admin-api-connect" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;width:100%">
+        <input id="adminApiToken" type="password" autocomplete="current-password" placeholder="Token admin Cloudflare" aria-label="Token admin Cloudflare" style="min-width:220px;max-width:100%;padding:10px;border:1px solid #344158;border-radius:8px;background:#090e17;color:#f5f7fc">
+        <button id="connectAdminApi" type="button" class="refresh-btn">Hubungkan Database</button>
+        <span id="adminApiStatus" role="status" style="font-size:12px;color:#9caac0">Belum terhubung ke database pusat</span>
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         STATISTICS
+         ===================================== -->
+
+    <section class="stats-grid">
+
+
+      <!-- TOTAL ORDERS -->
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+          🛒
+        </div>
+
+        <div>
+
+          <span>
+            Total Transaksi
+          </span>
+
+          <strong id="totalOrders">
+            0
+          </strong>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- TOTAL REVENUE -->
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+          💰
+        </div>
+
+        <div>
+
+          <span>
+            Total Omzet
+          </span>
+
+          <strong id="totalRevenue">
+            Rp0
+          </strong>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- SUCCESS -->
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+          ✅
+        </div>
+
+        <div>
+
+          <span>
+            Berhasil
+          </span>
+
+          <strong id="successOrders">
+            0
+          </strong>
+
+        </div>
+
+      </article>
+
+
+
+      <!-- PENDING -->
+
+      <article class="stat-card">
+
+        <div class="stat-icon">
+          ⏳
+        </div>
+
+        <div>
+
+          <span>
+            Pending / Proses
+          </span>
+
+          <strong id="pendingOrders">
+            0
+          </strong>
+
+        </div>
+
+      </article>
+
+
+    </section>
+
+
+
+    <!-- =====================================
+         ORDER MANAGEMENT
+         ===================================== -->
+
+    <section class="orders-panel">
+
+
+      <!-- PANEL HEADER -->
+
+      <div class="panel-header">
+
+        <div>
+
+          <h3>
+            Semua Transaksi
+          </h3>
+
+          <p>
+            Data transaksi dari sistem Leo Store
+          </p>
+
+        </div>
+
+
+        <span
+          id="orderCount"
+          class="order-count"
+        >
+          0 transaksi
+        </span>
+
+      </div>
+
+
+
+      <!-- =====================================
+           SEARCH & FILTER
+           ===================================== -->
+
+      <div class="admin-tools">
+
+
+        <!-- SEARCH -->
+
+        <div class="admin-search">
+
+          <span>
+            🔎
+          </span>
+
+          <input
+            type="text"
+            id="adminSearch"
+            placeholder="Cari Order ID, Player ID, game..."
+            autocomplete="off"
+          >
+
+        </div>
+
+
+
+        <!-- GAME FILTER -->
+
+        <div class="leo-select" id="gameFilterCustom">
+<select id="gameFilter" class="admin-filter leo-select-native" aria-label="Filter game"><option value="all">Semua Game</option></select>
+<button class="leo-select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="leo-select-value"><span class="leo-select-icon">🎮</span><span class="leo-select-label">Semua Game</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<div class="leo-select-menu" role="listbox" aria-label="Pilih game" hidden></div></div>
+
+
+
+        <!-- STATUS FILTER -->
+
+        <select
+          id="adminStatusFilter"
+          class="admin-filter"
+        >
+
+          <option value="all">
+            Semua Status
+          </option>
+
+          <option value="Top Up Berhasil">
+            Berhasil
+          </option>
+
+          <option value="Pesanan Diproses">
+            Diproses
+          </option>
+
+          <option value="Pembayaran Berhasil">
+            Pembayaran Berhasil
+          </option>
+
+          <option value="Menunggu Pembayaran">
+            Menunggu Pembayaran
+          </option>
+
+        </select>
+
+
+      </div>
+
+
+
+      <!-- =====================================
+           ORDER LIST
+           ===================================== -->
+
+      <div
+        id="adminOrderList"
+        class="admin-order-list"
+      >
+
+        <div class="admin-loading">
+          Memuat transaksi...
+        </div>
+
+      </div>
+
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================
+       FOOTER
+       ===================================== -->
+
+
+
+
+
+  <!-- =====================================
+       JAVASCRIPT
+       ===================================== -->
+
+  <script src="js/admin.js"></script>
+
+  <script>
+  (function(){
+    const toggle=document.getElementById("adminMenuToggle");
+    const menu=document.getElementById("adminMenu");
+    if(!toggle||!menu)return;
+    function closeMenu(){menu.classList.remove("open");toggle.setAttribute("aria-expanded","false");}
+    toggle.addEventListener("click",function(){
+      const opening=!menu.classList.contains("open");
+      menu.classList.toggle("open",opening);
+      toggle.setAttribute("aria-expanded",String(opening));
+    });
+    document.addEventListener("click",function(event){if(!menu.contains(event.target)&&!toggle.contains(event.target))closeMenu();});
+    document.addEventListener("keydown",function(event){if(event.key==="Escape")closeMenu();});
+    menu.querySelectorAll("a").forEach(function(link){link.addEventListener("click",closeMenu);});
+  })();
+  </script>
+  <script src="js/custom-selects.js?v=20261023-storetheme3" defer></script>
+</body>
+
+</html>

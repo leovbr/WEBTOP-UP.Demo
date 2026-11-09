@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chat Admin — LEOOSTORE.id · LOCAL DEMO</title>
+<meta name="description" content="Chat dengan admin LEOOSTORE.id · LOCAL DEMO untuk bantuan top up dan pesanan.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20261018-account-marketplace3"><link rel="stylesheet" href="css/style-pages.css?v=20260919-navy1"><link rel="stylesheet" href="css/logo-text-animation.css?v=20261017-navbar-matched-drawer1">
+<style>
+body.chat-admin-page [hidden]{display:none!important} .chat-auth{position:relative;z-index:2;pointer-events:auto}.chat-auth button,.chat-auth input{pointer-events:auto;position:relative;z-index:3}
+body.chat-admin-page{min-height:100vh;background:#080c15;color:#f5f7ff;font-family:'Plus Jakarta Sans',sans-serif}
+.chat-admin-page .site-header{z-index:30}
+.chat-admin-page .site-header .header-brand{margin-left:10px!important}
+.chat-admin-page .site-header .header-brand .header-brand-text,.chat-admin-page .site-header a.header-brand>span.header-brand-text{font-size:clamp(16px,2.3vw,21px)!important;font-weight:900!important;letter-spacing:-.045em!important;line-height:1.15!important;background-image:linear-gradient(90deg,#fff 0%,#fff 34%,#7c5cff 34%,#7c5cff 100%)!important;background-size:100% 100%!important;background-position:0 50%!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;color:transparent!important}
+@media(max-width:600px){.chat-admin-page .site-header .header-brand .header-brand-text,.chat-admin-page .site-header a.header-brand>span.header-brand-text{font-size:17px!important}}
+.chat-admin-page .chat-main{width:min(100% - 24px,900px);max-width:900px;margin:0 auto;padding:0;height:calc(100dvh - 76px);min-height:0;display:flex;flex-direction:column}
+body.chat-admin-page.chat-auth-only .chat-account-bar,body.chat-admin-page.chat-auth-only .chat-profile,body.chat-admin-page.chat-auth-only .chat-conversation{display:none!important}
+.chat-account-bar{display:none!important}
+.chat-conversation-head{display:none!important}
+.chat-conversation{margin-top:0;border-radius:18px;border:1px solid #273248;flex:1;min-height:0;display:flex;flex-direction:column}
+.chat-profile{margin:0;border:0;border-bottom:1px solid #273248;border-radius:0;background:linear-gradient(110deg,#151e30,#101725);box-shadow:none}
+.chat-profile .chat-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.chat-avatar.has-photo{background:#1b2436}
+.chat-bubble .chat-time .sent-check{display:inline-block;margin-left:5px;color:#c4b5fd;font-weight:900;letter-spacing:-2px}
+.chat-send-status{display:none!important}
+.chat-preset-list[hidden],.chat-presets[hidden]{display:none!important}
+.chat-profile{display:flex;align-items:center;gap:13px;padding:16px 17px;border:1px solid #29354a;border-radius:17px;background:linear-gradient(110deg,#151e30,#101725);box-shadow:0 10px 30px #0002}
+.chat-avatar{position:relative;flex:0 0 54px;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(145deg,#c4b5fd,#7c3aed 70%,#4c1d95);color:#fff;font:900 16px Orbitron,sans-serif;box-shadow:0 0 0 3px #8b5cf633}
+.chat-avatar:after{content:"";position:absolute;right:0;bottom:1px;width:12px;height:12px;border:2px solid #151e30;border-radius:50%;background:#4ade80}
+.chat-profile-info{min-width:0;flex:1}.chat-profile-name{font-size:16px;font-weight:800;letter-spacing:.1px}.chat-profile-label{margin-top:4px;color:#9eacc2;font-size:12px}.chat-profile-label span{color:#86efac}
+.chat-profile-menu{display:none!important}
+.chat-conversation{margin-top:0;border:1px solid #273248;border-radius:18px;background:linear-gradient(180deg,#0e1522,#0a101b);overflow:hidden;flex:1;min-height:0;display:flex;flex-direction:column}
+.chat-conversation-head{display:flex;align-items:center;gap:9px;padding:13px 17px;border-bottom:1px solid #273248;color:#aebbd0;font-size:12px}
+.chat-conversation-head .chat-lock{color:#c4b5fd;font-size:15px}
+.chat-messages{flex:1;min-height:0;max-height:none;overflow:auto;display:flex;flex-direction:column;gap:13px;padding:20px 16px}
+.chat-date{text-align:center;color:#75839b;font-size:11px;margin:0 0 3px}
+.chat-bubble-row{display:flex;align-items:flex-end;gap:8px;max-width:88%}
+.chat-bubble-row.outgoing{align-self:flex-end;justify-content:flex-end}
+.chat-mini-avatar{width:27px;height:27px;flex:0 0 27px;border-radius:50%;display:grid;place-items:center;background:#6d3bd6;color:white;font-size:10px;font-weight:900}
+.chat-bubble{padding:12px 14px;border:1px solid #2c394f;border-radius:15px 15px 15px 4px;background:#182235;color:#e8edf8;font-size:13px;line-height:1.7;overflow-wrap:anywhere;white-space:pre-wrap}
+.outgoing .chat-bubble{background:linear-gradient(135deg,#6536bf,#5129a1);border-color:#7952d4;border-radius:15px 15px 4px 15px;color:white}
+.chat-time{display:block;text-align:right;color:#b9a5ee;font-size:10px;margin-top:5px}
+.chat-presets{padding:16px;border-top:1px solid #202b3d;background:#0d1420}
+.chat-presets-title{font-size:12px;font-weight:800;color:#aab7cc;margin:0 0 10px}
+.chat-preset-list{display:flex;flex-wrap:wrap;gap:8px}
+.chat-preset{padding:9px 12px;border:1px solid #493875;border-radius:999px;background:#19152b;color:#d9ccff;font:700 12px 'Plus Jakarta Sans',sans-serif;cursor:pointer;touch-action:manipulation}
+.chat-preset:hover,.chat-preset:focus-visible{background:#2b1e4a;border-color:#9b7aea;outline:none}
+.chat-composer{display:flex;align-items:flex-end;gap:10px;padding:13px;border-top:1px solid #263247;background:#111a29}
+.chat-composer textarea{flex:1;min-width:0;max-height:130px;min-height:46px;resize:vertical;padding:13px 14px;border:1px solid #35425a;border-radius:14px;background:#080e18;color:#f5f7ff;font:13px/1.55 'Plus Jakarta Sans',sans-serif;outline:none}
+.chat-composer textarea:focus{border-color:#9b7aea;box-shadow:0 0 0 3px #8b5cf622}
+.chat-composer textarea::placeholder{color:#75839a}
+.chat-send{width:47px;height:47px;flex:0 0 47px;border:0;border-radius:14px;background:linear-gradient(145deg,#9b6bff,#6d28d9);color:#fff;font-size:21px;cursor:pointer;box-shadow:0 7px 20px #7c3aed33}
+.chat-send:disabled{opacity:.4;cursor:not-allowed}
+.chat-composer-note{display:none!important;padding:0 15px 13px;background:#111a29;color:#7f8ca2;font-size:10px;line-height:1.6}
+.chat-attach{width:43px;height:43px;flex:0 0 43px;border:1px solid #35425a;border-radius:13px;background:#172236;color:#e9ddff;font-size:26px;display:grid;place-items:center;cursor:pointer}.chat-attach:disabled{opacity:.45}.chat-media{display:block;max-width:min(280px,100%);max-height:320px;border-radius:10px;margin-top:5px;cursor:zoom-in}.chat-media-preview{position:fixed;inset:0;z-index:9999;background:#000e;display:flex;align-items:center;justify-content:center;padding:18px}.chat-media-preview[hidden]{display:none}.chat-media-preview img,.chat-media-preview video{max-width:100%;max-height:88dvh;object-fit:contain;border-radius:10px}.chat-message-actions{position:fixed;z-index:10000;background:#182235;border:1px solid #59647a;border-radius:12px;padding:6px;box-shadow:0 10px 35px #0009;display:flex;gap:6px}.chat-message-actions[hidden]{display:none}.chat-message-actions button{border:0;border-radius:8px;padding:10px 12px;background:#2b3850;color:#fff}.chat-message-actions button.danger{background:#8c273c}.chat-file-link{display:inline-block;color:#e9ddff;text-decoration:underline;overflow-wrap:anywhere}
+.chat-support-menu{position:fixed;inset:0;z-index:80;background:#030712a8;display:none;align-items:flex-start;justify-content:flex-end;padding:82px 14px 14px}
+.chat-support-menu.open{display:flex}
+.chat-support-panel{width:min(330px,100%);padding:10px;border:1px solid #344158;border-radius:17px;background:#111a29;box-shadow:0 22px 60px #0009}
+.chat-support-title{display:flex;align-items:center;justify-content:space-between;padding:10px 9px 13px;font-weight:800}
+.chat-support-close{border:0;background:transparent;color:#b9c3d4;font-size:24px;cursor:pointer}
+.chat-support-link{display:flex;align-items:center;gap:12px;padding:13px 11px;border-radius:11px;color:#eef2ff;text-decoration:none;font-size:13px;font-weight:700}
+.chat-support-link:hover{background:#202b40}.chat-support-link span{width:30px;text-align:center;font-size:19px}.chat-support-link small{display:block;margin-top:3px;color:#9aa8bf;font-size:11px;font-weight:500}
+.chat-faq-block{padding:13px 11px;border-radius:11px;color:#e8edfa}.chat-faq-block summary{cursor:pointer;font-size:13px;font-weight:800}.chat-faq-block p{font-size:12px;color:#a8b4c8;line-height:1.7}
+.chat-foot{display:none;text-align:center;color:#6f7d94;font-size:10px;padding:16px 0 0}
+@media(min-width:760px){.chat-admin-page .chat-main{padding-top:0;height:calc(100dvh - 76px)}.chat-profile{padding:18px 22px}.chat-messages{min-height:340px;padding:24px}.chat-presets{padding:18px 20px}.chat-composer{padding:15px 18px}}
+@media(max-width:480px){.chat-admin-page .chat-main{width:calc(100% - 24px);padding-top:0;height:calc(100dvh - 76px)}.chat-profile{padding:13px}.chat-avatar{width:48px;height:48px;flex-basis:48px}.chat-profile-name{font-size:14px}.chat-messages{min-height:0;max-height:none;padding:15px 10px}.chat-bubble-row{max-width:94%}.chat-bubble{font-size:12px;padding:10px 12px}.chat-presets{padding:13px 10px}.chat-preset{font-size:11px;padding:8px 10px}.chat-composer{gap:7px;padding:10px}.chat-send{width:43px;height:43px;flex-basis:43px}.chat-support-menu{padding-top:75px}}
+
+.chat-auth{margin:0 0 15px;padding:18px;border:1px solid #29354a;border-radius:17px;background:linear-gradient(110deg,#151e30,#101725)}.chat-auth h2{margin:0 0 6px;font-size:18px}.chat-auth p{margin:0 0 14px;color:#9eacc2;font-size:12px;line-height:1.7}.chat-auth-tabs{display:flex;gap:8px;margin-bottom:14px}.chat-auth-tabs button{flex:1;padding:10px;border:1px solid #35425a;border-radius:10px;background:#0b1220;color:#c6d0e2;font-weight:800;cursor:pointer}.chat-auth-tabs button.active{background:#37215e;border-color:#8b5cf6;color:#fff}.chat-auth label{display:block;margin:10px 0 5px;color:#bac6da;font-size:12px;font-weight:700}.chat-auth input{width:100%;padding:12px;border:1px solid #35425a;border-radius:10px;background:#080e18;color:#fff}.chat-auth-submit{width:100%;margin-top:14px;padding:12px;border:0;border-radius:11px;background:linear-gradient(145deg,#9b6bff,#6d28d9);color:white;font-weight:900;cursor:pointer}.chat-auth-status{margin-top:10px;color:#aab7cc;font-size:12px;line-height:1.6}.chat-account-bar{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px 13px;border:1px solid #29354a;border-radius:12px;background:#111a29;font-size:12px}.chat-account-bar span{flex:1;color:#cbd5e1;overflow-wrap:anywhere}.chat-account-bar button{padding:7px 10px;border:1px solid #35425a;border-radius:9px;background:#0b1220;color:#e5e7eb;cursor:pointer}
+.leo-confirm-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(2,6,18,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:leoFade .16s ease-out}.leo-confirm-card{width:min(100%,410px);padding:25px;border:1px solid #59408b;border-radius:24px;background:linear-gradient(145deg,#151d30,#0b1020 75%);box-shadow:0 24px 80px #0009;color:#f5f3ff;animation:leoRise .18s ease-out}.leo-confirm-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:#39215e;border:1px solid #8150c9;color:#d8b4fe;font-size:23px;font-weight:800}.leo-confirm-card h2{margin:16px 0 8px;font-size:21px}.leo-confirm-card p{margin:0;color:#aebbd0;line-height:1.65;font-size:14px}.leo-confirm-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:25px}.leo-confirm-actions button{padding:11px 17px;border-radius:12px}.leo-confirm-cancel{background:#121a2a;border:1px solid #344158;color:#dce5f5}.leo-confirm-ok{background:linear-gradient(110deg,#8b5cf6,#6d28d9);border:1px solid #a78bfa;color:white}.leo-confirm-ok:hover{filter:brightness(1.1)}@keyframes leoFade{from{opacity:0}to{opacity:1}}@keyframes leoRise{from{transform:translateY(8px) scale(.98);opacity:.6}to{transform:translateY(0) scale(1);opacity:1}}@media(prefers-reduced-motion:reduce){.leo-confirm-overlay,.leo-confirm-card{animation:none}}
+/* Keep the chat navbar identical to Home sizing; only the search control is omitted. */
+.chat-admin-page .site-header.home-header .header-inner{min-height:76px!important;height:76px!important;box-sizing:border-box!important}
+.chat-admin-page .site-header.home-header .header-brand{margin-left:10px!important;flex:0 0 auto!important}
+.chat-admin-page .site-header.home-header .header-brand .header-brand-text,
+.chat-admin-page .site-header.home-header a.header-brand>span.header-brand-text{font-family:'Orbitron','Plus Jakarta Sans',Arial,sans-serif!important;font-size:clamp(16px,2.3vw,21px)!important;font-weight:900!important;letter-spacing:-.045em!important;line-height:1.15!important}
+.chat-admin-page .site-header.home-header .header-actions{display:flex!important;align-items:center!important;gap:12px!important}
+.chat-admin-page .site-header.home-header .header-action.menu-button{width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important;padding:0!important;display:grid!important;place-items:center!important;border-radius:18px!important}
+.chat-admin-page .site-header.home-header .menu-icon{width:22px!important;height:18px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important}
+.chat-admin-page .site-header.home-header .menu-icon span{display:block!important;width:22px!important;height:2px!important;border-radius:3px!important}
+@media(max-width:600px){
+ .chat-admin-page .site-header.home-header .header-inner{min-height:76px!important;height:76px!important}
+ .chat-admin-page .site-header.home-header .header-brand .header-brand-text,
+ .chat-admin-page .site-header.home-header a.header-brand>span.header-brand-text{font-size:17px!important}
+ .chat-admin-page .site-header.home-header .header-actions{gap:12px!important}
+ .chat-admin-page .site-header.home-header .header-action.menu-button{width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important;border-radius:18px!important}
+}
+
+/* Keep chat composer pinned to the bottom of the available screen. */
+.chat-admin-page .chat-main{height:calc(100dvh - 76px)!important;min-height:0!important;overflow:hidden!important}
+.chat-admin-page .chat-conversation{height:100%!important;max-height:100%!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+.chat-admin-page #chatPanel.chat-profile{position:relative!important;top:auto!important;z-index:5!important;flex:0 0 auto!important;margin:0!important}
+.chat-admin-page .chat-messages{flex:1 1 0!important;min-height:0!important;max-height:none!important;overflow-x:hidden!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;touch-action:pan-y!important}
+.chat-admin-page .chat-presets{flex:0 0 auto!important;max-height:30vh;overflow-y:auto!important}
+.chat-admin-page .chat-composer{position:relative!important;bottom:auto!important;z-index:20!important;flex:0 0 auto!important;padding-bottom:calc(13px + env(safe-area-inset-bottom,0px))!important}
+.chat-admin-page .site-header .header-brand,.chat-admin-page .site-header .container>a.header-brand,.chat-admin-page .site-header .header-inner>a.header-brand{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;flex:0 0 auto!important;width:auto!important;min-width:0!important;height:auto!important;max-width:100%!important;overflow:visible!important;gap:0!important}
+.chat-admin-page .site-header .header-brand .header-brand-text,.chat-admin-page .site-header a.header-brand>span.header-brand-text{display:inline-block!important;visibility:visible!important;opacity:1!important;position:relative!important;width:auto!important;height:auto!important;max-width:none!important;margin:0!important;padding:0!important;overflow:visible!important;color:#7c5cff!important;background-image:linear-gradient(90deg,#fff 0%,#fff 34%,#7c5cff 34%,#7c5cff 100%)!important;background-size:100% 100%!important;background-position:0 50%!important;-webkit-background-clip:text!important;background-clip:text!important;-webkit-text-fill-color:transparent!important;font-family:'Orbitron','Plus Jakarta Sans',Arial,sans-serif!important;font-size:clamp(16px,2.3vw,21px)!important;font-weight:900!important;font-style:normal!important;letter-spacing:-.045em!important;line-height:1.15!important;white-space:nowrap!important;text-decoration:none!important;text-shadow:none!important;transform:none!important}
+@media(max-width:600px){.chat-admin-page .chat-composer{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))!important}.chat-admin-page .site-header .header-brand .header-brand-text,.chat-admin-page .site-header a.header-brand>span.header-brand-text{font-size:17px!important}}
+.chat-admin-page .chat-cs-avatar,.chat-admin-page .chat-cs-mini{background:linear-gradient(145deg,#8b5cf6,#6d28d9 70%,#4c1d95)!important;color:#fff!important}
+.chat-admin-page .chat-cs-avatar svg{width:29px;height:29px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.chat-admin-page .chat-cs-mini svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.chat-admin-page .site-header{position:relative!important;z-index:100!important}.chat-admin-page .site-header .menu-button{position:relative!important;z-index:101!important;pointer-events:auto!important}.chat-admin-page .chat-support-menu{z-index:1000!important;pointer-events:auto!important}.chat-admin-page .chat-support-menu:not(.open){display:none!important}.chat-admin-page .chat-support-menu.open{display:flex!important}
+</style>
+<script src="js/local-store.js"></script>
+</head>
+<body class="chat-admin-page chat-auth-only">
+<header class="site-header home-header">
+ <div class="container header-inner">
+  <a href="index.html" class="header-brand"><span class="header-brand-text">LEOOSTORE.id · LOCAL DEMO</span></a>
+  <div class="header-actions">
+   <button type="button" class="header-action menu-button" id="chatMenuButton" aria-label="Buka menu chat admin" aria-expanded="false"><span class="menu-icon"><span></span><span></span><span></span></span></button>
+  </div>
+ </div>
+</header>
+<main class="chat-main">
+ <section class="chat-auth" id="chatAuth"><h2>Masuk untuk chat dengan admin</h2><p>Buat akun agar admin mengenali nama kamu dan riwayat chat tersimpan.</p><div class="chat-auth-tabs"><button type="button" id="authLoginTab" class="active">Masuk</button><button type="button" id="authRegisterTab">Daftar akun</button></div><form id="authForm"><div id="authNameWrap" hidden><label for="authName">Nama panggilan</label><input id="authName" maxlength="60" autocomplete="name" placeholder="Nama yang akan dilihat admin"></div><label for="authEmail">Email</label><input id="authEmail" type="email" required autocomplete="email" placeholder="nama@email.com"><label for="authPassword">Password</label><input id="authPassword" type="password" required minlength="8" autocomplete="current-password" placeholder="Minimal 8 karakter"><button class="chat-auth-submit" id="authSubmit" type="submit">Masuk dan buka chat</button></form><div class="chat-auth-status" id="authStatus" role="status">Login diperlukan untuk memulai percakapan.</div></section>
+ <div class="chat-account-bar" id="chatAccountBar" hidden><span id="chatAccountLabel"></span><button type="button" id="enableChatNotifications">🔔 Aktifkan notifikasi</button><button type="button" id="chatLogout">Keluar</button></div>
+ <section class="chat-conversation" id="conversationPanel" aria-label="Percakapan dengan admin" hidden>
+ <section class="chat-profile" id="chatPanel" aria-label="Profil admin" hidden>
+  <div class="chat-avatar chat-cs-avatar" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2Z"/><path d="M20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z"/><path d="M15 19c-.7 1-1.7 1.5-3 1.5"/></svg></div>
+  <div class="chat-profile-info"><div class="chat-profile-name">Leovbriansyh</div><div class="chat-profile-label"><span>●</span> Admin LEOOSTORE.id · LOCAL DEMO</div></div>
+ </section>
+
+  <div class="chat-messages" id="chatMessages" aria-live="polite">
+   <div class="chat-date">Mulai percakapan</div>
+   <div class="chat-bubble-row"><div class="chat-mini-avatar chat-cs-mini" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><path d="M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2Z"/><path d="M20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z"/><path d="M15 19c-.7 1-1.7 1.5-3 1.5"/></svg></div><div class="chat-bubble">Halo! 👋 Selamat datang di LEOOSTORE. Ada yang bisa gw bantu? Pilih salah satu topik di bawah atau langsung ketik pesanmu, ya.<span class="chat-time">Leovbriansyh · Admin</span></div></div>
+  </div>
+  <div class="chat-presets" id="chatPresets"><p class="chat-presets-title">Pesan cepat · pilih salah satu</p><div class="chat-preset-list">
+   <button type="button" class="chat-preset" data-preset="Halo admin, saya ingin bertanya tentang top up game.">🎮 Tanya top up</button>
+   <button type="button" class="chat-preset" data-preset="Halo admin, saya ingin mengecek status pesanan saya.">🧾 Cek pesanan</button>
+   <button type="button" class="chat-preset" data-preset="Halo admin, apakah ada kode promo yang masih aktif?">🏷️ Kode promo</button>
+   <button type="button" class="chat-preset" data-preset="Halo admin, saya ingin bertanya tentang jual beli akun game.">🛍️ Jual/beli akun</button>
+   <button type="button" class="chat-preset" data-preset="Halo admin, saya mengalami kendala pembayaran.">💳 Kendala pembayaran</button>
+   <button type="button" class="chat-preset" data-preset="Halo admin, saya ingin menyampaikan komplain transaksi.">🛟 Bantuan/komplain</button>
+  </div></div>
+  <form class="chat-composer" id="chatForm"><input type="file" id="chatAttachment" accept="image/*,video/mp4,video/webm,video/quicktime" hidden><button class="chat-attach" id="chatAttachButton" type="button" aria-label="Lampirkan foto atau video" title="Lampirkan foto atau video">+</button><textarea id="chatMessageInput" maxlength="1500" rows="1" placeholder="Ketikkan pesan ke admin…" aria-label="Ketikkan pesan" required></textarea><button class="chat-send" type="submit" aria-label="Kirim pesan">➤</button></form>
+  <div class="chat-composer-note" id="chatStatus" role="status">Menghubungkan chat… Jangan kirim password atau kode OTP.</div>
+ </section>
+ <footer class="chat-foot">LEOOSTORE.id · LOCAL DEMO · Chat Admin</footer>
+</main>
+<div class="chat-support-menu" id="chatSupportMenu" aria-hidden="true">
+ <div class="chat-support-panel">
+  <div class="chat-support-title">Menu Chat Admin <button class="chat-support-close" id="chatSupportClose" aria-label="Tutup menu">×</button></div>
+  <a class="chat-support-link" href="chat-admin.html"><span>💬</span><div>Chat Admin<small>Mulai atau lanjutkan pesan</small></div></a>
+  <a class="chat-support-link" href="order.html"><span>🧾</span><div>Pusat bantuan pesanan<small>Cek transaksi dan siapkan ID pesanan</small></div></a>
+  <a class="chat-support-link" href="shop.html"><span>🎮</span><div>Pusat bantuan top up<small>Cari game dan produk</small></div></a>
+  <a class="chat-support-link" href="index.html#homePromoCodes"><span>🏷️</span><div>Promo & diskon<small>Lihat kode promo yang tersedia</small></div></a>
+  <div class="chat-faq-block"><details><summary>FAQ · Berapa lama pesanan diproses?</summary><p>Waktu proses bergantung pada produk dan status pembayaran. Sertakan nomor pesanan jika perlu bantuan admin.</p></details></div>
+  <div class="chat-faq-block"><details><summary>FAQ · Data apa yang perlu disiapkan?</summary><p>Siapkan nama game, nominal, ID pesanan, dan keterangan kendala. Jangan pernah membagikan password atau kode OTP.</p></details></div>
+  <a class="chat-support-link" href="index.html"><span>⌂</span><div>Kembali ke Home<small>Kembali ke halaman utama store</small></div></a>
+ </div>
+</div>
+<script>
+/* Standalone navigation menu; does not depend on Supabase or chat startup. */
+(function(){
+  function initChatMenu(){
+    const button=document.getElementById("chatMenuButton");
+    const menu=document.getElementById("chatSupportMenu");
+    const close=document.getElementById("chatSupportClose");
+    if(!button||!menu||!close)return;
+    function setOpen(open){menu.classList.toggle("open",open);menu.setAttribute("aria-hidden",String(!open));button.setAttribute("aria-expanded",String(open));}
+    button.addEventListener("click",function(event){event.preventDefault();event.stopPropagation();setOpen(!menu.classList.contains("open"));});
+    close.addEventListener("click",function(event){event.preventDefault();event.stopPropagation();setOpen(false);});
+    menu.addEventListener("click",function(event){if(event.target===menu)setOpen(false);});
+    document.addEventListener("keydown",function(event){if(event.key==="Escape")setOpen(false);});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initChatMenu,{once:true});else initChatMenu();
+})();
+</script>
+
+<script>
+/* Fallback controls for Masuk/Daftar, independent from chat initialization. */
+(function(){
+  function initAuthTabs(){
+    const login=document.getElementById("authLoginTab");
+    const register=document.getElementById("authRegisterTab");
+    const nameWrap=document.getElementById("authNameWrap");
+    const submit=document.getElementById("authSubmit");
+    const password=document.getElementById("authPassword");
+    const status=document.getElementById("authStatus");
+    if(!login||!register||!nameWrap||!submit||!password)return;
+    function setMode(mode){
+      const isRegister=mode==="register";
+      nameWrap.hidden=!isRegister;
+      login.classList.toggle("active",!isRegister);
+      register.classList.toggle("active",isRegister);
+      submit.textContent=isRegister?"Buat akun dan mulai chat":"Masuk dan buka chat";
+      password.autocomplete=isRegister?"new-password":"current-password";
+      if(status)status.textContent=isRegister?"Gunakan email aktif. Jika diminta, verifikasi email sebelum login.":"Login untuk melanjutkan percakapan.";
+    }
+    login.addEventListener("click",function(){setMode("login");});
+    register.addEventListener("click",function(){setMode("register");});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initAuthTabs,{once:true});
+  else initAuthTabs();
+})();
+</script>
+<script>
+(function(){
+ const URL="local://database",KEY="LOCAL-DEMO-ONLY";
+ const db=window.supabase.createClient(URL,KEY),$=id=>document.getElementById(id);
+ const requestedMessage=new URLSearchParams(window.location.search).get("text")||"";
+ const menu=$("chatSupportMenu"),menuButton=$("chatMenuButton"),input=$("chatMessageInput"),messages=$("chatMessages"),status=$("chatStatus");
+ let user=null,conversation=null,channel=null,known=new Set();
+ function openMenu(){menu.classList.add("open");menu.setAttribute("aria-hidden","false");menuButton.setAttribute("aria-expanded","true");}
+ function closeMenu(){menu.classList.remove("open");menu.setAttribute("aria-hidden","true");menuButton.setAttribute("aria-expanded","false");}
+ /* Menu interactions are handled by standalone script above. */
+  document.querySelectorAll("[data-preset]").forEach(b=>b.addEventListener("click",()=>{input.value=b.dataset.preset;input.focus();input.style.height="auto";input.style.height=Math.min(input.scrollHeight,130)+"px";}));
+ input.addEventListener("input",()=>{input.style.height="auto";input.style.height=Math.min(input.scrollHeight,130)+"px";});
+ function renderMessage(m){if(known.has(m.id))return;known.add(m.id);const wasNearBottom=messages.scrollHeight-messages.scrollTop-messages.clientHeight<100;const row=document.createElement("div");row.className="chat-bubble-row"+(m.sender_role==="customer"?" outgoing":"");if(m.sender_role!=="customer"){const av=document.createElement("div");av.className="chat-mini-avatar chat-cs-mini";av.innerHTML="<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 13v-1a8 8 0 0 1 16 0v1\"/><path d=\"M4 13v4a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2Z\"/><path d=\"M20 13v4a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z\"/><path d=\"M15 19c-.7 1-1.7 1.5-3 1.5\"/></svg>";row.appendChild(av);}const box=document.createElement("div");box.className="chat-bubble";const raw=String(m.body||"");const parts=raw.startsWith("[[LEO_MEDIA|")&&raw.endsWith("]]")?raw.slice(12,-2).split("|"):[];const media=parts.length>=3&&["image","video"].includes(parts[0])?parts:null;if(media){const url=media[1],name=media.slice(2).join("|")||"Lampiran";if(media[0]==="image"){const img=document.createElement("img");img.src=url;img.alt=name;img.className="chat-media";img.loading="lazy";img.addEventListener("click",()=>openMediaPreview(url,"image"));box.appendChild(img);}else{const video=document.createElement("video");video.src=url;video.controls=true;video.playsInline=true;video.className="chat-media";video.addEventListener("click",()=>openMediaPreview(url,"video"));box.appendChild(video);}const link=document.createElement("a");link.href=url;link.target="_blank";link.rel="noopener";link.className="chat-file-link";link.textContent=name;box.appendChild(link);}else box.textContent=m.body;const time=document.createElement("span");time.className="chat-time";const d=new Date(m.created_at);time.textContent=(m.sender_role==="admin"?"Leovbriansyh · Admin":"Kamu")+" · "+d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"});if(m.sender_role==="customer"){const check=document.createElement("span");check.className="sent-check";check.textContent="✓";check.setAttribute("aria-label","Pesan terkirim");time.appendChild(check);}box.appendChild(time);row.appendChild(box);messages.appendChild(row);enableMessageActions(row,m);if(wasNearBottom||m.sender_role==="customer")requestAnimationFrame(()=>{messages.scrollTop=messages.scrollHeight;});}
+ const preview=document.createElement("div");preview.className="chat-media-preview";preview.hidden=true;preview.addEventListener("click",()=>{preview.hidden=true;preview.innerHTML="";});document.body.appendChild(preview);function openMediaPreview(url,type){preview.innerHTML="";const el=document.createElement(type==="image"?"img":"video");el.src=url;if(type==="video"){el.controls=true;el.autoplay=true;el.playsInline=true;}el.addEventListener("click",e=>e.stopPropagation());preview.appendChild(el);preview.hidden=false;}function themedConfirm(message){return new Promise(resolve=>{const overlay=document.createElement("div");overlay.className="leo-confirm-overlay";overlay.innerHTML='<section class="leo-confirm-card" role="dialog" aria-modal="true" aria-labelledby="leoConfirmTitle"><div class="leo-confirm-mark">!</div><h2 id="leoConfirmTitle">Konfirmasi tindakan</h2><p></p><div class="leo-confirm-actions"><button type="button" class="leo-confirm-cancel">Batal</button><button type="button" class="leo-confirm-ok">Hapus pesan</button></div></section>';overlay.querySelector("p").textContent=message;document.body.appendChild(overlay);const finish=value=>{overlay.remove();resolve(value);};overlay.addEventListener("click",e=>{if(e.target===overlay)finish(false);});overlay.querySelector(".leo-confirm-cancel").addEventListener("click",()=>finish(false));overlay.querySelector(".leo-confirm-ok").addEventListener("click",()=>finish(true));const key=e=>{if(e.key==="Escape"){document.removeEventListener("keydown",key);finish(false);}};document.addEventListener("keydown",key);overlay.querySelector(".leo-confirm-cancel").focus();});}const actionMenu=document.createElement("div");actionMenu.className="chat-message-actions";actionMenu.hidden=true;actionMenu.innerHTML='<button type="button" data-copy>Salin</button><button type="button" data-delete class="danger">Hapus</button>';document.body.appendChild(actionMenu);let actionMessage=null;function closeActions(){actionMenu.hidden=true;actionMessage=null;}document.addEventListener("click",e=>{if(!actionMenu.contains(e.target))closeActions();});actionMenu.querySelector("[data-copy]").addEventListener("click",async()=>{if(!actionMessage)return;const body=String(actionMessage.body||"");try{await navigator.clipboard.writeText(body.startsWith("[[LEO_MEDIA|")?body.split("|").slice(2).join("|").replace(/]]$/,""):body);closeActions();}catch{alert("Tidak bisa menyalin di browser ini.");closeActions();}});actionMenu.querySelector("[data-delete]").addEventListener("click",async()=>{if(!actionMessage)return;const m=actionMessage;closeActions();if(!await themedConfirm("Pesan ini akan dihapus dari percakapan untuk semua peserta. Tindakan ini tidak bisa dibatalkan."))return;const {error}=await db.from("store_chat_messages").delete().eq("id",m.id).eq("conversation_id",conversation.id);if(error){alert("Gagal menghapus: "+error.message);return;}known.delete(m.id);const row=document.querySelector('[data-message-id="'+m.id+'"]');if(row)row.remove();});function enableMessageActions(row,m){row.dataset.messageId=m.id;let hold;const start=e=>{if(e.target.closest("video"))return;hold=setTimeout(()=>{actionMessage=m;actionMenu.hidden=false;const x=(e.touches?.[0]?.clientX??e.clientX??window.innerWidth/2),y=(e.touches?.[0]?.clientY??e.clientY??window.innerHeight/2);actionMenu.style.left=Math.max(8,Math.min(x,window.innerWidth-180))+"px";actionMenu.style.top=Math.max(8,Math.min(y-65,window.innerHeight-60))+"px";if(navigator.vibrate)navigator.vibrate(25);},2200);};const cancel=()=>clearTimeout(hold);row.addEventListener("touchstart",start,{passive:true});row.addEventListener("touchend",cancel);row.addEventListener("touchmove",cancel,{passive:true});row.addEventListener("contextmenu",e=>{e.preventDefault();actionMessage=m;actionMenu.hidden=false;actionMenu.style.left=Math.max(8,Math.min(e.clientX,window.innerWidth-180))+"px";actionMenu.style.top=Math.max(8,Math.min(e.clientY-65,window.innerHeight-60))+"px";});row.addEventListener("mousedown",start);row.addEventListener("mouseup",cancel);row.addEventListener("mouseleave",cancel);}
+ async function uploadChatFile(file){if(!file)return;if(file.size>50*1024*1024)throw Error("Ukuran maksimal file 50 MB.");const isImage=file.type.startsWith("image/"),isVideo=file.type.startsWith("video/");if(!isImage&&!isVideo)throw Error("Pilih gambar atau video.");if(isVideo&&!["video/mp4","video/webm","video/quicktime"].includes(file.type))throw Error("Format video yang didukung: MP4, WebM, MOV.");const ext=(file.name.split(".").pop()||"bin").replace(/[^a-zA-Z0-9]/g,"").toLowerCase();const path="chat/"+conversation.id+"/"+user.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,8)+"."+ext;const {error}=await db.storage.from("leo-store-images").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});if(error)throw error;const {data}=db.storage.from("leo-store-images").getPublicUrl(path);const safeName=file.name.replaceAll("|","_").replaceAll("[","_").replaceAll("]","_").replaceAll("\\","_").slice(0,100);const body="[[LEO_MEDIA|"+(isImage?"image":"video")+"|"+data.publicUrl+"|"+safeName+"]]";const {error:sendError}=await db.from("store_chat_messages").insert({conversation_id:conversation.id,sender_id:user.id,sender_role:"customer",body});if(sendError)throw sendError;$("chatPresets").hidden=true;}
+ $("chatAttachButton").addEventListener("click",()=>$("chatAttachment").click());$("chatAttachment").addEventListener("change",async()=>{const file=$("chatAttachment").files[0];if(!file)return;const b=$("chatAttachButton");b.disabled=true;b.textContent="…";try{await uploadChatFile(file);status.textContent="";}catch(e){alert("Lampiran gagal dikirim: "+(e.message||"Periksa izin Storage Supabase dan koneksi."));console.error(e);}finally{b.disabled=false;b.textContent="+";$("chatAttachment").value="";}});
+ async function loadMessages(){const {data,error}=await db.from("store_chat_messages").select("id,conversation_id,sender_role,body,created_at").eq("conversation_id",conversation.id).order("created_at",{ascending:true}).limit(300);if(error)throw error;messages.innerHTML="";known.clear();(data||[]).forEach(renderMessage);$("chatPresets").hidden=(data||[]).some(m=>m.sender_role==="customer");}
+ function showChat(on){$("chatAuth").hidden=on;$("chatAccountBar").hidden=!on;$("chatPanel").hidden=!on;$("conversationPanel").hidden=!on;document.body.classList.toggle("chat-auth-only",!on);if(!on)closeMenu();}
+ let authMode="login";
+ function setAuthMode(mode){authMode=mode;const reg=mode==="register";$("authNameWrap").hidden=!reg;$("authLoginTab").classList.toggle("active",!reg);$("authRegisterTab").classList.toggle("active",reg);$("authSubmit").textContent=reg?"Buat akun dan mulai chat":"Masuk dan buka chat";$("authPassword").autocomplete=reg?"new-password":"current-password";$("authStatus").textContent=reg?"Gunakan email aktif. Jika diminta, verifikasi email sebelum login.":"Login untuk melanjutkan percakapan.";}
+ $("authLoginTab").addEventListener("click",()=>setAuthMode("login"));$("authRegisterTab").addEventListener("click",()=>setAuthMode("register"));
+ async function openCustomerChat(){const meta=user.user_metadata||{};const displayName=(meta.full_name||meta.name||(user.email?user.email.split("@")[0]:"Customer")).slice(0,60);$("chatAccountLabel").textContent=displayName+" · "+user.email;
+ const {data:existing,error:findError}=await db.from("store_chat_conversations").select("id,status,customer_name").eq("customer_id",user.id).in("status",["open","pending"]).order("created_at",{ascending:false}).limit(1).maybeSingle();if(findError)throw findError;
+ if(existing)conversation=existing;else{const {data,error}=await db.from("store_chat_conversations").insert({customer_id:user.id,customer_name:displayName,status:"open"}).select("id,status,customer_name").single();if(error)throw error;conversation=data;}
+ showChat(true);await loadMessages();if(requestedMessage){input.value=requestedMessage;input.style.height="auto";input.style.height=Math.min(input.scrollHeight,130)+"px";input.focus();status.textContent="Pesan sudah disiapkan. Periksa lalu tekan kirim.";history.replaceState(null,"",window.location.pathname);}if(channel)await db.removeChannel(channel);channel=db.channel("customer-chat-"+conversation.id).on("postgres_changes",{event:"INSERT",schema:"public",table:"store_chat_messages",filter:"conversation_id=eq."+conversation.id},payload=>{const m=payload.new;renderMessage(m);if(m?.sender_role==="admin"&&document.hidden&&"Notification"in window&&Notification.permission==="granted"){const note=new Notification("Balasan admin LEOOSTORE",{body:String(m.body||"Admin mengirim pesan baru").slice(0,140),tag:"leo-admin-reply-"+m.conversation_id});note.onclick=()=>{window.focus();note.close();};}}).subscribe();status.textContent="";}
+ $("authForm").addEventListener("submit",async e=>{e.preventDefault();const email=$("authEmail").value.trim(),password=$("authPassword").value,button=$("authSubmit");button.disabled=true;$("authStatus").textContent="Memproses akun…";try{if(authMode==="register"){const name=$("authName").value.trim();if(!name)throw Error("Isi nama panggilan agar admin mengenali kamu.");const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:"https://leovbr.github.io/Leo-store/chat-admin.html"}});if(error)throw error;if(!data.session){$("authStatus").textContent="Akun dibuat. Jika verifikasi email aktif, cek email kamu lalu masuk.";setAuthMode("login");return;}user=data.user;await openCustomerChat();window.LEOOSTOREPush?.promptAfterLogin(user);}else{const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;user=data.user;await openCustomerChat();window.LEOOSTOREPush?.promptAfterLogin(user);}}catch(err){$("authStatus").textContent="Gagal: "+err.message;}finally{button.disabled=false;}});
+ async function restoreSession(){const {data:{session}}=await db.auth.getSession();if(session&&!session.user.is_anonymous){user=session.user;await openCustomerChat();}else{if(session)await db.auth.signOut();showChat(false);}}
+ $("enableChatNotifications").addEventListener("click",async()=>{if(!( "Notification" in window)){status.textContent="Browser ini tidak mendukung notifikasi. Chat tetap berjalan selama halaman terbuka.";return;}try{const permission=await Notification.requestPermission();status.textContent=permission==="granted"?"Notifikasi balasan admin aktif saat halaman/browser berjalan.":"Izin notifikasi tidak diberikan; chat tetap aktif.";$("enableChatNotifications").textContent=permission==="granted"?"🔔 Notifikasi aktif":"🔕 Notifikasi nonaktif";}catch(e){status.textContent="Notifikasi tidak dapat diaktifkan: "+e.message;}});
+ $("chatLogout").addEventListener("click",async()=>{if(channel)await db.removeChannel(channel);channel=null;await db.auth.signOut();user=null;conversation=null;showChat(false);messages.innerHTML="";setAuthMode("login");$("authStatus").textContent="Kamu sudah keluar. Masuk lagi untuk melanjutkan chat.";});
+ $("chatForm").addEventListener("submit",async e=>{e.preventDefault();const body=input.value.trim();if(!body||!conversation)return;const btn=e.submitter||$("chatForm").querySelector("button[type=submit]");btn.disabled=true;try{const {data:sentMessage,error}=await db.from("store_chat_messages").insert({conversation_id:conversation.id,sender_id:user.id,sender_role:"customer",body}).select("id,conversation_id,sender_role,body,created_at").single();if(error)throw error;renderMessage(sentMessage);input.value="";input.style.height="auto";$("chatPresets").hidden=true;status.textContent=""; }catch(err){status.textContent="Gagal mengirim pesan. Periksa koneksi lalu coba lagi."; }finally{btn.disabled=false;input.focus();}});
+ restoreSession().catch(err=>{$("authStatus").textContent="Chat belum aktif: "+err.message+". Pastikan SQL live chat sudah dijalankan.";console.error("[LEOOSTORE chat]",err);});
+})();
+</script>
+
+</body>
+</html>

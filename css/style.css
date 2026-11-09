@@ -1,0 +1,3258 @@
+/* Use a system font for the header wordmark on every device. */
+.site-header .header-brand .header-brand-text,
+.site-header a.header-brand > span.header-brand-text {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+/* =========================================================
+   LEOOSTORE — MAIN FRONTEND STYLES
+   Home / Shop / Shared Components
+   ========================================================= */
+
+:root {
+  --bg: #07080c;
+  --bg-soft: #0d1017;
+  --card: #11151e;
+  --card-2: #151a24;
+  --card-hover: #1a2030;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --text: #f5f7fb;
+  --text-soft: #aab1bf;
+  --text-muted: #707887;
+  --muted: var(--text-muted);
+
+  --primary: #7c5cff;
+  --primary-hover: #947aff;
+  --primary-soft: rgba(124, 92, 255, 0.14);
+
+  --success: #35d399;
+  --danger: #ff5f6d;
+  --warning: #f5b94c;
+
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 22px;
+
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.30);
+
+  --container: 1180px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  color: var(--text);
+  background: var(--bg);
+
+  font-family:
+  "Plus Jakarta Sans",
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
+
+  line-height: 1.5;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(124, 92, 255, 0.35);
+}
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+.container {
+  width: min(calc(100% - 32px), var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  padding: 70px 0;
+}
+
+.section-header {
+  margin-bottom: 26px;
+}
+
+.section-title {
+  margin: 0;
+
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.section-subtitle {
+  margin: 8px 0 0;
+
+  color: var(--text-soft);
+}
+
+.section-heading {
+  margin: 0 0 22px;
+}
+
+.section-heading .eyebrow,
+.eyebrow {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-heading h2,
+.section-heading h3 {
+  margin: 0;
+
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.1;
+
+  letter-spacing: -0.03em;
+}
+
+.section-heading p {
+  margin: 8px 0 0;
+
+  color: var(--text-soft);
+}
+
+
+/* =========================================================
+   HEADER / NAVBAR
+   ========================================================= */
+
+.site-header,
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+
+  background: rgba(7, 8, 12, 0.88);
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.site-header .container,
+.navbar {
+  min-height: 68px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.logo,
+.brand-logo {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.logo span,
+.brand-logo span {
+  color: var(--primary);
+}
+
+.nav,
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.nav a,
+.nav-links a {
+  padding: 9px 13px;
+
+  color: var(--text-soft);
+
+  border-radius: 10px;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.nav a:hover,
+.nav a.active,
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text);
+  background: var(--primary-soft);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-button,
+.secondary-button,
+.danger-button,
+.home-more-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  padding: 0 16px;
+
+  border-radius: 11px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primary-button {
+  color: #fff;
+
+  background: var(--primary);
+
+  border: 1px solid transparent;
+}
+
+.primary-button:hover {
+  background: var(--primary-hover);
+
+  transform: translateY(-1px);
+}
+
+.secondary-button,
+.home-more-button {
+  color: var(--text);
+
+  background: var(--card-2);
+
+  border: 1px solid var(--border);
+}
+
+.secondary-button:hover,
+.home-more-button:hover {
+  background: var(--card-hover);
+
+  border-color: var(--border-strong);
+}
+
+.danger-button {
+  color: #fff;
+
+  background: var(--danger);
+
+  border: 1px solid transparent;
+}
+
+
+/* =========================================================
+   HOME HERO
+   ========================================================= */
+
+.hero,
+.home-hero {
+  padding: 70px 0 60px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(124, 92, 255, 0.18),
+      transparent 38%
+    );
+}
+
+.hero-content,
+.home-hero-content {
+  max-width: 760px;
+}
+
+.hero h1,
+.home-hero h1 {
+  margin: 0;
+
+  font-size: clamp(38px, 6vw, 72px);
+  line-height: 0.98;
+
+  letter-spacing: -0.055em;
+}
+
+.hero p,
+.home-hero p {
+  max-width: 650px;
+
+  margin: 20px 0 0;
+
+  color: var(--text-soft);
+
+  font-size: 17px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 28px;
+}
+
+
+/* =========================================================
+   BRAND INTRO
+   ========================================================= */
+
+.brand-intro {
+  padding: 46px 0 30px;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(124, 92, 255, 0.12),
+      transparent 42%
+    );
+}
+
+.brand-intro-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 22px;
+
+  text-align: center;
+}
+
+.brand-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 0;
+}
+
+.brand-logo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 64px;
+  height: 64px;
+
+  border-radius: 18px;
+
+  background: var(--primary-soft);
+
+  border: 1px solid rgba(124, 92, 255, 0.25);
+
+  color: var(--primary);
+
+  font-weight: 900;
+}
+
+.brand-word {
+  margin: 0;
+
+  font-size: clamp(34px, 7vw, 64px);
+  font-weight: 900;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.06em;
+}
+
+.brand-tagline {
+  margin: 10px 0 0;
+
+  color: var(--text-soft);
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   HOME BANNER
+   ========================================================= */
+
+.home-banner-section {
+  padding: 0 0 30px;
+}
+.home-banner-section .section-heading .eyebrow {
+  display: inline-block;
+  margin-top: 12px;
+}
+.banner-carousel {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 100%;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  background: var(--card);
+
+  box-shadow: var(--shadow);
+}
+
+.banner-track {
+  display: flex;
+
+  width: 100%;
+
+  transition: transform 0.35s ease;
+}
+
+.home-banner-slide {
+  position: relative;
+
+  flex: 0 0 100%;
+
+  min-width: 100%;
+
+  aspect-ratio: 2.8 / 1;
+
+  overflow: hidden;
+
+  background: var(--card-2);
+}
+
+.home-banner-slide img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.home-banner-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding: clamp(18px, 4vw, 34px);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.72),
+      rgba(0, 0, 0, 0.15),
+      transparent
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.62),
+      transparent 65%
+    );
+}
+
+.home-banner-overlay h1,
+.home-banner-overlay h2,
+.home-banner-overlay h3 {
+  margin: 0;
+}
+
+.home-banner-overlay p {
+  margin: 6px 0 0;
+
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.banner-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translateY(-50%);
+
+  color: #fff;
+
+  background: rgba(7, 8, 12, 0.55);
+
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+
+  backdrop-filter: blur(10px);
+}
+
+.banner-arrow:hover {
+  background: rgba(7, 8, 12, 0.78);
+}
+
+.banner-arrow-left {
+  left: 14px;
+}
+
+.banner-arrow-right {
+  right: 14px;
+}
+
+.banner-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 13px;
+  z-index: 4;
+
+  display: flex;
+
+  gap: 7px;
+
+  transform: translateX(-50%);
+}
+
+.banner-dot {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.banner-dot.active {
+  width: 22px;
+
+  border-radius: 999px;
+
+  background: #fff;
+}
+
+
+/* =========================================================
+   HOME GAMES
+   ========================================================= */
+
+.home-games-section {
+  padding: 38px 0 70px;
+}
+
+
+/* =========================================================
+   GAME GRID — TRENDING
+   ========================================================= */
+
+.home-game-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 16px;
+
+  width: 100%;
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   TRENDING CARD
+   ========================================================= */
+
+.home-game-card {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  min-width: 0;
+  min-height: 150px;
+
+  padding: 14px;
+
+  overflow: hidden;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.home-game-card:hover {
+  transform: translateY(-3px);
+
+  background: var(--card-hover);
+
+  border-color: rgba(124, 92, 255, 0.35);
+
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+}
+
+
+/* =========================================================
+   FOTO GAME — 1:1
+   ========================================================= */
+
+.home-game-image {
+  position: relative;
+
+  flex: 0 0 118px;
+
+  width: 118px;
+  height: 118px;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  background: var(--card-2);
+}
+
+.home-game-image img,
+.home-game-image .home-game-bg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: transform 0.3s ease;
+}
+
+.home-game-card:hover .home-game-image img,
+.home-game-card:hover .home-game-image .home-game-bg {
+  transform: scale(1.04);
+}
+
+
+/* =========================================================
+   INFO TRENDING
+   ========================================================= */
+
+.home-game-info {
+  position: relative;
+
+  flex: 1;
+
+  min-width: 0;
+  height: 118px;
+
+  margin-left: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  padding-top: 13px;
+}
+
+
+/* NAMA GAME */
+
+.home-game-info strong {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+
+  color: var(--text);
+
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.25;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* GARIS DI BAWAH NAMA GAME */
+
+.home-game-info strong::after {
+  content: "";
+
+  display: block;
+
+  width: 100%;
+  height: 1px;
+
+  margin-top: 9px;
+
+  background: var(--border-strong);
+}
+
+
+/* NAMA PERUSAHAAN */
+
+.home-game-info span {
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+
+  margin-top: 8px;
+
+  color: var(--text-soft);
+
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.home-game-card-content {
+  position: relative;
+
+  z-index: 2;
+
+  padding: 16px;
+}
+
+.home-game-card h3 {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.home-game-card p {
+  margin: 5px 0 0;
+
+  color: var(--text-muted);
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   SEMUA GAME
+   ========================================================= */
+
+.all-games-section {
+  padding-top: 10px;
+}
+
+.all-games-section .home-game-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.all-games-section .home-game-card {
+  display: block;
+
+  min-height: 0;
+
+  padding: 0;
+
+  border-radius: var(--radius-lg);
+}
+
+.all-games-section .home-game-image {
+  width: 100%;
+  height: auto;
+
+  aspect-ratio: 1 / 1;
+
+  border-radius: 0;
+}
+
+.all-games-section .home-game-info {
+  height: auto;
+
+  margin-left: 0;
+
+  padding: 14px 15px 16px;
+}
+
+.all-games-section .home-game-info strong {
+  font-size: 16px;
+}
+
+.all-games-section .home-game-info strong::after {
+  display: none;
+}
+
+.all-games-section .home-game-info span {
+  margin-top: 5px;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   TAMPILKAN SEMUA GAME
+   ========================================================= */
+
+.home-more-wrapper {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 24px;
+}
+
+.home-more-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+
+  padding: 0 20px;
+
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+
+  background: var(--card);
+
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.home-more-button:hover {
+  background: var(--card-hover);
+
+  border-color: rgba(124, 92, 255, 0.4);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .home-game-card {
+    min-height: 140px;
+
+    padding: 12px;
+  }
+
+  .home-game-image {
+    flex-basis: 105px;
+
+    width: 105px;
+    height: 105px;
+  }
+
+  .home-game-info {
+    height: 105px;
+
+    margin-left: 13px;
+
+    padding-top: 10px;
+  }
+
+  .home-game-info strong {
+    font-size: 15px;
+  }
+
+  .all-games-section .home-game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .home-games-section {
+    padding: 30px 0 52px;
+  }
+
+  /* TRENDING TETAP 2 KOLOM */
+
+  .home-game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .home-game-card {
+    min-height: 112px;
+
+    padding: 9px;
+
+    border-radius: 15px;
+  }
+
+  .home-game-image {
+    flex: 0 0 76px;
+
+    width: 76px;
+    height: 76px;
+
+    border-radius: 11px;
+  }
+
+  .home-game-info {
+    height: 76px;
+
+    margin-left: 9px;
+
+    padding-top: 5px;
+  }
+
+  .home-game-info strong {
+    font-size: 13px;
+
+    line-height: 1.2;
+  }
+
+  .home-game-info strong::after {
+    margin-top: 7px;
+  }
+
+  .home-game-info span {
+    margin-top: 6px;
+
+    font-size: 9.5px;
+  }
+
+
+  /* SEMUA GAME — 3 KOLOM */
+
+  .all-games-section .home-game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 9px;
+  }
+
+  .all-games-section .home-game-card {
+    border-radius: 14px;
+  }
+
+  .all-games-section .home-game-info {
+    padding: 10px 9px 12px;
+  }
+
+  .all-games-section .home-game-info strong {
+    font-size: 12px;
+  }
+
+  .all-games-section .home-game-info span {
+    margin-top: 4px;
+
+    font-size: 9px;
+  }
+
+  .home-more-wrapper {
+    margin-top: 18px;
+  }
+
+  .home-more-button {
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    font-size: 12px;
+  }
+   }
+
+
+/* =========================================================
+   SHOP
+   ========================================================= */
+
+.shop-section {
+  padding: 14px 0 80px;
+}
+
+.shop-header {
+  margin-bottom: 28px;
+}
+
+.shop-header h1 {
+  margin: 0;
+
+  font-size: clamp(30px, 5vw, 48px);
+
+  letter-spacing: -0.04em;
+}
+
+.shop-header p {
+  margin: 8px 0 0;
+
+  color: var(--text-soft);
+}
+
+.shop-search-wrap {
+  margin: 0 0 24px;
+}
+
+.shop-search-wrap input,
+#gameSearch,
+.search-input {
+  width: 100%;
+
+  min-height: 46px;
+
+  padding: 0 14px;
+
+  color: var(--text);
+
+  background: var(--bg-soft);
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  outline: none;
+}
+
+.shop-search-wrap input:focus,
+#gameSearch:focus,
+.search-input:focus {
+  border-color: rgba(124, 92, 255, 0.65);
+
+  box-shadow:
+    0 0 0 3px rgba(124, 92, 255, 0.10);
+}
+
+.product-list,
+.product-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.product-card {
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+
+  background: var(--card-hover);
+
+  border-color: var(--border-strong);
+}
+
+.product-card img {
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+}
+
+.product-image-wrap {
+  position: relative;
+
+  overflow: hidden;
+
+  aspect-ratio: 1 / 1;
+
+  background: var(--card-2);
+}
+
+.product-image-wrap img,
+.product-game-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.product-icon {
+  position: absolute;
+
+  left: 14px;
+  bottom: 14px;
+
+  width: 48px;
+  height: 48px;
+
+  overflow: hidden;
+
+  border: 2px solid rgba(255, 255, 255, 0.8);
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.product-icon img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.product-card-content,
+.product-info {
+  min-width: 0;
+
+  padding: 16px;
+}
+
+.product-card h3,
+.product-info h3 {
+  margin: 0;
+
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.product-card p {
+  margin: 5px 0 14px;
+
+  color: var(--text-soft);
+
+  font-size: 14px;
+}
+
+.product-price {
+  margin-top: 7px;
+
+  color: var(--primary);
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.product-minimum {
+  margin-top: 4px;
+
+  color: var(--text-muted);
+
+  font-size: 12px;
+}
+
+.product-btn {
+  width: 100%;
+
+  margin-top: 14px;
+}
+
+.product-card .primary-button {
+  width: 100%;
+}
+
+.product-denominations {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 12px;
+}
+
+.denomination-chip {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 28px;
+
+  padding: 0 8px;
+
+  color: var(--text-soft);
+
+  background: var(--bg-soft);
+
+  border: 1px solid var(--border);
+
+  border-radius: 999px;
+
+  font-size: 11px;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+
+  padding: 45px 20px;
+
+  color: var(--text-muted);
+
+  text-align: center;
+
+  background: var(--card);
+
+  border: 1px dashed var(--border-strong);
+
+  border-radius: var(--radius-lg);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.site-footer {
+  margin-top: auto;
+
+  padding: 28px 0;
+
+  color: var(--text-muted);
+
+  border-top: 1px solid var(--border);
+
+  font-size: 13px;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — FRONTEND
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .home-game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-list,
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand-intro-inner {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 680px) {
+
+  .container {
+    width: min(calc(100% - 22px), var(--container));
+  }
+
+  .section {
+    padding: 48px 0;
+  }
+
+  .site-header .container,
+  .navbar {
+    min-height: 62px;
+  }
+
+  .nav,
+  .nav-links {
+    gap: 2px;
+  }
+
+  .nav a,
+  .nav-links a {
+    padding: 8px 8px;
+
+    font-size: 12px;
+  }
+
+  .hero,
+  .home-hero {
+    padding: 50px 0 42px;
+  }
+
+  .brand-intro {
+    padding-top: 32px;
+  }
+
+  .brand-logo-placeholder {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 14px;
+  }
+
+  .home-banner-slide {
+    aspect-ratio: 1.8 / 1;
+  }
+
+  .banner-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .home-game-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-game-card {
+    min-height: 210px;
+  }
+
+  .product-list,
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shop-section {
+  padding-top: 14px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+}
+/* =========================================================
+   LEOOSTORE — NEW HEADER
+   ========================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+
+  background: rgba(7, 8, 12, 0.92);
+
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.header-inner {
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+
+/* BRAND */
+
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 9px;
+
+  min-width: 0;
+
+  color: var(--text);
+
+  text-decoration: none;
+}
+
+.header-logo {
+  width: 34px;
+  height: 34px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+
+  border-radius: 9px;
+
+  filter:
+    drop-shadow(0 0 10px rgba(124, 92, 255, 0.35));
+
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease;
+}
+
+.header-brand:hover .header-logo {
+  transform: scale(1.06);
+
+  filter:
+    drop-shadow(0 0 16px rgba(124, 92, 255, 0.55));
+}
+
+.header-brand-text {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+
+  white-space: nowrap;
+}
+
+
+/* HEADER ACTIONS */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+}
+
+
+/* GENERIC HEADER BUTTON */
+
+.header-action,
+.currency-selector {
+  height: 44px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: var(--text);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.header-action:hover,
+.currency-selector:hover {
+  background: rgba(124, 92, 255, 0.10);
+
+  border-color:
+    rgba(124, 92, 255, 0.35);
+
+  transform: translateY(-1px);
+}
+
+
+/* SEARCH */
+
+.header-action {
+  width: 44px;
+
+  padding: 0;
+
+  border-radius: 14px;
+}
+
+.header-icon {
+  font-size: 29px;
+
+  line-height: 1;
+
+  transform: rotate(-20deg);
+}
+
+
+/* CURRENCY */
+
+.currency-selector {
+  padding: 0 14px;
+
+  gap: 8px;
+
+  border-radius: 14px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.country-flag {
+  width: 23px;
+  height: 23px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+}
+
+
+/* MENU BUTTON */
+
+.menu-button {
+  position: relative;
+}
+
+.menu-icon {
+  width: 21px;
+  height: 18px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-icon span {
+  display: block;
+
+  width: 100%;
+  height: 2px;
+
+  background: var(--text);
+
+  border-radius: 999px;
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease;
+}
+
+
+/* =========================================================
+   SIDE MENU
+   ========================================================= */
+
+.menu-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 950;
+
+  background: rgba(0, 0, 0, 0.58);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.side-menu {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  z-index: 1000;
+
+  width: min(520px, 88vw);
+  height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  background:
+    linear-gradient(
+      180deg,
+      #11141b 0%,
+      #090b10 100%
+    );
+
+  border-left: 1px solid var(--border-strong);
+
+  box-shadow:
+    -25px 0 70px rgba(0, 0, 0, 0.45);
+
+  transform: translateX(105%);
+
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  overflow-y: auto;
+}
+
+.side-menu.active {
+  transform: translateX(0);
+}
+
+.menu-overlay.active {
+  opacity: 1;
+
+  visibility: visible;
+}
+
+
+/* SIDE MENU HEADER */
+
+.side-menu-header {
+  min-height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 25px;
+}
+
+
+
+.side-menu-close {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid var(--border);
+
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: var(--text);
+
+  font-size: 27px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.side-menu-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  transform: rotate(90deg);
+}
+
+
+/* DIVIDER */
+
+.side-menu-divider {
+  width: calc(100% - 50px);
+
+  height: 1px;
+
+  margin: 0 auto;
+
+  background: var(--border);
+}
+
+
+/* MENU NAV */
+
+.side-menu-nav {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px 25px 35px;
+}
+
+.side-menu-item {
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 0 5px;
+
+  color: var(--text);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  transition:
+    color 0.2s ease,
+    padding 0.2s ease;
+}
+
+.side-menu-item:hover {
+  padding-left: 10px;
+
+  color: var(--primary);
+}
+
+.side-menu-icon,
+.side-menu-arrow {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  color: var(--text-soft);
+
+  font-size: 18px;
+}
+
+.side-menu-arrow {
+  font-size: 22px;
+}
+
+.side-menu-login {
+  margin-top: 25px;
+
+  border-top: 1px solid var(--border);
+  border-bottom: 0;
+}
+
+
+/* =========================================================
+   SEARCH PANEL
+   ========================================================= */
+
+.search-panel {
+  position: fixed;
+
+  top: 76px;
+  right: 0;
+  left: 0;
+
+  z-index: 890;
+
+  padding: 14px 20px;
+
+  background: rgba(7, 8, 12, 0.96);
+
+  border-bottom: 1px solid var(--border);
+
+  backdrop-filter: blur(18px);
+
+  transform: translateY(-120%);
+
+  transition:
+    transform 0.25s ease;
+}
+
+.search-panel.active {
+  transform: translateY(0);
+}
+
+.search-panel-inner {
+  max-width: var(--container);
+
+  margin: 0 auto;
+
+  display: flex;
+
+  gap: 10px;
+}
+
+.search-panel input {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 48px;
+
+  padding: 0 16px;
+
+  color: var(--text);
+
+  background: var(--card);
+
+  border: 1px solid var(--border);
+
+  border-radius: 14px;
+
+  outline: none;
+
+  font: inherit;
+}
+
+.search-panel input:focus {
+  border-color:
+    rgba(124, 92, 255, 0.55);
+}
+
+.search-panel-inner button {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  border: 1px solid var(--border);
+
+  border-radius: 14px;
+
+  background: var(--card);
+
+  color: var(--text);
+
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   MOBILE HEADER
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .header-inner {
+    min-height: 68px;
+
+    gap: 10px;
+  }
+
+  .header-logo {
+    width: 31px;
+    height: 31px;
+  }
+
+  .header-brand-text {
+    font-size: 18px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .header-action,
+  .currency-selector {
+    height: 40px;
+  }
+
+  .header-action {
+    width: 40px;
+  }
+
+  .currency-selector {
+    padding: 0 9px;
+
+    gap: 5px;
+
+    font-size: 11px;
+  }
+
+  .country-flag {
+    width: 21px;
+    height: 21px;
+
+    font-size: 17px;
+  }
+
+  .side-menu {
+    width: 88vw;
+  }
+
+  .side-menu-header {
+    min-height: 72px;
+
+    padding: 0 20px;
+  }
+
+  .side-menu-nav {
+    padding:
+      15px 20px 30px;
+  }
+
+  .side-menu-item {
+    min-height: 60px;
+  }
+}
+/* =========================================================
+   LEOOSTORE — GLOBAL HEADER BRAND
+   ========================================================= */
+
+.header-brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+
+  min-width: 0;
+
+  color: var(--text) !important;
+
+  transition:
+    transform 0.25s ease,
+    filter 0.25s ease;
+}
+
+.header-brand:hover {
+  transform: translateY(-1px);
+  filter:
+    drop-shadow(0 0 8px rgba(124, 92, 255, 0.45));
+}
+
+.header-logo {
+  width: 34px !important;
+  height: 34px !important;
+
+  object-fit: contain !important;
+
+  border-radius: 9px;
+
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.header-brand:hover .header-logo {
+  transform: rotate(-4deg) scale(1.08);
+
+  filter:
+    drop-shadow(0 0 7px rgba(124, 92, 255, 0.65));
+}
+
+.header-brand-text {
+  font-size: 18px !important;
+  font-weight: 900 !important;
+
+  letter-spacing: -0.045em !important;
+
+  white-space: nowrap;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #ffffff 48%,
+      #9b87ff 75%,
+      #ffffff 100%
+    );
+
+  background-size: 220% auto;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  animation:
+    leoostore-shine 4s linear infinite;
+}
+
+@keyframes leoostore-shine {
+
+  0% {
+    background-position: 200% center;
+  }
+
+  100% {
+    background-position: -20% center;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .header-logo {
+    width: 31px !important;
+    height: 31px !important;
+  }
+
+  .header-brand-text {
+    font-size: 17px !important;
+  }
+
+  .header-brand {
+    gap: 8px !important;
+  }
+
+}
+/* =========================================================
+   LEOOSTORE — FOOTER BRAND
+   ========================================================= */
+
+.footer-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.footer-brand strong {
+  font-weight: 900 !important;
+}
+
+.footer-brand span {
+  opacity: 0.6;
+}
+
+.footer-tagline {
+  margin: 5px 0 0 !important;
+
+  font-size: 11px !important;
+  font-weight: 600 !important;
+
+  letter-spacing: 0.04em !important;
+
+  opacity: 0.55;
+}
+/* =========================================================
+   LEOOSTORE — SHOP MOBILE CARD FIX
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .shop-page .product-grid {
+    width: min(100%, 520px);
+    max-width: 520px;
+
+    margin-inline: auto;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .shop-page .product-card-content,
+  .shop-page .product-info {
+    padding: 12px;
+  }
+
+  .shop-page .product-card h3,
+  .shop-page .product-info h3 {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+
+  .shop-page .product-card p {
+    margin: 5px 0 10px;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .shop-page .product-denominations {
+    gap: 5px;
+    margin-top: 9px;
+  }
+
+  .shop-page .denomination-chip {
+    min-height: 26px;
+    padding: 0 7px;
+    font-size: 10px;
+  }
+
+  .shop-page .product-price {
+    font-size: 13px;
+  }
+
+  .shop-page .product-minimum {
+    font-size: 10px;
+  }
+
+  .shop-page .product-btn {
+    margin-top: 10px;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+   ========================================================= */
+
+@media (max-width: 680px) {
+
+  .shop-page .product-grid {
+    width: 100%;
+    max-width: 100%;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .shop-page .product-card-content,
+  .shop-page .product-info {
+    padding: 10px;
+  }
+
+  .shop-page .product-card h3,
+  .shop-page .product-info h3 {
+    font-size: 13px;
+  }
+
+  .shop-page .product-card p {
+    margin: 4px 0 8px;
+    font-size: 11px;
+  }
+
+  .shop-page .product-denominations {
+    gap: 4px;
+    margin-top: 7px;
+  }
+
+  .shop-page .denomination-chip {
+    min-height: 24px;
+    padding: 0 6px;
+    font-size: 9px;
+  }
+
+  .shop-page .product-price {
+    font-size: 12px;
+  }
+
+  .shop-page .product-minimum {
+    font-size: 9px;
+  }
+}
+/* =========================================================
+   LEOOSTORE — SHOP HEADER
+   Samakan header shop.html dengan order.html
+   ========================================================= */
+
+.shop-page .site-header {
+  width: 100%;
+}
+
+.shop-page .site-header > .container {
+  width: min(100% - 40px, 1180px);
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shop-page .header-brand {
+  flex-shrink: 0;
+}
+
+.shop-page .nav {
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 900px) {
+
+  .shop-page .site-header > .container {
+    width: calc(100% - 28px);
+    max-width: none;
+  }
+
+}
+
+
+/* =========================================================
+   LEOOSTORE — SHOP GAME CARD ACTION + ANIMATION
+   ========================================================= */
+@keyframes shopCardReveal {
+  from { opacity: 0; transform: translateY(16px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes shopButtonShine {
+  0% { transform: translateX(-120%); }
+  45%, 100% { transform: translateX(120%); }
+}
+@keyframes shopIconPulse {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50% { transform: scale(1.12) rotate(-4deg); }
+}
+.shop-page .product-card {
+  position: relative;
+  animation: shopCardReveal .55s cubic-bezier(.22,1,.36,1) both;
+  will-change: transform, opacity;
+}
+.shop-page .product-card:nth-child(1){animation-delay:.03s}
+.shop-page .product-card:nth-child(2){animation-delay:.08s}
+.shop-page .product-card:nth-child(3){animation-delay:.13s}
+.shop-page .product-card:nth-child(4){animation-delay:.18s}
+.shop-page .product-card:nth-child(5){animation-delay:.23s}
+.shop-page .product-card:nth-child(6){animation-delay:.28s}
+.shop-page .product-card:nth-child(7){animation-delay:.33s}
+.shop-page .product-card:nth-child(8){animation-delay:.38s}
+.shop-page .product-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(124,92,255,.38);
+  box-shadow: 0 18px 42px rgba(0,0,0,.30),0 0 0 1px rgba(124,92,255,.08);
+}
+.shop-page .product-image-wrap { position:relative; }
+.shop-page .product-image-wrap::after {
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.09) 45%,transparent 70%);
+  transform:translateX(-120%); transition:transform .7s ease;
+}
+.shop-page .product-card:hover .product-image-wrap::after { transform:translateX(120%); }
+.shop-page .product-btn {
+  position:relative; isolation:isolate; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:42px; padding:0 12px;
+  color:#fff; background:var(--primary);
+  border:1px solid rgba(255,255,255,.08); border-radius:11px;
+  font-size:12px; font-weight:800; line-height:1;
+  box-shadow:0 8px 22px rgba(124,92,255,.18);
+  transition:transform .2s ease,background .2s ease,box-shadow .2s ease;
+}
+.shop-page .product-btn::before {
+  content:""; position:absolute; inset:0 auto 0 0; width:38%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+  transform:translateX(-120%); animation:shopButtonShine 3.2s ease-in-out infinite;
+  pointer-events:none; z-index:-1;
+}
+.shop-page .product-btn:hover {
+  background:var(--primary-hover); transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(124,92,255,.30);
+}
+.shop-page .product-btn:active { transform:translateY(0) scale(.985); }
+.shop-page .product-btn-icon {
+  display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+  font-size:14px; line-height:1; animation:shopIconPulse 2s ease-in-out infinite;
+}
+.shop-page .product-btn-text { min-width:0; white-space:nowrap; }
+.shop-page .product-btn-arrow {
+  display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
+  font-size:17px; line-height:1; transition:transform .2s ease;
+}
+.shop-page .product-btn:hover .product-btn-arrow { transform:translateX(4px); }
+@media(max-width:680px){
+  .shop-page .product-btn { min-height:38px; padding:0 8px; gap:5px; border-radius:10px; font-size:10px; }
+  .shop-page .product-btn-icon { font-size:12px; }
+  .shop-page .product-btn-arrow { font-size:15px; }
+}
+@media(prefers-reduced-motion:reduce){
+  .shop-page .product-card,.shop-page .product-btn::before,.shop-page .product-btn-icon{animation:none!important}
+  .shop-page .product-card,.shop-page .product-btn,.shop-page .product-btn-arrow{transition:none!important}
+}
+
+
+/* =========================================================
+   LEOOSTORE — SHOP FOOTER MATCH CHECKOUT
+   ========================================================= */
+
+.shop-footer .footer-links{
+  width:100%;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:28px;
+  align-items:start;
+}
+
+.shop-footer .footer-brand-column,
+.shop-footer .footer-social-column{
+  min-width:0;
+}
+
+.shop-footer .footer-brand-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--text);
+}
+
+.shop-footer .footer-brand-link img{
+  width:30px;
+  height:30px;
+  object-fit:contain;
+  border-radius:8px;
+}
+
+.shop-footer .footer-brand-link strong{
+  font-size:18px;
+  font-weight:900;
+}
+
+.shop-footer .footer-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:14px;
+}
+
+.shop-footer .footer-nav a{
+  color:var(--text-muted);
+  font-size:12px;
+  transition:color .2s ease,transform .2s ease;
+}
+
+.shop-footer .footer-nav a:hover{
+  color:var(--text);
+  transform:translateY(-1px);
+}
+
+.shop-footer .footer-social-column h4{
+  margin:0 0 12px;
+  color:var(--text);
+  font-size:14px;
+  font-weight:800;
+}
+
+.shop-footer .footer-social-row{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.shop-footer .social-link{
+  display:grid;
+  grid-template-columns:24px auto 1fr;
+  align-items:center;
+  gap:8px;
+  width:100%;
+  max-width:280px;
+  min-height:36px;
+  color:var(--text-soft);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.02);
+  border-radius:10px;
+  padding:6px 9px;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.shop-footer .social-link:hover{
+  background:var(--primary-soft);
+  border-color:rgba(124,92,255,.35);
+  transform:translateY(-1px);
+}
+
+.shop-footer .social-link img{
+  width:17px;
+  height:17px;
+  filter:invert(1);
+  opacity:.9;
+}
+
+.shop-footer .social-link span{
+  font-size:11px;
+  font-weight:700;
+}
+
+.shop-footer .social-link small{
+  justify-self:end;
+  color:var(--text-muted);
+  font-size:10px;
+}
+
+.shop-footer .footer-social-copyright{
+  margin-top:16px;
+  color:var(--text-muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+@media(max-width:680px){
+  .shop-footer .footer-links{
+    grid-template-columns:1fr;
+    gap:22px;
+    text-align:left;
+  }
+
+  .shop-footer .footer-nav{
+    gap:10px;
+  }
+
+  .shop-footer .footer-social-column h4{
+    margin-bottom:10px;
+  }
+
+  .shop-footer .social-link{
+    max-width:100%;
+  }
+
+  .shop-footer .footer-social-copyright{
+    margin-top:13px;
+    font-size:10px;
+  }
+}
+
+
+/* ===== SHOP FOOTER — COMPACT MOBILE ===== */
+@media(max-width:680px){
+  .shop-page .shop-footer{
+    padding:18px 0 14px!important;
+    overflow:hidden!important;
+  }
+  .shop-page .shop-footer .footer-links{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    padding:0!important;
+    margin:0!important;
+  }
+  .shop-page .shop-footer .footer-social-column{
+    width:100%!important;
+    min-width:0!important;
+  }
+  .shop-page .shop-footer .footer-social-column h4{
+    margin:0 0 8px!important;
+    font-size:13px!important;
+  }
+  .shop-page .shop-footer .footer-social-row{
+    gap:6px!important;
+    width:100%!important;
+  }
+  .shop-page .shop-footer .social-link{
+    width:100%!important;
+    max-width:100%!important;
+    min-height:32px!important;
+    padding:4px 8px!important;
+    grid-template-columns:22px auto 1fr!important;
+    gap:6px!important;
+    border-radius:9px!important;
+  }
+  .shop-page .shop-footer .social-link img{
+    width:15px!important;
+    height:15px!important;
+  }
+  .shop-page .shop-footer .social-link span{
+    font-size:10px!important;
+  }
+  .shop-page .shop-footer .social-link small{
+    font-size:9px!important;
+  }
+  .shop-page .shop-footer .footer-social-copyright{
+    margin-top:8px!important;
+    font-size:8px!important;
+    line-height:1.35!important;
+    white-space:nowrap!important;
+  }
+}
+
+
+/* =========================================================
+   LEOOSTORE — GLOBAL LIGHT PREMIUM THEME
+   TARGET LOCK — COLORS ONLY
+   ========================================================= */
+:root{
+  --bg:#f5f7fb;
+  --bg-soft:#eef1f6;
+  --card:#ffffff;
+  --card-2:#f8f9fc;
+  --card-hover:#f1f3f8;
+  --border:rgba(15,23,42,.09);
+  --border-strong:rgba(15,23,42,.16);
+  --text:#171b24;
+  --text-soft:#5f6878;
+  --text-muted:#8791a2;
+  --primary:#6d4df5;
+  --primary-hover:#5b3fe0;
+  --primary-soft:rgba(109,77,245,.10);
+  --shadow:0 18px 50px rgba(30,41,59,.10);
+}
+
+body{
+  color:var(--text)!important;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(109,77,245,.07),transparent 30%),
+    radial-gradient(circle at 85% 15%,rgba(59,130,246,.045),transparent 28%),
+    var(--bg)!important;
+}
+
+.site-header,header{
+  background:rgba(255,255,255,.88)!important;
+  border-bottom-color:var(--border)!important;
+}
+
+.side-menu{
+  background:linear-gradient(180deg,#ffffff 0%,#f4f6fa 100%)!important;
+  border-left-color:var(--border-strong)!important;
+  box-shadow:-25px 0 70px rgba(30,41,59,.14)!important;
+}
+
+.search-panel{
+  background:rgba(255,255,255,.96)!important;
+  border-bottom-color:var(--border)!important;
+}
+
+.header-action,
+.currency-selector{
+  background:rgba(15,23,42,.025)!important;
+}
+
+
+
+/* =========================================================
+   LEOOSTORE — GLOBAL NAVY THEME
+   TARGET LOCK — COLORS ONLY
+   ========================================================= */
+:root{
+  --bg:#07111f;
+  --bg-soft:#0b1728;
+  --card:#0f1d30;
+  --card-2:#13243a;
+  --card-hover:#172a43;
+  --border:rgba(148,163,184,.14);
+  --border-strong:rgba(148,163,184,.24);
+  --text:#f5f8ff;
+  --text-soft:#aebbd0;
+  --text-muted:#7f90a8;
+  --primary:#7c5cff;
+  --primary-hover:#9278ff;
+  --primary-soft:rgba(124,92,255,.14);
+  --shadow:0 18px 50px rgba(0,0,0,.28);
+}
+
+body{
+  color:var(--text)!important;
+  background:
+    radial-gradient(circle at 15% 0%,rgba(124,92,255,.10),transparent 30%),
+    radial-gradient(circle at 85% 15%,rgba(37,99,235,.08),transparent 28%),
+    var(--bg)!important;
+}
+
+.site-header,header{
+  background:rgba(7,17,31,.88)!important;
+  border-bottom-color:var(--border)!important;
+}
+
+.side-menu{
+  background:linear-gradient(180deg,#0f1d30 0%,#07111f 100%)!important;
+  border-left-color:var(--border-strong)!important;
+  box-shadow:-25px 0 70px rgba(0,0,0,.45)!important;
+}
+
+.search-panel{
+  background:rgba(7,17,31,.96)!important;
+  border-bottom-color:var(--border)!important;
+}
+
+.header-action,
+.currency-selector{
+  background:rgba(255,255,255,.035)!important;
+}
+
+/* =========================================================
+   UNIVERSAL SOCIAL FOOTER — FINAL OVERRIDE
+   ========================================================= */
+.site-footer.universal-social-footer .footer-brand-column,
+.site-footer.universal-social-footer .footer-brand-link,
+.site-footer.universal-social-footer .footer-nav,
+.site-footer.universal-social-footer .footer-brand-line{
+  display:none!important;
+}
+.site-footer.universal-social-footer .footer-links{
+  display:block!important;
+  width:100%!important;
+}
+
+/* =========================================================
+   HEADER — ADMIN / CUSTOMER SERVICE
+   Add only; preserve existing header positions.
+   ========================================================= */
+.header-actions .cs-button{
+  text-decoration:none!important;
+  color:inherit!important;
+  flex:0 0 auto!important;
+}
+.header-actions .cs-button img{
+  width:16px!important;
+  height:16px!important;
+  object-fit:contain!important;
+  filter:brightness(0) invert(1)!important;
+  opacity:.92!important;
+}
+.cs-label{
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1!important;
+}
+@media(max-width:680px){
+  .header-actions .cs-button{
+    gap:5px!important;
+  }
+  .header-actions .cs-button img{
+    width:15px!important;
+    height:15px!important;
+  }
+  .cs-label{font-size:9px!important;}
+}
+
+
+/* =========================================================
+   HEADER — ADMIN / CUSTOMER SERVICE ICON
+   Target lock: icon only, preserve existing controls.
+   ========================================================= */
+.header-actions .cs-button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-decoration:none!important;
+  color:inherit!important;
+  flex:0 0 auto!important;
+  cursor:pointer!important;
+}
+.cs-button .cs-icon{
+  width:17px!important;
+  height:17px!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  stroke-width:1.9!important;
+  stroke-linecap:round!important;
+  stroke-linejoin:round!important;
+}
+.nav .cs-button{
+  margin-right:2px!important;
+  flex:0 0 auto!important;
+}
+@media(max-width:600px){
+  .cs-button .cs-icon{width:16px!important;height:16px!important;}
+}
+
+
+/* =========================================================
+   HEADER ICONS — BARE / NO BOX
+   Target lock: CS + search + hamburger only.
+   Keep header positions; remove visual columns/boxes.
+   ========================================================= */
+.header-actions .cs-button,
+.header-actions .search-button,
+.header-actions .menu-button{
+  width:auto!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:2px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  outline:none!important;
+  color:var(--text-soft)!important;
+  opacity:1!important;
+}
+.header-actions .cs-button:hover,
+.header-actions .search-button:hover,
+.header-actions .menu-button:hover,
+.header-actions .cs-button:focus-visible,
+.header-actions .search-button:focus-visible,
+.header-actions .menu-button:focus-visible{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:var(--text)!important;
+  transform:none!important;
+}
+.header-actions .cs-button .cs-icon{
+  display:block!important;
+  width:18px!important;
+  height:18px!important;
+  color:currentColor!important;
+}
+.header-actions .search-button .header-icon{
+  display:block!important;
+  width:20px!important;
+  height:20px!important;
+  color:currentColor!important;
+  font-size:22px!important;
+  line-height:20px!important;
+}
+.header-actions .menu-button .menu-icon{
+  display:flex!important;
+  width:20px!important;
+  height:20px!important;
+  padding:0!important;
+  margin:0!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+}
+.header-actions .menu-button .menu-icon span{
+  display:block!important;
+  width:18px!important;
+  height:1.5px!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:currentColor!important;
+}
+@media(max-width:600px){
+  .header-actions .cs-button .cs-icon{width:17px!important;height:17px!important;}
+  .header-actions .search-button .header-icon{width:19px!important;height:19px!important;font-size:21px!important;}
+  .header-actions .menu-button .menu-icon{width:19px!important;height:19px!important;}
+  .header-actions .menu-button .menu-icon span{width:17px!important;}
+}
+
+
+/* =========================================================
+   HEADER ICONS — SIZE / ALIGNMENT FINISH
+   Slightly larger, clean, evenly aligned.
+   ========================================================= */
+.header-actions .cs-button .cs-icon{
+  width:21px!important;
+  height:21px!important;
+}
+.header-actions .search-button .header-icon{
+  width:23px!important;
+  height:23px!important;
+  font-size:25px!important;
+  line-height:23px!important;
+}
+.header-actions .menu-button .menu-icon{
+  width:23px!important;
+  height:23px!important;
+  gap:4px!important;
+}
+.header-actions .menu-button .menu-icon span{
+  width:21px!important;
+  height:1.7px!important;
+}
+.header-actions .cs-button,
+.header-actions .search-button,
+.header-actions .menu-button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  vertical-align:middle!important;
+  padding:1px!important;
+}
+@media(max-width:600px){
+  .header-actions .cs-button .cs-icon{
+    width:20px!important;
+    height:20px!important;
+  }
+  .header-actions .search-button .header-icon{
+    width:22px!important;
+    height:22px!important;
+    font-size:24px!important;
+    line-height:22px!important;
+  }
+  .header-actions .menu-button .menu-icon{
+    width:22px!important;
+    height:22px!important;
+    gap:4px!important;
+  }
+  .header-actions .menu-button .menu-icon span{
+    width:20px!important;
+    height:1.7px!important;
+  }
+}
+
+
+/* =========================================================
+   HOME — ALL GAMES ACTION BUTTON
+   Target lock: only center + button appearance/animation.
+   ========================================================= */
+.home-page .all-games-section .section-heading{
+  text-align:center!important;
+}
+
+.home-page .all-games-section .home-more-wrapper{
+  display:flex!important;
+  justify-content:center!important;
+  align-items:center!important;
+  width:100%!important;
+  margin-top:18px!important;
+}
+
+.home-page .all-games-section .home-more-link{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  min-height:44px!important;
+  padding:0 18px!important;
+  border:1px solid rgba(124,92,255,.8)!important;
+  border-radius:12px!important;
+  background:linear-gradient(135deg,#7c5cff,#6947f2)!important;
+  color:#fff!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.20)!important;
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important;
+  overflow:hidden!important;
+}
+
+.home-page .all-games-section .home-more-link::after{
+  content:""!important;
+  position:absolute!important;
+  top:0!important;
+  left:-120%!important;
+  width:55%!important;
+  height:100%!important;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent)!important;
+  transform:skewX(-18deg)!important;
+  animation:homeMoreShine 3s ease-in-out infinite!important;
+  pointer-events:none!important;
+}
+
+.home-page .all-games-section .home-more-link span{
+  display:inline-flex!important;
+  transition:transform .2s ease!important;
+}
+
+.home-page .all-games-section .home-more-link:hover{
+  transform:translateY(-2px)!important;
+  box-shadow:0 14px 32px rgba(0,0,0,.28)!important;
+  filter:brightness(1.06)!important;
+}
+
+.home-page .all-games-section .home-more-link:hover span{
+  transform:translateX(3px)!important;
+}
+
+@keyframes homeMoreShine{
+  0%,55%{left:-120%;}
+  75%,100%{left:140%;}
+}
+
+@media(max-width:600px){
+  .home-page .all-games-section .home-more-link{
+    min-height:42px!important;
+    padding:0 16px!important;
+    font-size:12px!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .home-page .all-games-section .home-more-link::after{
+    animation:none!important;
+  }
+}
+
+
+/* ALL GAMES — six added cards use the exact same 3-column grid */
+.home-page .all-games-section .home-game-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important;width:100%!important;}
+.home-page .all-games-section .home-game-card{width:100%!important;min-width:0!important;}
+@media(max-width:680px){.home-page .all-games-section .home-game-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;}}
+
+
+/* Legacy side-menu wordmark override removed: use the shared animated .side-menu-brand-text instead. */
+
+
+/* =========================================================
+   LEOOSTORE — SHARED NAVBAR LOGO
+   Only the logo/icon is standardized across all pages.
+   Other navbar/layout rules remain untouched.
+   ========================================================= */
+.header-brand{
+  position:relative!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 170px!important;
+  width:170px!important;
+  height:76px!important;
+  overflow:visible!important;
+}
+
+.header-brand .header-brand-text{
+  display:none!important;
+}
+
+.header-brand .header-logo{
+  content:url("../assets/icon.webp")!important;
+  display:block!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  width:116px!important;
+  height:auto!important;
+  max-width:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+  border-radius:0!important;
+  transform:translate(-50%,-50%)!important;
+  transform-origin:center!important;
+  filter:contrast(1.16) saturate(1.28) brightness(1.10) drop-shadow(0 0 1px rgba(255,255,255,.35)) drop-shadow(0 4px 14px rgba(62,128,255,.28))!important;
+  animation:leoSharedLogoMotion 4.8s ease-in-out infinite!important;
+  will-change:transform,filter!important;
+  z-index:2!important;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .header-brand .header-logo{
+    animation:none!important;
+    transform:translate(-50%,-50%)!important;
+  }
+}
+
+@keyframes leoSharedLogoMotion{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(1) rotate(0deg);
+    filter:contrast(1.16) saturate(1.28) brightness(1.10) drop-shadow(0 0 1px rgba(255,255,255,.35)) drop-shadow(0 4px 14px rgba(62,128,255,.28));
+  }
+  25%{
+    transform:translate(-50%,-50.8%) scale(1.012) rotate(-.2deg);
+    filter:contrast(1.20) saturate(1.32) brightness(1.13) drop-shadow(0 0 2px rgba(255,255,255,.42)) drop-shadow(0 5px 16px rgba(62,128,255,.32));
+  }
+  50%{
+    transform:translate(-50%,-51.5%) scale(1.02) rotate(0deg);
+    filter:contrast(1.23) saturate(1.36) brightness(1.15) drop-shadow(0 0 2px rgba(255,255,255,.46)) drop-shadow(0 6px 18px rgba(82,137,255,.36));
+  }
+  75%{
+    transform:translate(-50%,-50.8%) scale(1.012) rotate(.2deg);
+    filter:contrast(1.20) saturate(1.32) brightness(1.13) drop-shadow(0 0 2px rgba(255,255,255,.42)) drop-shadow(0 5px 16px rgba(62,128,255,.32));
+  }
+}
+
+/* Navbar logo page fine tune — position only */
+.home-page .header-brand .header-logo{
+  left:51%!important;
+}
+.shop-page .header-brand .header-logo,
+.checkout-page .header-brand .header-logo,
+.order-page .header-brand .header-logo{
+  left:47%!important;
+}
+
+
+/* =========================================================
+   LEOOSTORE.ID — TEXT-ONLY BRANDING
+   Replace the image logo with a clean text wordmark.
+   ========================================================= */
+.header-brand .header-logo{display:none!important;}
+.header-brand .header-brand-text{
+  display:inline-block!important;
+  position:static!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  color:#f5f8ff!important;
+  background:linear-gradient(100deg,#4edcff 0%,#3f9dff 36%,#8b7cff 68%,#ff4fcf 100%)!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  font-family:"Deadbeat",Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif!important;
+  font-size:clamp(16px,2.3vw,21px)!important;
+  font-weight:900!important;
+  font-style:normal!important;
+  letter-spacing:.025em!important;
+  -webkit-text-stroke:.25px currentColor!important;
+  line-height:1.15!important;
+  white-space:nowrap!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+}
+.header-brand{flex:0 0 auto!important;width:auto!important;min-width:0!important;}
+@media(max-width:600px){
+  .header-brand{flex-basis:auto!important;width:auto!important;}
+  .header-brand .header-brand-text{font-size:17px!important;}
+}
+
+
+/* Mobile alignment fix: give text-only branding a little breathing room
+   on inner pages without changing the already-correct home header. */
+@media (max-width: 600px) {
+  body:not(.home-page) .site-header .header-inner > .header-brand {
+    margin-left: 10px !important;
+  }
+}
+
+/* FORCE visible LEOOSTORE.id wordmark inside the hamburger drawer */
+
+
+
+@keyframes leoDrawerBrandShine{0%,20%{background-position:180% 0;opacity:0}45%{opacity:.8}75%,100%{background-position:-100% 0;opacity:0}}
+
+/* FINAL drawer-only animation: isolated names prevent collisions with navbar/footer rules */
+
+
+
+
+
+
+@media(prefers-reduced-motion:reduce){html body .side-menu .side-menu-header .side-menu-brand .side-menu-brand-text,html body .side-menu .side-menu-header .side-menu-brand .side-menu-brand-text::before,html body .side-menu .side-menu-header .side-menu-brand .side-menu-brand-text::after{animation:none!important}}
+
+
+/* Drawer header: navbar-matched brand on the left, close control on the right. */
+.side-menu .side-menu-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;}
+.side-menu .side-menu-header .header-brand{display:inline-flex!important;align-items:center!important;justify-content:flex-start!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;height:auto!important;max-width:calc(100% - 60px)!important;margin:0!important;padding:0!important;overflow:visible!important;text-decoration:none!important;}
+.side-menu .side-menu-header .header-brand .header-brand-text{font-size:clamp(22px,4vw,30px)!important;white-space:nowrap!important;}
+.side-menu .side-menu-header .side-menu-close{position:relative!important;left:auto!important;right:auto!important;top:0!important;flex:0 0 44px!important;margin:0!important;}
+@media(max-width:600px){.side-menu .side-menu-header .header-brand .header-brand-text{font-size:24px!important;}}
+
+
+/* Homepage marketplace tabs and account cards */
+#marketplaceTabsSection{padding:8px 0 12px;}
+#marketplaceTabsSection .marketplace-tabs{margin-bottom:0;}
+#marketPanelAccounts .account-marketplace-layout{width:100%;}
+#marketPanelAccounts .account-listing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,240px));gap:18px;align-items:start;}
+#marketPanelAccounts .account-empty-card,
+#marketPanelAccounts .account-card{width:100%;aspect-ratio:3/4;min-width:0;overflow:hidden;border:1px solid var(--border-strong);border-radius:20px;background:linear-gradient(160deg,rgba(124,92,255,.13),rgba(17,21,30,.98) 48%);padding:22px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;box-shadow:var(--shadow);}
+#marketPanelAccounts .account-empty-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:var(--primary-soft);font-size:28px;}
+#marketPanelAccounts .account-status{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--text-soft);padding:5px 9px;border:1px solid var(--border-strong);border-radius:999px;}
+#marketPanelAccounts .account-empty-card h2{font-size:clamp(19px,2vw,23px);line-height:1.2;margin:0;}
+#marketPanelAccounts .account-empty-card p{margin:0;color:var(--text-soft);font-size:14px;}
+#marketPanelAccounts .account-empty-card .marketplace-primary{width:100%;white-space:normal;line-height:1.35;padding:12px 14px;}
+#marketPanelAccounts .account-show-more{margin-top:20px;}
+#marketPanelAccounts .account-card[hidden]{display:none!important;}
+@media(max-width:520px){#marketplaceTabsSection{padding:6px 0 10px;}#marketPanelAccounts .account-listing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}#marketPanelAccounts .account-empty-card,#marketPanelAccounts .account-card{padding:14px;border-radius:16px;}}
+
+
+/* Account marketplace empty state and seller contact */
+#marketPanelAccounts .account-empty-card{justify-content:flex-start;align-items:stretch;gap:14px;padding:20px;}
+#marketPanelAccounts .account-card-topline{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;}
+#marketPanelAccounts .account-empty-icon{flex:0 0 48px;width:48px;height:48px;}
+#marketPanelAccounts .account-status{white-space:nowrap;letter-spacing:.08em;}
+#marketPanelAccounts .account-empty-card h2{font-size:clamp(18px,2vw,22px);overflow-wrap:anywhere;}
+#marketPanelAccounts .account-empty-message{font-size:13px;line-height:1.55;margin:0;color:var(--text-soft);}
+#marketPanelAccounts .account-seller-note{display:grid;gap:5px;padding:12px;border:1px solid rgba(124,92,255,.24);border-radius:12px;background:rgba(124,92,255,.08);}
+#marketPanelAccounts .account-seller-note strong{font-size:13px;color:var(--text);}
+#marketPanelAccounts .account-seller-note span{font-size:12px;line-height:1.55;color:var(--text-soft);}
+#marketPanelAccounts .account-card-actions{display:grid;gap:10px;width:100%;margin-top:auto;}
+#marketPanelAccounts .account-contact-admin{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;min-height:42px;width:100%;padding:10px 12px;white-space:normal;line-height:1.35;}
+#marketPanelAccounts .account-policy-link{border:0;background:transparent;color:var(--text-soft);font-size:12px;text-decoration:underline;text-underline-offset:3px;padding:5px 4px;}
+#marketPanelAccounts .account-policy-link:hover{color:var(--text);}
+@media(max-width:520px){#marketPanelAccounts .account-empty-card{padding:14px;gap:10px;}#marketPanelAccounts .account-seller-note{padding:10px;}#marketPanelAccounts .account-card-actions{gap:7px;}}
+
+
+/* Marketplace layout: top-level tabs then matching content below */
+#marketplaceTabsSection{padding:8px 0 12px;}
+#marketplaceTabsSection .marketplace-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 18px;}
+#marketplaceTabsSection .marketplace-tab{min-width:0;padding:12px 8px;text-align:center;line-height:1.3;}
+#marketPanelPromos,#marketPanelAccounts{margin-top:0;}
+#marketPanelAccounts .account-subtabs{display:flex;gap:10px;margin:0 0 18px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+#marketPanelAccounts .account-subtab{border:1px solid var(--border-strong);border-radius:12px;background:var(--card);color:var(--text-soft);padding:10px 18px;font-weight:800;}
+#marketPanelAccounts .account-subtab.active{background:var(--primary-soft);border-color:var(--primary);color:var(--text);}
+#marketPanelAccounts .account-subpanel[hidden]{display:none!important;}
+#marketPanelAccounts .account-listing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,220px));gap:16px;align-items:start;}
+#marketPanelAccounts .account-empty-card,#marketPanelAccounts .account-listing-card,#marketPanelAccounts .account-sell-card{aspect-ratio:3/4;width:100%;min-width:0;overflow:hidden;border:1px solid var(--border-strong);border-radius:20px;background:linear-gradient(160deg,rgba(124,92,255,.13),rgba(17,21,30,.98) 48%);padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:13px;box-shadow:var(--shadow);}
+#marketPanelAccounts .account-empty-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:var(--primary-soft);font-size:25px;}
+#marketPanelAccounts .account-status{font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--text-soft);padding:5px 9px;border:1px solid var(--border-strong);border-radius:999px;}
+#marketPanelAccounts .account-empty-card h2,#marketPanelAccounts .account-sell-card h2{font-size:clamp(18px,2vw,22px);line-height:1.25;margin:0;overflow-wrap:anywhere;}
+#marketPanelAccounts .account-empty-message{font-size:13px;line-height:1.6;margin:0;color:var(--text-soft);}
+#marketPanelAccounts .account-sell-card .account-contact-admin{display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;min-height:42px;width:100%;padding:10px 12px;white-space:normal;line-height:1.35;margin-top:auto;}
+#marketPanelAccounts .account-chat-note{font-size:11px;line-height:1.45;color:var(--text-muted);margin:0;}
+#marketPanelAccounts .account-show-more{margin-top:18px;}
+#marketPanelAccounts .account-listing-card[hidden]{display:none!important;}
+@media(max-width:520px){
+ #marketplaceTabsSection{padding:6px 0 10px;}
+ #marketplaceTabsSection .marketplace-tabs{gap:5px;margin-bottom:14px;}
+ #marketplaceTabsSection .marketplace-tab{padding:10px 4px;font-size:12px;}
+ #marketPanelAccounts .account-listing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+ #marketPanelAccounts .account-empty-card,#marketPanelAccounts .account-listing-card,#marketPanelAccounts .account-sell-card{padding:13px;border-radius:16px;gap:10px;}
+ #marketPanelAccounts .account-subtabs{gap:8px;}
+ #marketPanelAccounts .account-subtab{flex:1;padding:10px 8px;}
+}
+
+
+/* Account marketplace cards: consistent 3:4 portrait columns and readable copy */
+#marketPanelAccounts .account-empty-card,
+#marketPanelAccounts .account-listing-card,
+#marketPanelAccounts .account-sell-card{
+  box-sizing:border-box!important;
+  aspect-ratio:3/4!important;
+  height:auto!important;
+  min-height:0!important;
+  justify-content:flex-start!important;
+}
+#marketPanelAccounts .account-empty-card{
+  gap:clamp(9px,1.4vw,14px)!important;
+}
+#marketPanelAccounts .account-empty-card .account-empty-message,
+#marketPanelAccounts .account-sell-card .account-empty-message{
+  line-height:1.6!important;
+  overflow-wrap:anywhere!important;
+}
+#marketPanelAccounts .account-sell-card h2{
+  font-size:clamp(18px,2.2vw,22px)!important;
+  line-height:1.3!important;
+}
+#marketPanelAccounts .account-sell-card .account-contact-admin{
+  margin-top:auto!important;
+}
+@media(max-width:520px){
+  #marketPanelAccounts .account-empty-card,
+  #marketPanelAccounts .account-listing-card,
+  #marketPanelAccounts .account-sell-card{
+    aspect-ratio:3/4!important;
+    padding:13px!important;
+    gap:10px!important;
+    border-radius:16px!important;
+  }
+  #marketPanelAccounts .account-empty-card .account-empty-message,
+  #marketPanelAccounts .account-sell-card .account-empty-message{
+    font-size:12px!important;
+  }
+}
+
+
+/* FINAL account marketplace sizing: empty state matches the seller card.
+   Real listings will use one horizontal card with two 16:9 image slots. */
+#marketPanelAccounts #accountListingGrid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  gap:16px!important;
+  align-items:start!important;
+}
+#marketPanelAccounts #accountListingGrid .account-empty-card{
+  width:100%!important;
+  max-width:none!important;
+  aspect-ratio:3/4!important;
+  height:auto!important;
+  min-height:0!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+}
+#marketPanelAccounts #accountListingGrid .account-listing-card{
+  width:100%!important;
+  max-width:none!important;
+  aspect-ratio:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  box-sizing:border-box!important;
+}
+#marketPanelAccounts .account-listing-images{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  width:100%!important;
+}
+#marketPanelAccounts .account-listing-images img{
+  display:block!important;
+  width:100%!important;
+  aspect-ratio:16/9!important;
+  height:auto!important;
+  object-fit:cover!important;
+  border-radius:10px!important;
+}
+@media(max-width:520px){
+  #marketPanelAccounts #accountListingGrid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important;}
+  #marketPanelAccounts #accountListingGrid .account-empty-card{aspect-ratio:3/4!important;padding:14px!important;}
+  #marketPanelAccounts .account-listing-images{gap:7px!important;}
+}
+
+
+/* Account marketplace listing cards populated from Supabase */
+#marketPanelAccounts .account-listing-card{display:flex;flex-direction:column;gap:14px;padding:16px;border:1px solid var(--border-color,rgba(255,255,255,.12));border-radius:16px;background:var(--card-bg,rgba(255,255,255,.025));min-width:0;}
+#marketPanelAccounts .account-listing-card[hidden]{display:none!important;}
+#marketPanelAccounts .account-listing-body{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;}
+#marketPanelAccounts .account-listing-card h2{margin:0;font-size:clamp(17px,2.5vw,22px);line-height:1.3;overflow-wrap:anywhere;}
+#marketPanelAccounts .account-listing-description{margin:0;color:var(--text-muted,#aeb8ca);font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;}
+#marketPanelAccounts .account-listing-meta{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--text-muted,#aeb8ca);}
+#marketPanelAccounts .account-listing-meta span{padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.05);}
+#marketPanelAccounts .account-listing-price{font-size:21px;font-weight:850;color:var(--text-color,#fff);}
+#marketPanelAccounts .account-buy-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:42px;padding:10px 16px;border-radius:10px;}
+@media(max-width:520px){#marketPanelAccounts .account-listing-card{padding:12px;gap:11px}#marketPanelAccounts .account-listing-price{font-size:19px}}
+
+.leo-shared-select{position:relative;width:100%;min-width:0;z-index:12;font-family:'Plus Jakarta Sans',system-ui,sans-serif}.leo-shared-source{display:none!important}.leo-shared-trigger{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:9px 12px;border:1px solid rgba(148,163,184,.22);border-radius:12px;background:linear-gradient(145deg,#151a27,#0d121c);color:inherit;text-align:left;font:600 13px/1.35 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer}.leo-shared-trigger:focus-visible,.leo-shared-select.open .leo-shared-trigger{outline:none;border-color:#8b7cff;box-shadow:0 0 0 3px rgba(124,92,255,.15)}.leo-shared-value{display:flex;align-items:center;gap:9px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.leo-shared-icon{display:inline-grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border-radius:8px;background:rgba(124,92,255,.1);color:#b6aaff}.leo-shared-icon svg{width:16px;height:16px}.leo-select-img{width:23px;height:23px;object-fit:contain;border-radius:6px}.leo-shared-arrow svg{width:17px;height:17px;fill:none;stroke:#a5b4fc;stroke-width:2;transition:transform .18s}.leo-shared-select.open .leo-shared-arrow svg{transform:rotate(180deg)}.leo-shared-menu{position:absolute;top:calc(100% + 7px);left:0;right:0;max-height:min(320px,50vh);overflow:auto;padding:6px;border:1px solid rgba(148,163,184,.2);border-radius:14px;background:#171b27;color:#edf1ff;box-shadow:0 18px 48px #0007;z-index:9999;overscroll-behavior:contain}.leo-shared-menu[hidden]{display:none!important}.leo-shared-option{display:flex;align-items:center;gap:9px;width:100%;min-height:42px;padding:7px 8px;border:0;border-radius:9px;background:transparent;color:inherit;text-align:left;font:500 13px/1.35 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer}.leo-shared-option.selected,.leo-shared-option:hover{background:rgba(124,92,255,.16)}.leo-shared-label{flex:1;min-width:0;overflow-wrap:anywhere}.leo-shared-check{width:20px;height:20px;display:grid;place-items:center;border-radius:50%;background:#7965f2;color:#fff}.leo-shared-check svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2.5}@media(max-width:600px){.leo-shared-trigger{min-height:46px;font-size:14px}.leo-shared-option{min-height:46px;font-size:14px}}
+/* Hotfix: keep admin image previews inside their cards on mobile. */
+#promoImagePreview{display:none;width:100%;max-width:min(100%,520px);height:auto;max-height:220px;object-fit:contain;object-position:left center;border-radius:10px;margin-top:8px;background:#0b1019;}
+#promoImagePreview.visible{display:block!important;}
+.image-upload-preview{display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:100%;overflow:hidden;}
+.image-upload-preview img{display:block;width:auto;max-width:min(100%,360px)!important;height:auto;max-height:180px!important;object-fit:contain;}
+.image-upload-preview.wide img{width:100%;max-width:min(100%,420px)!important;max-height:220px!important;aspect-ratio:16/9;}
+.image-upload-preview.square img{width:120px;max-width:100%!important;height:120px;max-height:120px!important;aspect-ratio:1;}
+.tablewrap img{max-width:100%;height:auto;}
+.admin-status-select{appearance:none;-webkit-appearance:none;display:block;width:100%;max-width:100%;min-height:44px;padding:10px 38px 10px 12px;border:1px solid rgba(148,163,184,.25);border-radius:12px;background-color:#101725;color:#edf2ff;font:600 13px/1.4 'Plus Jakarta Sans',system-ui,sans-serif;}
+.admin-status-control{max-width:100%;min-width:0;}
+.leo-shared-select{min-width:0;max-width:100%;}
+
+/* Checkout country-code selector: compact, store-themed, accessible. */
+.whatsapp-input{display:flex;align-items:stretch;gap:10px;min-width:0}
+.whatsapp-input .leo-shared-select{flex:0 0 158px;width:158px;max-width:45%;}
+.whatsapp-input .leo-shared-trigger{min-height:56px;padding:9px 10px;border-radius:18px;background:linear-gradient(145deg,#151a27,#0d121c);border:1px solid #293548;color:#e9edff;box-shadow:none;}
+.whatsapp-input .leo-shared-value{gap:7px;font-size:13px;}
+.whatsapp-input .leo-shared-icon{flex-basis:25px;width:25px;height:25px;background:rgba(124,92,255,.12);color:#b5a5ff;}
+.whatsapp-input .leo-shared-icon svg{width:16px;height:16px;}
+.whatsapp-input .leo-shared-menu{max-height:280px;min-width:220px;left:0;right:auto;width:max-content;max-width:min(84vw,320px);}
+.whatsapp-input .leo-shared-option{min-height:40px;font-size:13px;}
+.whatsapp-input #contactWhatsapp{flex:1;min-width:0;width:0;}
+@media(max-width:420px){.whatsapp-input{gap:8px}.whatsapp-input .leo-shared-select{flex-basis:142px;width:142px}.whatsapp-input .leo-shared-trigger{min-height:54px;padding:8px}.whatsapp-input .leo-shared-value{font-size:12px}}
+
+/* FIX: WhatsApp country code + phone number must sit side by side. */
+.contact-fields .whatsapp-input{display:grid!important;grid-template-columns:minmax(112px, 38%) minmax(0,1fr)!important;align-items:stretch!important;gap:10px!important;width:100%!important;}
+.contact-fields .whatsapp-input>.leo-shared-select{display:block!important;position:relative!important;flex:none!important;width:100%!important;max-width:100%!important;min-width:0!important;}
+.contact-fields .whatsapp-input>.leo-shared-select .leo-shared-trigger{width:100%!important;min-width:0!important;height:56px!important;min-height:56px!important;padding:0 10px!important;border-radius:18px!important;background:#111827!important;border:1px solid #293548!important;box-shadow:none!important;}
+.contact-fields .whatsapp-input>.leo-shared-select .leo-shared-value{min-width:0!important;gap:5px!important;font-size:12px!important;}
+.contact-fields .whatsapp-input>.leo-shared-select .leo-shared-icon{display:none!important;}
+.contact-fields .whatsapp-input>.leo-shared-select .leo-shared-arrow{flex:0 0 18px!important;}
+.contact-fields .whatsapp-input>#contactWhatsapp{display:block!important;box-sizing:border-box!important;flex:none!important;width:100%!important;min-width:0!important;max-width:100%!important;height:56px!important;min-height:56px!important;margin:0!important;padding:0 16px!important;border-radius:18px!important;background:#152235!important;border:1px solid #293548!important;color:#eef2ff!important;font:400 14px/1.4 'Plus Jakarta Sans',system-ui,sans-serif!important;}
+.contact-fields .whatsapp-input>#contactWhatsapp:focus{outline:none!important;border-color:#8b7cff!important;box-shadow:0 0 0 3px rgba(124,92,255,.15)!important;}
+.contact-fields .whatsapp-input>.leo-shared-select .leo-shared-menu{width:min(300px,80vw)!important;min-width:0!important;max-width:80vw!important;}
+@media(max-width:360px){.contact-fields .whatsapp-input{grid-template-columns:minmax(100px,40%) minmax(0,1fr)!important;gap:8px!important}.contact-fields .whatsapp-input>#contactWhatsapp{padding:0 10px!important;font-size:13px!important}}
+
+/* Country selector closed state: flag + calling code only; menu keeps full country names. */
+.whatsapp-input .leo-shared-select .leo-country-compact{display:block;white-space:nowrap;font-size:13px;font-weight:600;line-height:1.2;letter-spacing:.1px;}
+.whatsapp-input .leo-shared-select .leo-shared-value{justify-content:center;overflow:hidden;}
+.whatsapp-input .leo-shared-select .leo-shared-arrow{margin-left:auto;}

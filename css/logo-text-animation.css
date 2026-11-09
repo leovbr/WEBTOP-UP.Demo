@@ -1,0 +1,168 @@
+/* LEOOSTORE.id — smooth write, fast electric flicker, clean white shine, glitch reset. */
+.site-header .header-brand .header-brand-text,
+.site-header a.header-brand > span.header-brand-text,
+.side-menu .header-brand .header-brand-text,
+.side-menu .side-menu-brand-text,
+.universal-social-footer .footer-brand-text{
+  position:relative!important;
+  display:inline-block!important;
+  color:#7c5cff!important;
+  background-image:linear-gradient(90deg,#fff 0%,#fff 34%,#7c5cff 34%,#7c5cff 100%)!important;
+  background-size:100% 100%!important;
+  background-position:0 50%!important;
+  -webkit-background-clip:text!important;
+  background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  clip-path:inset(0 0 0 0);
+  -webkit-mask-image:linear-gradient(to right,#000 0%,#000 100%);
+  mask-image:linear-gradient(to right,#000 0%,#000 100%);
+  -webkit-mask-size:100% 100%;
+  mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;
+  mask-repeat:no-repeat;
+  will-change:clip-path,filter,transform;
+  isolation:isolate;
+  animation:leoSmoothWrite 8s linear infinite,leoLightningGlitch 8s steps(1,end) infinite!important;
+}
+.site-header .header-brand .header-brand-text::before,
+.site-header a.header-brand > span.header-brand-text::before,
+.side-menu .header-brand .header-brand-text::before,
+.side-menu .side-menu-brand-text,
+.universal-social-footer .footer-brand-text::before{
+  content:"";
+  position:absolute;
+  inset:-9px -8px;
+  pointer-events:none;
+  z-index:3;
+  opacity:0;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 64'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 24 L16 17 L12 29 L27 22 L21 37 L35 31' stroke='%23d8b4fe' stroke-width='2.8'/%3E%3Cpath d='M42 8 L51 17 L47 24 L58 29' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M82 56 L94 43 L89 34 L105 25' stroke='%23a970ff' stroke-width='2.8'/%3E%3Cpath d='M139 8 L132 19 L143 25 L135 37' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M177 54 L188 41 L183 32 L198 23' stroke='%23c4a1ff' stroke-width='2.8'/%3E%3Cpath d='M213 14 L205 22 L211 29 L203 39' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M226 47 L235 39 L230 32' stroke='%23a970ff' stroke-width='2.4'/%3E%3C/g%3E%3C/svg%3E");
+  filter:drop-shadow(0 0 4px rgba(183,138,255,1)) drop-shadow(0 0 9px rgba(124,58,237,.95));
+  animation:leoWriteLightning 8s linear infinite;
+}
+.site-header .header-brand .header-brand-text::after,
+.site-header a.header-brand > span.header-brand-text::after,
+.side-menu .header-brand .header-brand-text::after,
+.side-menu .side-menu-brand-text,
+.universal-social-footer .footer-brand-text::after{
+  content:"LEOOSTORE.id";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:4;
+  color:transparent;
+  background:linear-gradient(105deg,transparent 0%,transparent 34%,rgba(255,255,255,.15) 41%,#fff 48%,rgba(255,255,255,.98) 51%,rgba(255,255,255,.38) 57%,transparent 66%,transparent 100%);
+  background-size:260% 100%;
+  background-position:160% 0;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  opacity:0;
+  filter:drop-shadow(0 0 3px rgba(255,255,255,.95));
+  animation:leoWhiteShimmer 8s cubic-bezier(.22,1,.36,1) infinite;
+  display:block!important;
+}
+/* Logo writes on from the left while the lightning flickers rapidly from frame one. */
+@keyframes leoSmoothWrite{
+  0%{clip-path:inset(0 100% 0 0);-webkit-mask-size:0% 100%;mask-size:0% 100%;filter:none}
+  45%{clip-path:inset(0 0 0 0);-webkit-mask-size:100% 100%;mask-size:100% 100%;filter:drop-shadow(0 0 3px rgba(169,112,255,.4))}
+  76%{clip-path:inset(0 0 0 0);-webkit-mask-size:100% 100%;mask-size:100% 100%;filter:drop-shadow(0 0 3px rgba(169,112,255,.4))}
+  100%{clip-path:inset(0 100% 0 0);-webkit-mask-size:0% 100%;mask-size:0% 100%;filter:none}
+}
+@keyframes leoWriteLightning{
+  0%{opacity:1;transform:translateX(-2px) scale(.98);filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px #7c3aed)}
+  3%{opacity:.12;transform:translateX(1px) scale(1.015)}
+  6%{opacity:1;transform:translateX(-1px) scale(1);filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 14px #7c3aed)}
+  9%{opacity:.18;transform:translateX(1px) scale(1.01)}
+  12%{opacity:1;transform:translateX(0) scale(1)}
+  16%{opacity:.25}
+  20%{opacity:1;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 16px #7c3aed)}
+  26%{opacity:.15}
+  31%{opacity:1}
+  37%{opacity:.4}
+  42%{opacity:1;filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 14px #7c3aed)}
+  45%{opacity:1;transform:translateX(0) scale(1)}
+  46%,76%{opacity:0;transform:translateX(0) scale(.98)}
+  78%{opacity:1;transform:translateX(-1px) scale(1);filter:drop-shadow(0 0 5px rgba(216,180,254,1)) drop-shadow(0 0 12px rgba(124,58,237,1))}
+  79%{opacity:.2;transform:translateX(1px) scale(1.015)}
+  80%{opacity:1;transform:translateX(0) scale(1.01)}
+  82%{opacity:.95;transform:translateX(1px) scale(1)}
+  83%{opacity:0}
+  85%{opacity:1;transform:translateX(-1px) scale(1.015)}
+  87%,100%{opacity:0}
+}
+/* Smooth white highlight sweeps across the finished wordmark; no dark overlay or collapse. */
+@keyframes leoWhiteShimmer{
+  0%,44%{background-position:160% 0;opacity:0}
+  48%{opacity:.2}
+  52%{opacity:.95}
+  68%{background-position:-70% 0;opacity:1}
+  76%,100%{background-position:-70% 0;opacity:0}
+}
+/* Brief electric glitch before a normal clean reset into the next writing cycle. */
+@keyframes leoLightningGlitch{
+  0%,76%,100%{transform:translate(0,0);filter:none;text-shadow:none}
+  78%{transform:translate(-1px,0);filter:drop-shadow(2px 0 #fff) drop-shadow(-2px 0 #a970ff);text-shadow:2px 0 rgba(255,255,255,.9),-2px 0 rgba(124,92,255,.95)}
+  79%{transform:translate(1px,-1px) skewX(-5deg);filter:drop-shadow(-3px 0 #fff) drop-shadow(3px 0 #7c5cff);text-shadow:-3px 0 #fff,3px 0 #7c5cff}
+  80%{transform:translate(-1px,1px) skewX(4deg);filter:drop-shadow(0 0 7px rgba(255,255,255,.95));text-shadow:2px 0 #fff,-2px 0 #7c5cff}
+  81%{transform:translate(1px,0);filter:drop-shadow(0 0 10px rgba(124,92,255,.9));text-shadow:-2px 0 #fff,2px 0 #7c5cff}
+  82%,84%{transform:translate(0,0);filter:drop-shadow(0 0 4px rgba(255,255,255,.85));text-shadow:none}
+  85%{transform:translate(-1px,0);filter:drop-shadow(1px 0 #fff) drop-shadow(-1px 0 #7c5cff)}
+  87%{transform:translate(0,0);filter:none;text-shadow:none}
+}
+
+
+/* Shared customer-page footer brand and social layout */
+.universal-social-footer .footer-closure{max-width:760px;margin:0 auto 28px;text-align:left;padding:0 16px;}
+.universal-social-footer .footer-brand-text{font-family:Orbitron,sans-serif!important;font-size:clamp(22px,4vw,30px)!important;font-weight:900!important;letter-spacing:-1.2px!important;text-decoration:none!important;display:inline-block!important;margin:0 0 18px!important;}
+.universal-social-footer .footer-closure h3{margin:0 0 10px;text-align:left;font-size:clamp(18px,2.5vw,22px);line-height:1.35;font-weight:800;color:var(--text,#f4f6ff);}
+.universal-social-footer .footer-closure p{margin:0;text-align:left;color:var(--text-soft,#aab5ca);font-size:13px;line-height:1.8;}
+.universal-social-footer .footer-social-column h4{text-align:left!important;}
+.universal-social-footer .footer-social-row{display:flex!important;justify-content:flex-start!important;align-items:center!important;gap:22px!important;flex-wrap:nowrap!important;width:100%!important;}
+.universal-social-footer .footer-social-row .social-link{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:42px!important;height:42px!important;min-width:42px!important;max-width:42px!important;padding:0!important;border:0!important;background:transparent!important;}
+.universal-social-footer .footer-social-row .social-link img{display:block!important;width:27px!important;height:27px!important;object-fit:contain!important;filter:brightness(0) invert(1)!important;opacity:.95!important;}
+.universal-social-footer .footer-social-row .social-link:hover{transform:translateY(-2px)!important;opacity:.8!important;}
+.universal-social-footer .footer-social-copyright{flex-basis:100%!important;text-align:left!important;}
+@media(max-width:680px){.universal-social-footer .footer-closure{margin-bottom:24px;padding:0 18px;}.universal-social-footer .footer-brand-text{font-size:24px!important;margin-bottom:16px!important;}.universal-social-footer .footer-closure p{font-size:12px;line-height:1.75;}.universal-social-footer .footer-social-row{gap:18px!important;}.universal-social-footer .footer-social-row .social-link{width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;}.universal-social-footer .footer-social-row .social-link img{width:30px!important;height:30px!important;}}
+
+
+/* Floating WhatsApp headset shortcut — moved from navbar on every storefront page */
+.leo-floating-admin{position:fixed!important;right:max(18px,env(safe-area-inset-right))!important;bottom:max(22px,calc(env(safe-area-inset-bottom) + 18px))!important;z-index:9999!important;width:54px!important;height:54px!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;background:linear-gradient(145deg,#9b5cff,#6428d9)!important;border:1px solid rgba(221,195,255,.85)!important;box-shadow:0 6px 22px rgba(124,58,237,.48),inset 0 1px 0 rgba(255,255,255,.28)!important;color:#fff!important;text-decoration:none!important;backdrop-filter:blur(8px)!important;-webkit-tap-highlight-color:transparent!important;transition:transform .2s ease,box-shadow .2s ease!important}
+.leo-floating-admin svg{width:23px!important;height:23px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.8!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+.leo-floating-admin:hover,.leo-floating-admin:focus-visible{transform:translateY(-3px)!important;box-shadow:0 9px 28px rgba(124,58,237,.65),inset 0 1px 0 rgba(255,255,255,.3)!important;outline:2px solid rgba(216,180,254,.8)!important;outline-offset:3px!important}
+@media(max-width:600px){.leo-floating-admin{width:50px!important;height:50px!important;right:16px!important;bottom:max(18px,calc(env(safe-area-inset-bottom) + 14px))!important}}
+
+/* Seven-language selector */
+.leo-language-wrap{position:relative;display:inline-flex;align-items:center;z-index:10020;flex:0 0 auto;font-family:inherit}
+.leo-language-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:7px 10px;border:1px solid rgba(168,140,255,.32);border-radius:999px;background:rgba(17,27,49,.92);color:#e9edff;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer}
+.leo-language-chevron{font-size:12px;opacity:.8}
+.leo-language-menu{position:absolute;right:0;top:calc(100% + 8px);width:220px;max-width:80vw;padding:6px;border:1px solid rgba(168,140,255,.28);border-radius:14px;background:#0b1425;box-shadow:0 12px 34px rgba(0,0,0,.45);z-index:10030}
+.leo-language-menu[hidden]{display:none!important}
+.leo-language-menu button{display:block;width:100%;padding:10px 11px;border:0;border-radius:9px;background:transparent;color:#e9edff;text-align:left;font-size:13px;font-family:inherit;cursor:pointer}
+.leo-language-menu button:hover,.leo-language-menu button.selected{background:rgba(124,58,237,.24)}
+.goog-te-banner-frame,.skiptranslate iframe{display:none!important}body{top:0!important}.goog-te-gadget{font-size:0!important}.goog-logo-link,.goog-te-gadget span{display:none!important}
+@media(max-width:600px){.leo-language-button{min-height:32px;padding:6px 8px;font-size:11px}.leo-language-menu{right:0;width:205px}}
+
+/* Interaction safety override for language menu */
+.site-header .container{position:relative}
+.site-header .leo-language-wrap{position:relative!important;z-index:10050!important;pointer-events:auto!important}
+.site-header .leo-language-button{position:relative!important;z-index:10051!important;pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer!important}
+.site-header .leo-language-menu{position:absolute!important;z-index:10052!important;pointer-events:auto!important}
+.site-header .leo-language-menu button{pointer-events:auto!important;touch-action:manipulation!important;cursor:pointer!important}
+
+/* Side drawer brand — match the main LEOOSTORE.id navbar wordmark on every page */
+.side-menu .side-menu-header{gap:12px!important;justify-content:space-between!important;min-width:0!important}
+
+
+
+
+@keyframes leoBrandGlow{from{filter:drop-shadow(0 0 3px rgba(124,58,237,.25))}to{filter:drop-shadow(0 0 9px rgba(124,58,237,.8))}}
+@keyframes leoDrawerShine{0%,20%{background-position:180% 0;opacity:0}45%{opacity:.85}75%,100%{background-position:-100% 0;opacity:0}}
+@keyframes leoDrawerSpark{0%,90%,100%{opacity:0}92%{opacity:1}94%{opacity:.1}96%{opacity:.9}98%{opacity:0}}
+@media(max-width:600px){.side-menu .side-menu-header{padding:0 20px!important}.side-menu .side-menu-brand-text{font-size:22px!important;letter-spacing:-1.1px!important}}
+
+/* Drawer logo uses the same write-on, lightning flicker, and white shimmer as navbar */
+
+
+

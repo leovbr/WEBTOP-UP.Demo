@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head><script src="js/local-store.js"></script>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Pembayaran — LEOOSTORE</title>
+
+  <meta
+    name="description"
+    content="Selesaikan pembayaran pesanan LEOOSTORE."
+  >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+  <link rel="stylesheet" href="css/style-pages.css">
+
+
+<style id="leoostore-text-brand-override">
+/* Final override: show text-only LEOOSTORE.id · LOCAL DEMO brand on every storefront page. */
+.site-header a.header-brand,
+.site-header .container > a.header-brand,
+.site-header .header-inner > a.header-brand{
+  display:inline-flex!important; align-items:center!important; justify-content:flex-start!important;
+  flex:0 0 auto!important; width:auto!important; min-width:0!important; height:auto!important;
+  max-width:100%!important; overflow:visible!important; gap:0!important;
+}
+.site-header .header-brand img.header-logo{display:none!important; visibility:hidden!important; width:0!important; height:0!important;}
+.site-header .header-brand .header-brand-text,
+.site-header a.header-brand > span.header-brand-text{
+  display:inline-block!important; visibility:visible!important; opacity:1!important;
+  position:relative!important; width:auto!important; height:auto!important; max-width:none!important;
+  margin:0!important; padding:0!important; overflow:visible!important;
+  color:#f5f8ff!important;
+  background:linear-gradient(100deg,#b78aff 0%,#9b5cff 36%,#7c3aed 68%,#d8b4fe 100%)!important;
+  -webkit-background-clip:text!important; background-clip:text!important;
+  -webkit-text-fill-color:transparent!important;
+  font-family:'Orbitron','Plus Jakarta Sans',Arial,sans-serif!important;
+  font-size:clamp(16px,2.3vw,21px)!important; font-weight:900!important;
+  font-style:normal!important; letter-spacing:-.045em!important; line-height:1.15!important;
+  white-space:nowrap!important; text-decoration:none!important; text-shadow:none!important;
+  transform:none!important;
+}
+@media(max-width:600px){
+ .site-header .header-brand .header-brand-text,
+ .site-header a.header-brand > span.header-brand-text{font-size:17px!important;}
+}
+
+/* TARGETED FIX ONLY: nudge the inner-page text brand right by 10px.
+   These pages use .container > .header-brand (not .header-inner > .header-brand).
+   Do not alter the Home header or any other layout. */
+body:not(.home-page) .site-header > .container > .header-brand,
+body:not(.home-page) .site-header .container > .header-brand {
+  margin-left: 10px !important;
+}
+</style>
+<link rel="stylesheet" href="css/logo-text-animation.css?v=20261014-mask-write">
+
+
+</head>
+
+
+<body class="payment-page">
+
+
+  <header class="site-header">
+
+    <div class="container">
+
+      <a
+  href="index.html"
+  class="header-brand"
+>
+  <span class="header-brand-text">LEOOSTORE.id · LOCAL DEMO</span>
+</a>
+
+
+      <nav class="nav">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="shop.html">
+          Top Up
+        </a>
+
+        <a
+          href="order.html"
+          class="active"
+        >
+          Cek Pesanan
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <section class="order-section">
+
+      <div class="container">
+
+        <div
+          id="paymentContainer"
+          class="payment-container"
+        >
+
+          <div class="checkout-loading">
+
+            <strong>
+              Memuat pembayaran...
+            </strong>
+
+            <span>
+              Tunggu sebentar.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+<!-- =========================
+     FOOTER
+========================== -->
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer-brand-line">
+
+      <strong>
+        LEOOSTORE
+      </strong>
+
+      <span>
+        © 2026
+      </span>
+
+      <span class="footer-tagline">
+        · Fast. Trusted. Delivered.
+      </span>
+
+    </div>
+
+  </div>
+</footer>
+
+  <script src="js/payment.js?v=20260920-2"></script>
+
+</body>
+
+</html>
