@@ -27,9 +27,26 @@
     store_games: [], store_products: [], store_promos: demoPromos, store_articles: demoArticles,
     store_homepage_settings: [{id:1,trending_enabled:true,trending_title:"Trending",trending_limit:6,trending_slugs:[],all_games_enabled:true,all_games_title:"All Games",all_games_initial_limit:12,show_all_games_button:true,all_games_slugs:[]}],
     store_game_accounts: [], store_account_listings: [], store_home_banners: demoHomeBanners, store_images: [],
-    store_chat_conversations: [], store_chat_messages: [], store_accounts: [], store_leaderboard: []
+    store_chat_conversations: [], store_chat_messages: [],
+    store_accounts: [
+      {id:"demo-account-01",account_name:"Starter Account — Sample",game_name:"Mobile Legends",description:"Contoh listing akun untuk preview marketplace demo. Detail dan stok hanya simulasi.",price:75000,stock:2,warranty_days:1,image1_url:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80",image2_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80",sort_order:1,is_active:true,created_at:now()},
+      {id:"demo-account-02",account_name:"Adventure Account — Sample",game_name:"Genshin Impact",description:"Contoh listing akun game untuk menampilkan kartu produk, foto, harga, dan detail.",price:125000,stock:1,warranty_days:1,image1_url:"https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=900&q=80",image2_url:"https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=80",sort_order:2,is_active:true,created_at:now()},
+      {id:"demo-account-03",account_name:"Competitive Account — Sample",game_name:"Free Fire",description:"Data contoh. Hubungi admin demo untuk melihat alur tombol konsultasi dan pembelian.",price:99000,stock:3,warranty_days:1,image1_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80",image2_url:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80",sort_order:3,is_active:true,created_at:now()}
+    ],
+    store_leaderboard: []
   };
   function seed() {
+    // Seed demo tables on every page, including article pages that do not load products.js.
+    for (const [table,rows] of Object.entries(defaults)) {
+      if (!localStorage.getItem(PREFIX+table)) write(table,rows);
+    }
+    if(!localStorage.getItem(PREFIX+"seed_v2")){
+      for(const table of ["store_articles","store_promos","store_home_banners","store_accounts"]){
+        if(read(table,[]).length===0 && defaults[table]?.length) write(table,defaults[table]);
+      }
+      localStorage.setItem(PREFIX+"seed_v2","1");
+    }
+
     const source = window.LEOOSTORE_PRODUCTS || [];
     if (!Array.isArray(source) || !source.length) return;
     let games = read("store_games", []);
@@ -37,16 +54,16 @@
     if (!games.length) {
       games = source.map((g,i)=>({
         id:g.id || g.slug || String(i+1), slug:g.slug || slugify(g.name), name:g.name || g.slug,
-        publisher:g.publisher || "", description:g.description || "", icon_url:"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+(g.slug||slugify(g.name))+".webp",
-        banner_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80", is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
+        publisher:g.publisher || "", description:g.description || "",
+        icon_url:"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+(g.slug||slugify(g.name))+".webp",
+        banner_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80",
+        is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
       }));
       write("store_games",games);
-    }
-    if (games.length) {
+    } else {
       let changed=false;
       games=games.map(g=>{
-        const slug=g.slug||slugify(g.name);
-        const icon=g.icon_url||"";
+        const slug=g.slug||slugify(g.name), icon=g.icon_url||"";
         const nextIcon=(!icon||icon.startsWith("assets/"))?"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+slug+".webp":icon;
         const nextBanner=g.banner_url||"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80";
         if(nextIcon!==icon||nextBanner!==g.banner_url)changed=true;
@@ -61,14 +78,6 @@
         is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
       })));
       write("store_products",products);
-    }
-    for (const [table,rows] of Object.entries(defaults)) if (!localStorage.getItem(PREFIX+table)) write(table,rows);
-    // One-time demo content migration for browsers that already opened an earlier build.
-    if(!localStorage.getItem(PREFIX+"seed_v2")){
-      for(const table of ["store_articles","store_promos","store_home_banners"]){
-        if(read(table,[]).length===0 && defaults[table]?.length) write(table,defaults[table]);
-      }
-      localStorage.setItem(PREFIX+"seed_v2","1");
     }
   }
   window.LEOOSTORE_SEED_LOCAL = seed;
