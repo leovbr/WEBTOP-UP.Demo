@@ -11,10 +11,22 @@
   const clone = value => JSON.parse(JSON.stringify(value));
   const now = () => new Date().toISOString();
   const slugify = s => String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+  const demoArticles = [
+    {id:"demo-article-01",slug:"panduan-top-up-game-aman",title:"Panduan Top Up Game yang Aman untuk Pemula",excerpt:"Kenali langkah sederhana sebelum melakukan transaksi top up agar pengalaman bermain tetap nyaman.",category:"Panduan",thumbnail_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=85",content:"Top up game sebaiknya dilakukan dengan teliti. Pastikan nama game dan nominal yang dipilih sudah benar sebelum melanjutkan transaksi.\n\nPeriksa kembali Player ID dan Server jika game yang digunakan memerlukannya. Kesalahan data akun dapat membuat pesanan tertunda atau terkirim ke akun yang tidak sesuai.\n\nUntuk demo ini, seluruh transaksi hanya simulasi dan tidak memproses pembayaran sungguhan.",status:"published",published_at:now()},
+    {id:"demo-article-02",slug:"cara-memilih-nominal-top-up",title:"Cara Memilih Nominal Top Up yang Tepat",excerpt:"Sesuaikan nominal pembelian dengan kebutuhan dan anggaran bermainmu.",category:"Tips",thumbnail_url:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=85",content:"Sebelum memilih nominal, tentukan terlebih dahulu item atau kebutuhan di dalam game. Bandingkan pilihan nominal yang tersedia dan perhatikan total harga pada ringkasan pesanan.\n\nHindari membeli secara impulsif. Pilih nominal sesuai kebutuhan dan anggaran yang sudah disiapkan.\n\nKonten dan harga pada website ini merupakan data contoh untuk keperluan demonstrasi.",status:"published",published_at:now()},
+    {id:"demo-article-03",slug:"mengenal-player-id-dan-server",title:"Mengenal Player ID dan Server dalam Transaksi Game",excerpt:"Kenapa data Player ID dan Server perlu diperiksa sebelum checkout?",category:"Edukasi",thumbnail_url:"https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=1200&q=85",content:"Player ID digunakan untuk mengenali akun game tujuan. Pada beberapa game, informasi Server atau Zone ID juga diperlukan agar pengiriman item menuju akun yang tepat.\n\nSalin data langsung dari profil game dan periksa kembali sebelum menekan tombol checkout. Jangan membagikan kata sandi akun kepada pihak lain.\n\nWebsite demo ini tidak mengirim item sungguhan dan tidak meminta kredensial akun untuk transaksi top up biasa.",status:"published",published_at:now()},
+    {id:"demo-article-04",slug:"tips-mengelola-budget-gaming",title:"Tips Mengelola Budget Gaming",excerpt:"Tetap menikmati game dengan pengeluaran yang terencana dan terkontrol.",category:"Tips",thumbnail_url:"https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=85",content:"Buat batas pengeluaran hiburan setiap minggu atau bulan. Pisahkan kebutuhan utama dari anggaran bermain agar aktivitas gaming tidak mengganggu keuangan pribadi.\n\nCatat transaksi dan evaluasi pembelian secara berkala. Promo bukan berarti harus selalu digunakan; beli hanya jika memang dibutuhkan.\n\nArtikel ini merupakan konten contoh yang disediakan untuk preview halaman artikel demo.",status:"published",published_at:now()}
+  ];
+  const demoPromos = [
+    {id:"demo-banner-01",code:"DEMO10",title:"Demo Special",description:"Contoh promo untuk melihat tampilan banner dan kode diskon.",discount_type:"percent",discount_value:10,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:10000,starts_at:null,ends_at:null,is_active:true,sort_order:1,image_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=85",target_url:"index.html",created_at:now()},
+    {id:"demo-banner-02",code:"GAMING5",title:"Gaming Week",description:"Contoh banner promosi bertema gaming untuk demo.",discount_type:"fixed",discount_value:5000,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:25000,starts_at:null,ends_at:null,is_active:true,sort_order:2,image_url:"https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=1600&q=85",target_url:"shop.html",created_at:now()},
+    {id:"demo-banner-03",code:"WELCOME",title:"Welcome Gamer",description:"Contoh banner sambutan untuk pengunjung baru.",discount_type:"percent",discount_value:5,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:0,starts_at:null,ends_at:null,is_active:true,sort_order:3,image_url:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=85",target_url:"artikel.html",created_at:now()}
+  ];
+  const demoHomeBanners = demoPromos.map((p,i)=>({id:"demo-home-"+(i+1),title:p.title,description:p.description,image_url:p.image_url,target_url:p.target_url,is_active:true,sort_order:i+1}));
   const defaults = {
-    store_games: [], store_products: [], store_promos: [], store_articles: [],
+    store_games: [], store_products: [], store_promos: demoPromos, store_articles: demoArticles,
     store_homepage_settings: [{id:1,trending_enabled:true,trending_title:"Trending",trending_limit:6,trending_slugs:[],all_games_enabled:true,all_games_title:"All Games",all_games_initial_limit:12,show_all_games_button:true,all_games_slugs:[]}],
-    store_game_accounts: [], store_account_listings: [], store_home_banners: [], store_images: [],
+    store_game_accounts: [], store_account_listings: [], store_home_banners: demoHomeBanners, store_images: [],
     store_chat_conversations: [], store_chat_messages: [], store_accounts: [], store_leaderboard: []
   };
   function seed() {
@@ -25,10 +37,22 @@
     if (!games.length) {
       games = source.map((g,i)=>({
         id:g.id || g.slug || String(i+1), slug:g.slug || slugify(g.name), name:g.name || g.slug,
-        publisher:g.publisher || "", description:g.description || "", icon_url:g.icon_url || g.image || ("assets/icons/"+(g.slug||slugify(g.name))+".webp"),
-        banner_url:g.banner_url || "", is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
+        publisher:g.publisher || "", description:g.description || "", icon_url:"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+(g.slug||slugify(g.name))+".webp",
+        banner_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80", is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
       }));
       write("store_games",games);
+    }
+    if (games.length) {
+      let changed=false;
+      games=games.map(g=>{
+        const slug=g.slug||slugify(g.name);
+        const icon=g.icon_url||"";
+        const nextIcon=(!icon||icon.startsWith("assets/"))?"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+slug+".webp":icon;
+        const nextBanner=g.banner_url||"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80";
+        if(nextIcon!==icon||nextBanner!==g.banner_url)changed=true;
+        return {...g,icon_url:nextIcon,banner_url:nextBanner};
+      });
+      if(changed)write("store_games",games);
     }
     if (!products.length) {
       products = source.flatMap(g=>(g.denominations||[]).map((d,i)=>({
@@ -39,6 +63,13 @@
       write("store_products",products);
     }
     for (const [table,rows] of Object.entries(defaults)) if (!localStorage.getItem(PREFIX+table)) write(table,rows);
+    // One-time demo content migration for browsers that already opened an earlier build.
+    if(!localStorage.getItem(PREFIX+"seed_v2")){
+      for(const table of ["store_articles","store_promos","store_home_banners"]){
+        if(read(table,[]).length===0 && defaults[table]?.length) write(table,defaults[table]);
+      }
+      localStorage.setItem(PREFIX+"seed_v2","1");
+    }
   }
   window.LEOOSTORE_SEED_LOCAL = seed;
   const tables = new Set(Object.keys(defaults));
