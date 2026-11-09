@@ -5,7 +5,7 @@
 
 const ORDERS_KEY = "LEOOSTORE_orders";
 const LAST_ORDER_KEY = "LEOOSTORE_last_order";
-const PAYMENT_API = "";
+const PAYMENT_API = null;
 
 
 document.addEventListener("DOMContentLoaded", () => {
