@@ -21,9 +21,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link
     rel="stylesheet"
-    href="css/style.css?v=20261017-drawer-brand-right-close1"
+    href="css/style.css?v=20261022-cache-bust1"
   >
-  <link rel="stylesheet" href="css/style-pages.css?v=20261022-order-bg2">
+  <link rel="stylesheet" href="css/style-pages.css?v=20261022-cache-bust1">
 
 <link rel="stylesheet" href="css/checkout-fixes.css?v=20260919-49">
 
@@ -57,13 +57,7 @@
  .site-header a.header-brand > span.header-brand-text{font-size:17px!important;}
 }
 
-/* TARGETED FIX ONLY: nudge the inner-page text brand right by 10px.
-   These pages use .container > .header-brand (not .header-inner > .header-brand).
-   Do not alter the Home header or any other layout. */
-body:not(.home-page) .site-header > .container > .header-brand,
-body:not(.home-page) .site-header .container > .header-brand {
-  margin-left: 10px !important;
-}
+/* Keep the order-page brand aligned with the shared storefront header. */
 </style>
 <link rel="stylesheet" href="css/logo-text-animation.css?v=20261017-navbar-matched-drawer1">
 
