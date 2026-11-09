@@ -164,52 +164,7 @@ function getLastOrder() {
    BACKEND STATUS SYNC
 ========================================================= */
 
-async function syncOrderFromBackend(order) {
-  if (!order?.orderId) return;
-
-  try {
-    const response = await fetch(
-      PAYMENT_API + "/api/orders/" + encodeURIComponent(order.orderId),
-      { cache: "no-store" }
-    );
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || !result.ok || !result.order) return;
-
-    const backendOrder = result.order;
-    const merged = {
-      ...order,
-      ...backendOrder,
-      orderId: backendOrder.orderId || order.orderId,
-      gameId: backendOrder.productId || order.gameId,
-      gameName: backendOrder.productName || order.gameName || order.game,
-      game: backendOrder.productName || order.game,
-      amount: backendOrder.denomination || order.amount,
-      denomination: backendOrder.denomination || order.denomination,
-      paymentId: backendOrder.paymentId || order.paymentId,
-      payment: backendOrder.paymentName || order.payment,
-      paymentName: backendOrder.paymentName || order.paymentName,
-      price: Number(backendOrder.total ?? order.price ?? 0),
-      total: Number(backendOrder.total ?? order.total ?? 0),
-      createdAt: backendOrder.createdAt || order.createdAt
-    };
-
-    const orders = getOrders();
-    const index = orders.findIndex(item => String(item.orderId) === String(merged.orderId));
-    if (index !== -1) orders[index] = merged;
-    else orders.unshift(merged);
-    saveOrders(orders);
-    saveLastOrder(merged);
-
-    renderCurrentPage(merged);
-
-    if (merged.status === "Menunggu Pembayaran") {
-      setTimeout(() => syncOrderFromBackend(merged), 3000);
-    }
-  } catch (error) {
-    console.error("Order status sync failed:", error);
-    setTimeout(() => syncOrderFromBackend(order), 5000);
-  }
-}
+async function syncOrderFromBackend(order) { return; }
 
 
 
@@ -241,75 +196,7 @@ function saveLastOrder(
    HISTORY BACKEND SYNC
 ========================================================= */
 
-async function syncHistoryOrders(orders) {
-  if (!Array.isArray(orders) || !orders.length) return;
-
-  const updated = await Promise.all(
-    orders.map(async (order) => {
-      if (!order?.orderId) return order;
-
-      try {
-        const response = await fetch(
-          PAYMENT_API + "/api/orders/" + encodeURIComponent(order.orderId),
-          { cache: "no-store" }
-        );
-        const result = await response.json().catch(() => ({}));
-
-        if (!response.ok || !result.ok || !result.order) {
-          return order;
-        }
-
-        const backendOrder = result.order;
-        return {
-          ...order,
-          ...backendOrder,
-          orderId: backendOrder.orderId || order.orderId,
-          gameId: backendOrder.productId || order.gameId,
-          gameName: backendOrder.productName || order.gameName || order.game,
-          game: backendOrder.productName || order.game,
-          amount: backendOrder.denomination || order.amount,
-          denomination: backendOrder.denomination || order.denomination,
-          paymentId: backendOrder.paymentId || order.paymentId,
-          payment: backendOrder.paymentName || order.payment,
-          paymentName: backendOrder.paymentName || order.paymentName,
-          price: Number(backendOrder.total ?? order.price ?? 0),
-          total: Number(backendOrder.total ?? order.total ?? 0),
-          createdAt: backendOrder.createdAt || order.createdAt
-        };
-      } catch (error) {
-        console.error("History status sync failed:", error);
-        return order;
-      }
-    })
-  );
-
-  const localOrders = getOrders();
-  updated.forEach((order) => {
-    const index = localOrders.findIndex(
-      item => String(item.orderId) === String(order.orderId)
-    );
-    if (index !== -1) localOrders[index] = order;
-    else localOrders.unshift(order);
-  });
-
-  saveOrders(localOrders);
-
-  const latest = updated
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt || 0) -
-        new Date(a.createdAt || 0)
-    );
-
-  renderHistoryList(latest);
-
-  latest.forEach((order) => {
-    if (order.status === "Menunggu Pembayaran") {
-      setTimeout(() => syncHistoryOrders([order]), 3000);
-    }
-  });
-}
+async function syncHistoryOrders(orders) { return; }
 
 
 /* =========================================================
