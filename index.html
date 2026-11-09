@@ -529,18 +529,8 @@ document.addEventListener("DOMContentLoaded",async function(){
  setStatus("Memuat pengaturan Admin dan katalog game dari database lokal…");
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  try{
-  // Recover if the primary database lokal CDN did not load on this device.
-  if(!window.LEOOSTORE_DB){
-   trendingGrid.innerHTML='<p class="home-data-status">Menghubungkan ke database…</p>';
-   allGrid.innerHTML='<p class="home-data-status">Menghubungkan ke database…</p>';
-   await new Promise(resolve=>{
-    const script=document.createElement("script");
-    script.src="https://unpkg.com/@database-lokal/database-lokal-js@2";
-    script.onload=resolve;script.onerror=resolve;
-    document.head.appendChild(script);
-   });
-  }
-  if(!window.LEOOSTORE_DB)throw new Error("Library database gagal dimuat dari CDN. Coba jaringan lain atau nonaktifkan pemblokir konten.");
+  // Demo uses the bundled Local Storage adapter only; no CDN/database fallback.
+  if(!window.LEOOSTORE_DB)throw new Error("Local Storage adapter tidak ditemukan. Pastikan js/local-store.js berhasil dimuat.");
   const db=window.LEOOSTORE_DB.createClient("local://database","LOCAL-DEMO-ONLY");
   const [{data:games,error:gamesError},{data:settings,error:settingsError},{data:products,error:productsError}]=await Promise.all([
    db.from("store_games").select("slug,name,publisher,icon_url,banner_url,sort_order,is_active").eq("is_active",true).order("sort_order").limit(200),
