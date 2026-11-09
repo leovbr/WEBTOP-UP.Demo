@@ -385,13 +385,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     promoApplied = false; appliedPromo = null;
     if (!code) { if (promoMessage) promoMessage.textContent = "Masukkan kode promo."; updateSummary(); return; }
     try {
-      if (!window.LEOOSTORE_DB?.createClient) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement("script");
-          script.src = "https://cdn.jsdelivr.net/npm/@database-lokal/database-lokal-js@2";
-          script.onload = resolve; script.onerror = reject; document.head.appendChild(script);
-        });
-      }
+      if (!window.LEOOSTORE_DB?.createClient) throw new Error("Database demo lokal belum siap. Muat ulang halaman.");
       const db = window.LEOOSTORE_DB.createClient("local://database", "LOCAL-DEMO-ONLY");
       const {data: promoRows, error} = await db.from("store_promos").select("id,code,discount_type,discount_value,is_active,starts_at,ends_at,usage_limit,usage_count,per_user_limit,min_purchase").eq("is_active", true);
       if (error) throw error;
