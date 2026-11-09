@@ -23,6 +23,20 @@
     {id:"demo-banner-03",code:"WELCOME",title:"Welcome Gamer",description:"Contoh banner sambutan untuk pengunjung baru.",discount_type:"percent",discount_value:5,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:0,starts_at:null,ends_at:null,is_active:true,sort_order:3,image_url:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=85",target_url:"artikel.html",created_at:now()}
   ];
   const demoHomeBanners = demoPromos.map((p,i)=>({id:"demo-home-"+(i+1),title:p.title,description:p.description,image_url:p.image_url,target_url:p.target_url,is_active:true,sort_order:i+1}));
+  const demoExtraGames = [
+    ["arena-of-valor","Arena of Valor"],["black-clover-m","Black Clover M"],["blood-strike","Blood Strike"],
+    ["call-of-duty-mobile","Call of Duty Mobile"],["delta-force","Delta Force"],["ea-sports-fc-mobile","EA SPORTS FC Mobile"],
+    ["efootball","eFootball"],["genshin-impact","Genshin Impact"],["honkai-impact-3","Honkai Impact 3"],
+    ["honkai-star-rail","Honkai: Star Rail"],["honor-of-kings","Honor of Kings"],
+    ["league-of-legends-wild-rift","League of Legends: Wild Rift"],["lifeafter","LifeAfter"],
+    ["marvel-rivals","Marvel Rivals"],["point-blank","Point Blank"],["speed-drifters","Speed Drifters"],
+    ["valorant","VALORANT"],["wuthering-waves","Wuthering Waves"],["zenless-zone-zero","Zenless Zone Zero"]
+  ].map((g,i)=>({id:g[0],slug:g[0],name:g[1],publisher:"",description:"Game contoh untuk preview katalog WEBTOP-UP.Demo.",icon_url:"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+g[0]+".webp",banner_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80",is_active:true,sort_order:20+i,created_at:now(),updated_at:now()}));
+  const demoExtraProducts = demoExtraGames.flatMap(g=>[
+    {id:g.slug+"-demo-small",game_slug:g.slug,amount:"Demo Pack Small",price:5000,category:"Demo Package",is_active:true,sort_order:1},
+    {id:g.slug+"-demo-medium",game_slug:g.slug,amount:"Demo Pack Medium",price:15000,category:"Demo Package",is_active:true,sort_order:2},
+    {id:g.slug+"-demo-large",game_slug:g.slug,amount:"Demo Pack Large",price:30000,category:"Demo Package",is_active:true,sort_order:3}
+  ]);
   const defaults = {
     store_games: [], store_products: [], store_promos: demoPromos, store_articles: demoArticles,
     store_homepage_settings: [{id:1,trending_enabled:true,trending_title:"Trending",trending_limit:6,trending_slugs:[],all_games_enabled:true,all_games_title:"All Games",all_games_initial_limit:12,show_all_games_button:true,all_games_slugs:[]}],
@@ -55,20 +69,24 @@
       games = source.map((g,i)=>({
         id:g.id || g.slug || String(i+1), slug:g.slug || slugify(g.name), name:g.name || g.slug,
         publisher:g.publisher || "", description:g.description || "",
-        icon_url:"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+(g.slug||slugify(g.name))+".webp",
+        icon_url:"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+((g.slug||slugify(g.name)).startsWith("roblox-")?"roblox":(g.slug||slugify(g.name)))+".webp",
         banner_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80",
         is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
       }));
+      games = games.concat(demoExtraGames);
       write("store_games",games);
     } else {
       let changed=false;
       games=games.map(g=>{
         const slug=g.slug||slugify(g.name), icon=g.icon_url||"";
-        const nextIcon=(!icon||icon.startsWith("assets/"))?"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+slug+".webp":icon;
+        const nextIcon=(!icon||icon.startsWith("assets/"))?"https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icons/"+(slug.startsWith("roblox-")?"roblox":slug)+".webp":icon;
         const nextBanner=g.banner_url||"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1400&q=80";
         if(nextIcon!==icon||nextBanner!==g.banner_url)changed=true;
         return {...g,icon_url:nextIcon,banner_url:nextBanner};
       });
+      const known=new Set(games.map(g=>g.slug));
+      const missing=demoExtraGames.filter(g=>!known.has(g.slug));
+      if(missing.length){games=games.concat(missing);changed=true;}
       if(changed)write("store_games",games);
     }
     if (!products.length) {
@@ -77,7 +95,12 @@
         amount:d.amount || d.name || "", price:Number(d.price)||0, category:d.category||"Top Up",
         is_active:true, sort_order:i+1, created_at:now(), updated_at:now()
       })));
+      products = products.concat(demoExtraProducts);
       write("store_products",products);
+    } else {
+      const known=new Set(products.map(p=>String(p.id)));
+      const missing=demoExtraProducts.filter(p=>!known.has(String(p.id)));
+      if(missing.length)write("store_products",products.concat(missing.map(p=>({...p,created_at:now(),updated_at:now()}))));
     }
   }
   window.LEOOSTORE_SEED_LOCAL = seed;
