@@ -392,7 +392,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           script.onload = resolve; script.onerror = reject; document.head.appendChild(script);
         });
       }
-      const db = window.supabase.createClient("https://tvdbrqskvuukxvqaqjom.supabase.co", "sb_publishable_2f-IadmcnaYzoCb_8Iko0w_pFp9u8eF");
+      const db = window.supabase.createClient("local://database", "LOCAL-DEMO-ONLY");
       const {data: promoRows, error} = await db.from("store_promos").select("id,code,discount_type,discount_value,is_active,starts_at,ends_at,usage_limit,usage_count,per_user_limit,min_purchase").eq("is_active", true);
       if (error) throw error;
       const data = (promoRows || []).find((row) => String(row.code || "").trim().toUpperCase() === code);

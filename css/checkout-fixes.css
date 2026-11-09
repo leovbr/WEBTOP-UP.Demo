@@ -1528,7 +1528,7 @@
 
 /* TARGET LOCK — shared checkout hero banner fallback */
 .checkout-page .game-hero{
-  --hero-banner-image:url("../assets/banner.webp?v=20261015");
+  --hero-banner-image:url("https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/banner.webp?v=20261015");
 }
 
 

@@ -14,7 +14,7 @@
   const defaults = {
     store_games: [], store_products: [], store_promos: [], store_articles: [],
     store_homepage_settings: [{id:1,trending_enabled:true,trending_title:"Trending",trending_limit:6,trending_slugs:[],all_games_enabled:true,all_games_title:"All Games",all_games_initial_limit:12,show_all_games_button:true,all_games_slugs:[]}],
-    store_game_accounts: [], store_account_listings: [], store_home_banners: [],
+    store_game_accounts: [], store_account_listings: [], store_home_banners: [], store_images: [],
     store_chat_conversations: [], store_chat_messages: [], store_accounts: [], store_leaderboard: []
   };
   function seed() {
@@ -103,6 +103,7 @@
     onAuthStateChange(callback){const fn=()=>callback("SIGNED_IN",read("auth_session",null));window.addEventListener("local-auth-change",fn);return {data:{subscription:{unsubscribe(){window.removeEventListener("local-auth-change",fn);}}}};}
   };
   const storage={from(bucket){return {
+    async list(prefix=""){const files=read("files:"+bucket,{});return {data:Object.keys(files).filter(k=>k.startsWith(prefix)).map(name=>({name})),error:null};},
     async upload(path,file){return new Promise((resolve)=>{const reader=new FileReader();reader.onload=()=>{const key=PREFIX+"files:"+bucket;const files=read("files:"+bucket,{});files[path]=reader.result;write("files:"+bucket,files);resolve({data:{path},error:null});};reader.onerror=()=>resolve({data:null,error:{message:"Gagal membaca file"}});reader.readAsDataURL(file);});},
     getPublicUrl(path){const files=read("files:"+bucket,{});return {data:{publicUrl:files[path]||path}};},
     async remove(paths){const files=read("files:"+bucket,{});(paths||[]).forEach(p=>delete files[p]);write("files:"+bucket,files);return {data:paths||[],error:null};}

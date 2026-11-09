@@ -147,37 +147,12 @@ const LAST_ORDER_KEY =
       "paidButton"
     );
 
-  paidButton?.addEventListener(
-    "click",
-    async () => {
-      paidButton.disabled = true;
-      paidButton.textContent = "Mengecek Status...";
-
-      try {
-        const response = await fetch(
-          "https://spring-surf-a6a7.leovbriansyh791.workers.dev/api/orders/" +
-          encodeURIComponent(order.orderId),
-          { cache: "no-store" }
-        );
-        const result = await response.json().catch(() => ({}));
-
-        if (!response.ok || !result.ok) {
-          throw new Error(result.error || "Status pembayaran belum dapat dicek.");
-        }
-
-        order.status = result.order?.status || order.status;
-        saveOrder(order);
-
-        window.location.replace(
-          "order.html?id=" + encodeURIComponent(order.orderId)
-        );
-      } catch (error) {
-        paidButton.disabled = false;
-        paidButton.textContent = "Cek Status Pembayaran";
-        alert(error.message || "Gagal mengecek status pembayaran.");
-      }
-    }
-  );
+  paidButton?.addEventListener("click", () => {
+    order.status = "Pembayaran Berhasil";
+    order.demoPayment = true;
+    saveOrder(order);
+    window.location.replace("order.html?id=" + encodeURIComponent(order.orderId));
+  });
 
 });
 

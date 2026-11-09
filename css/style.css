@@ -2928,7 +2928,7 @@ body{
 }
 
 .header-brand .header-logo{
-  content:url("../assets/icon.webp")!important;
+  content:url("https://raw.githubusercontent.com/leovbr/Leo-store/main/assets/icon.webp")!important;
   display:block!important;
   position:absolute!important;
   left:50%!important;
