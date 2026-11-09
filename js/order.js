@@ -776,7 +776,7 @@ function renderHistoryPage(
      */
     const rawOrderId = searchInput.value.trim();
 
-    if (/^leo-[a-z0-9]+$/i.test(rawOrderId)) {
+    if (PAYMENT_API && /^leo-[a-z0-9]+$/i.test(rawOrderId)) {
 
       try {
 
