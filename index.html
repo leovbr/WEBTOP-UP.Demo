@@ -434,7 +434,7 @@ body{top:0!important}.skiptranslate iframe{display:none!important}.goog-logo-lin
 document.addEventListener("DOMContentLoaded",async function(){
   const track=document.querySelector(".banner-track"),dots=document.getElementById("bannerDots"),prev=document.getElementById("bannerPrev"),next=document.getElementById("bannerNext");
   if(!track)return;
-  try{const api=window.supabase?.createClient("local://database","LOCAL-DEMO-ONLY");if(api){const {data,error}=await api.from("store_promos").select("title,description,image_url,target_url,starts_at,ends_at,is_active").eq("is_active",true).not("image_url","is",null).not("target_url","is",null).order("sort_order",{ascending:true}).order("id",{ascending:true});if(!error&&data?.length){const now=Date.now(),valid=data.filter(p=>p.is_active&&p.image_url?.trim()&&p.target_url?.trim()&&(!p.starts_at||new Date(p.starts_at).getTime()<=now)&&(!p.ends_at||new Date(p.ends_at).getTime()>=now));track.innerHTML=valid.map(p=>{const title=String(p.title||"").trim(),description=String(p.description||"").trim(),overlay=(title||description)?'<div class="home-banner-overlay"><div>'+(description?'<span>'+description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</span>':'')+(title?'<strong>'+title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</strong>':'')+'</div>'+(title?'<b>→</b>':'')+'</div>':'';return '<a href="'+String(p.target_url).trim().replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'" class="home-banner-slide"><img src="'+String(p.image_url).trim().replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'" alt="'+(title||"Promo").replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'">'+overlay+'</a>';}).join("");}}}catch(e){console.warn("Banner Admin gagal dimuat; tidak memakai gambar hardcoded.",e);}
+  try{const api=window.LEOOSTORE_DB?.createClient("local://database","LOCAL-DEMO-ONLY");if(api){const {data,error}=await api.from("store_promos").select("title,description,image_url,target_url,starts_at,ends_at,is_active").eq("is_active",true).not("image_url","is",null).not("target_url","is",null).order("sort_order",{ascending:true}).order("id",{ascending:true});if(!error&&data?.length){const now=Date.now(),valid=data.filter(p=>p.is_active&&p.image_url?.trim()&&p.target_url?.trim()&&(!p.starts_at||new Date(p.starts_at).getTime()<=now)&&(!p.ends_at||new Date(p.ends_at).getTime()>=now));track.innerHTML=valid.map(p=>{const title=String(p.title||"").trim(),description=String(p.description||"").trim(),overlay=(title||description)?'<div class="home-banner-overlay"><div>'+(description?'<span>'+description.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</span>':'')+(title?'<strong>'+title.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</strong>':'')+'</div>'+(title?'<b>→</b>':'')+'</div>':'';return '<a href="'+String(p.target_url).trim().replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'" class="home-banner-slide"><img src="'+String(p.image_url).trim().replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'" alt="'+(title||"Promo").replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'">'+overlay+'</a>';}).join("");}}}catch(e){console.warn("Banner Admin gagal dimuat; tidak memakai gambar hardcoded.",e);}
   let slides=Array.from(track.querySelectorAll(".home-banner-slide")),current=0;if(!slides.length)return;
   const carousel=track.closest(".banner-carousel");let startX=0,startY=0,dragging=false,suppressClick=false;
   if(dots){dots.innerHTML="";slides.forEach((_,index)=>{const dot=document.createElement("button");dot.type="button";dot.className="banner-dot"+(index===0?" active":"");dot.setAttribute("aria-label","Buka banner "+(index+1));dot.addEventListener("click",()=>{current=index;update();});dots.appendChild(dot);});}
@@ -526,30 +526,30 @@ document.addEventListener("DOMContentLoaded",async function(){
   status.style.borderColor=kind==="ok"?"#237a57":kind==="error"?"#b45353":"#6550a4";
   status.style.color=kind==="ok"?"#a7f3d0":kind==="error"?"#fecaca":"#ddd6fe";
  };
- setStatus("Memuat pengaturan Admin dan katalog game dari Supabase…");
+ setStatus("Memuat pengaturan Admin dan katalog game dari database lokal…");
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  try{
-  // Recover if the primary Supabase CDN did not load on this device.
-  if(!window.supabase){
+  // Recover if the primary database lokal CDN did not load on this device.
+  if(!window.LEOOSTORE_DB){
    trendingGrid.innerHTML='<p class="home-data-status">Menghubungkan ke database…</p>';
    allGrid.innerHTML='<p class="home-data-status">Menghubungkan ke database…</p>';
    await new Promise(resolve=>{
     const script=document.createElement("script");
-    script.src="https://unpkg.com/@supabase/supabase-js@2";
+    script.src="https://unpkg.com/@database-lokal/database-lokal-js@2";
     script.onload=resolve;script.onerror=resolve;
     document.head.appendChild(script);
    });
   }
-  if(!window.supabase)throw new Error("Library database gagal dimuat dari CDN. Coba jaringan lain atau nonaktifkan pemblokir konten.");
-  const db=window.supabase.createClient("local://database","LOCAL-DEMO-ONLY");
+  if(!window.LEOOSTORE_DB)throw new Error("Library database gagal dimuat dari CDN. Coba jaringan lain atau nonaktifkan pemblokir konten.");
+  const db=window.LEOOSTORE_DB.createClient("local://database","LOCAL-DEMO-ONLY");
   const [{data:games,error:gamesError},{data:settings,error:settingsError},{data:products,error:productsError}]=await Promise.all([
    db.from("store_games").select("slug,name,publisher,icon_url,banner_url,sort_order,is_active").eq("is_active",true).order("sort_order").limit(200),
    db.from("store_homepage_settings").select("trending_slugs,trending_title,trending_limit,trending_enabled,all_games_title,all_games_initial_limit,all_games_enabled,show_all_games_button,all_games_slugs").eq("id",1).maybeSingle(),
    db.from("store_products").select("game_slug").eq("is_active",true)
   ]);
-  if(gamesError){console.error("Homepage gagal memuat store_games:",gamesError);throw new Error("Data game gagal dimuat dari Supabase: "+gamesError.message);}
-  if(!games?.length){trendingGrid.innerHTML='<p class="home-data-status">Belum ada game aktif di katalog Supabase.</p>';allGrid.innerHTML='<p class="home-data-status">Belum ada game aktif di katalog Supabase.</p>';if(moreButton)moreButton.style.display="none";return;}
-  if(settingsError||!settings){console.error("Homepage gagal memuat store_homepage_settings:",settingsError);throw new Error("Pengaturan beranda gagal dimuat dari Supabase: "+(settingsError?.message||"baris id=1 tidak ditemukan"));}
+  if(gamesError){console.error("Homepage gagal memuat store_games:",gamesError);throw new Error("Data game gagal dimuat dari database lokal: "+gamesError.message);}
+  if(!games?.length){trendingGrid.innerHTML='<p class="home-data-status">Belum ada game aktif di katalog database lokal.</p>';allGrid.innerHTML='<p class="home-data-status">Belum ada game aktif di katalog database lokal.</p>';if(moreButton)moreButton.style.display="none";return;}
+  if(settingsError||!settings){console.error("Homepage gagal memuat store_homepage_settings:",settingsError);throw new Error("Pengaturan beranda gagal dimuat dari database lokal: "+(settingsError?.message||"baris id=1 tidak ditemukan"));}
   // Homepage game visibility and ordering are controlled by active games + Admin settings.
   // Do not let an empty/mismatched products query hide the entire game catalog on other devices.
   if(productsError)console.warn("Produk aktif gagal dimuat; katalog game tetap ditampilkan:",productsError);
@@ -568,14 +568,14 @@ document.addEventListener("DOMContentLoaded",async function(){
   const configuredSlugs=Array.isArray(cfg.all_games_slugs)?cfg.all_games_slugs:[];
   const allGames=configuredSlugs.length?configuredSlugs.map(slug=>gameBySlug.get(slug)).filter(Boolean):visibleGames;
   function renderAll(){allGrid.innerHTML=allGames.slice(0,initialLimit).map(card).join("");const canGoShop=visibleGames.length>initialLimit&&cfg.show_all_games_button!==false;if(moreButton)moreButton.style.display=canGoShop?"inline-flex":"none";}renderAll();
-  setStatus("Berhasil dimuat dari Supabase • "+games.length+" game aktif • pengaturan Admin diterapkan.", "ok");
- }catch(e){console.error("Homepage gagal memuat data Supabase:",e);const detail=String(e?.message||e||"Kesalahan tidak diketahui");setStatus("Gagal memuat data: "+detail,"error");const message='<p class="home-data-status">'+esc(detail)+'</p>';trendingGrid.innerHTML=message;allGrid.innerHTML=message;if(moreButton)moreButton.style.display="none";}
+  setStatus("Berhasil dimuat dari database lokal • "+games.length+" game aktif • pengaturan Admin diterapkan.", "ok");
+ }catch(e){console.error("Homepage gagal memuat data database lokal:",e);const detail=String(e?.message||e||"Kesalahan tidak diketahui");setStatus("Gagal memuat data: "+detail,"error");const message='<p class="home-data-status">'+esc(detail)+'</p>';trendingGrid.innerHTML=message;allGrid.innerHTML=message;if(moreButton)moreButton.style.display="none";}
 });
 </script>
 <script>
-// LEOOSTORE account marketplace: public listings are sourced from Supabase.
+// LEOOSTORE account marketplace: public listings are sourced from database lokal.
 document.addEventListener("DOMContentLoaded",async function(){
- const grid=document.getElementById("accountListingGrid"),more=document.getElementById("showMoreAccounts");if(!grid||!window.supabase)return;
+ const grid=document.getElementById("accountListingGrid"),more=document.getElementById("showMoreAccounts");if(!grid||!window.LEOOSTORE_DB)return;
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const money=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
  const adminUrl="chat-admin.html";
@@ -586,7 +586,7 @@ document.addEventListener("DOMContentLoaded",async function(){
  detailModal.querySelector("#closeAccountDetail")?.addEventListener("click",closeDetail);
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!detailModal.hidden)closeDetail();});
  try{
-  const db=window.supabase.createClient("local://database","LOCAL-DEMO-ONLY");
+  const db=window.LEOOSTORE_DB.createClient("local://database","LOCAL-DEMO-ONLY");
   const {data,error}=await db.from("store_accounts").select("id,account_name,game_name,description,price,stock,warranty_days,image1_url,image2_url,sort_order,is_active,created_at").eq("is_active",true).gt("stock",0).order("sort_order",{ascending:true}).order("created_at",{ascending:false});
   if(error){console.warn("Listing akun belum tersedia dari database:",error.message);return;}
   const accounts=data||[];
@@ -617,11 +617,11 @@ document.addEventListener("DOMContentLoaded",async function(){
 </style>
 <script id="home-promo-code-loader">
 document.addEventListener("DOMContentLoaded",async function(){
- const grid=document.getElementById("homePromoCodes");if(!grid||!window.supabase)return;
+ const grid=document.getElementById("homePromoCodes");if(!grid||!window.LEOOSTORE_DB)return;
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const money=n=>"Rp"+Number(n||0).toLocaleString("id-ID");
  try{
-  const db=window.supabase.createClient("local://database","LOCAL-DEMO-ONLY");
+  const db=window.LEOOSTORE_DB.createClient("local://database","LOCAL-DEMO-ONLY");
   const {data,error}=await db.from("store_promos").select("code,title,description,discount_type,discount_value,is_active,starts_at,ends_at,usage_limit,usage_count,min_purchase").eq("is_active",true).not("code","is",null).order("created_at",{ascending:false}).limit(100);
   if(error)throw error;
   const now=Date.now(),valid=(data||[]).filter(p=>String(p.code||"").trim()&&(!p.starts_at||new Date(p.starts_at).getTime()<=now)&&(!p.ends_at||new Date(p.ends_at).getTime()>=now)&&(p.usage_limit==null||Number(p.usage_count||0)<Number(p.usage_limit)));
