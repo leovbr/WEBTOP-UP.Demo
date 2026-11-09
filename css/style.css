@@ -3256,3 +3256,34 @@ body{
 .whatsapp-input .leo-shared-select .leo-country-compact{display:block;white-space:nowrap;font-size:13px;font-weight:600;line-height:1.2;letter-spacing:.1px;}
 .whatsapp-input .leo-shared-select .leo-shared-value{justify-content:center;overflow:hidden;}
 .whatsapp-input .leo-shared-select .leo-shared-arrow{margin-left:auto;}
+
+
+/* Demo storefront navigation polish */
+.side-menu-nav { gap: 4px; padding: 18px 20px 28px; }
+.side-menu-item {
+  min-height: 52px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  font-size: 14px;
+  letter-spacing: .1px;
+}
+.side-menu-item:hover { padding-left: 16px; background: rgba(124,92,255,.08); }
+.side-menu-item.active {
+  color: var(--primary-hover);
+  background: rgba(124,92,255,.13);
+  border-color: rgba(124,92,255,.22);
+}
+.side-menu-item.active .side-menu-icon,
+.side-menu-item.active .side-menu-arrow { color: var(--primary-hover); }
+.side-menu-login {
+  margin-top: 14px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.header-brand-text { letter-spacing: -.45px; }
+@media (max-width: 480px) {
+  .header-brand-text { font-size: 17px; }
+  .header-inner { gap: 10px; }
+  .header-actions { gap: 6px; }
+}
