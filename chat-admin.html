@@ -224,7 +224,7 @@ body.chat-admin-page.chat-auth-only .chat-account-bar,body.chat-admin-page.chat-
  
  $("chatLogout").addEventListener("click",async()=>{if(channel)await db.removeChannel(channel);channel=null;await db.auth.signOut();user=null;conversation=null;showChat(false);messages.innerHTML="";setAuthMode("login");$("authStatus").textContent="Kamu sudah keluar. Masuk lagi untuk melanjutkan chat.";});
  $("chatForm").addEventListener("submit",async e=>{e.preventDefault();const body=input.value.trim();if(!body||!conversation)return;const btn=e.submitter||$("chatForm").querySelector("button[type=submit]");btn.disabled=true;try{const {data:sentMessage,error}=await db.from("store_chat_messages").insert({conversation_id:conversation.id,sender_id:user.id,sender_role:"customer",body}).select("id,conversation_id,sender_role,body,created_at").single();if(error)throw error;renderMessage(sentMessage);input.value="";input.style.height="auto";$("chatPresets").hidden=true;status.textContent=""; }catch(err){status.textContent="Gagal mengirim pesan. Periksa koneksi lalu coba lagi."; }finally{btn.disabled=false;input.focus();}});
- restoreSession().catch(err=>{$("authStatus").textContent="Chat belum aktif: "+err.message+". Pastikan Local Storage browser aktif.";console.error("[LEOOSTORE chat]",err);});
+ restoreSession().catch(err=>{$("authStatus").textContent="Chat belum aktif: "+err.message+". Pastikan Local Storage browser aktif.";console.error("[Nama Brand chat]",err);});
 })();
 </script>
 
