@@ -18,8 +18,8 @@
     {id:"demo-article-04",slug:"tips-mengelola-budget-gaming",title:"Tips Mengelola Budget Gaming",excerpt:"Tetap menikmati game dengan pengeluaran yang terencana dan terkontrol.",category:"Tips",thumbnail_url:"https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1200&q=85",content:"Buat batas pengeluaran hiburan setiap minggu atau bulan. Pisahkan kebutuhan utama dari anggaran bermain agar aktivitas gaming tidak mengganggu keuangan pribadi.\n\nCatat transaksi dan evaluasi pembelian secara berkala. Promo bukan berarti harus selalu digunakan; beli hanya jika memang dibutuhkan.\n\nArtikel ini merupakan konten contoh yang disediakan untuk preview halaman artikel demo.",status:"published",published_at:now()}
   ];
   const demoPromos = [
-    {id:"demo-banner-01",code:"DEMO10",title:"Demo Special",description:"Contoh promo untuk melihat tampilan banner dan kode diskon.",discount_type:"percent",discount_value:10,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:10000,starts_at:null,ends_at:null,is_active:true,sort_order:1,image_url:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1600&q=85",target_url:"index.html",created_at:now()},
-    {id:"demo-banner-02",code:"GAMING5",title:"Gaming Week",description:"Contoh banner promosi bertema gaming untuk demo.",discount_type:"fixed",discount_value:5000,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:25000,starts_at:null,ends_at:null,is_active:true,sort_order:2,image_url:"https://images.unsplash.com/photo-1593305841991-05c297ba4575?auto=format&fit=crop&w=1600&q=85",target_url:"shop.html",created_at:now()},
+    {id:"demo-banner-01",code:"DEMO10",title:"Demo Special",description:"Contoh promo untuk melihat tampilan banner dan kode diskon.",discount_type:"percent",discount_value:10,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:10000,starts_at:null,ends_at:null,is_active:true,sort_order:1,image_url:"assets/Product1.webp",target_url:"index.html",created_at:now()},
+    {id:"demo-banner-02",code:"GAMING5",title:"Gaming Week",description:"Contoh banner promosi bertema gaming untuk demo.",discount_type:"fixed",discount_value:5000,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:25000,starts_at:null,ends_at:null,is_active:true,sort_order:2,image_url:"assets/Product2.webp",target_url:"shop.html",created_at:now()},
     {id:"demo-banner-03",code:"WELCOME",title:"Welcome Gamer",description:"Contoh banner sambutan untuk pengunjung baru.",discount_type:"percent",discount_value:5,usage_limit:100,per_user_limit:1,usage_count:0,min_purchase:0,starts_at:null,ends_at:null,is_active:true,sort_order:3,image_url:"https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=85",target_url:"artikel.html",created_at:now()}
   ];
   const demoHomeBanners = demoPromos.map((p,i)=>({id:"demo-home-"+(i+1),title:p.title,description:p.description,image_url:p.image_url,target_url:p.target_url,is_active:true,sort_order:i+1}));
@@ -54,6 +54,23 @@
     for (const [table,rows] of Object.entries(defaults)) {
       if (!localStorage.getItem(PREFIX+table)) write(table,rows);
     }
+    // Keep the two built-in homepage banners pointed at the bundled demo assets.
+    // This also updates browsers that already seeded an older version of the demo data.
+    const promoRows=read("store_promos",[]);
+    let promoChanged=false;
+    for(const [id,image] of [["demo-banner-01","assets/Product1.webp"],["demo-banner-02","assets/Product2.webp"]]){
+      const row=promoRows.find(item=>String(item.id)===id);
+      if(row&&row.image_url!==image){row.image_url=image;promoChanged=true;}
+    }
+    if(promoChanged)write("store_promos",promoRows);
+    const homeRows=read("store_home_banners",[]);
+    let homeChanged=false;
+    for(const [id,image] of [["demo-home-1","assets/Product1.webp"],["demo-home-2","assets/Product2.webp"]]){
+      const row=homeRows.find(item=>String(item.id)===id);
+      if(row&&row.image_url!==image){row.image_url=image;homeChanged=true;}
+    }
+    if(homeChanged)write("store_home_banners",homeRows);
+
     if(!localStorage.getItem(PREFIX+"seed_v2")){
       for(const table of ["store_articles","store_promos","store_home_banners","store_accounts"]){
         if(read(table,[]).length===0 && defaults[table]?.length) write(table,defaults[table]);
