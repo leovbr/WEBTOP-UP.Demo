@@ -157,7 +157,7 @@
     }
     return api;
   }
-  const isAdminContext=()=>/\\/admin(?:[-.]|\\/)/i.test(window.location.pathname);
+  const isAdminContext=()=>{const path=String(window.location.pathname||"").toLowerCase();return path.includes("/admin-")||path.endsWith("/admin.html");};
   const activeSessionKey=()=>PREFIX+(isAdminContext()?"auth_session_admin":"auth_session_customer");
   const auth={
     async getSession(){return {data:{session:read(activeSessionKey().slice(PREFIX.length),null)},error:null};},
