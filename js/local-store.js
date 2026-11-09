@@ -1,6 +1,6 @@
 /* =========================================================
    WEBTOP-UP.Demo — LOCAL STORAGE DATABASE
-   Supabase-compatible demo adapter. No network/database calls.
+   database lokal-compatible demo adapter. No network/database calls.
    Data is isolated to this browser and this origin.
 ========================================================= */
 (() => {
@@ -108,7 +108,7 @@
     getPublicUrl(path){const files=read("files:"+bucket,{});return {data:{publicUrl:files[path]||path}};},
     async remove(paths){const files=read("files:"+bucket,{});(paths||[]).forEach(p=>delete files[p]);write("files:"+bucket,files);return {data:paths||[],error:null};}
   };}};
-  window.supabase={createClient(){return {from:builder,auth,storage,channel(){return {on(){return this;},subscribe(){return {unsubscribe(){}};}};},removeChannel(){}};}};
+  window.LEOOSTORE_DB={createClient(){return {from:builder,auth,storage,channel(){return {on(){return this;},subscribe(){return {unsubscribe(){}};}};},removeChannel(){}};}};
   window.addEventListener("storage",e=>{if(e.key?.startsWith(PREFIX))window.dispatchEvent(new CustomEvent("webtopup:change",{detail:{key:e.key}}));});
   seed();
 })();
