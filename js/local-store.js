@@ -39,7 +39,7 @@
   ]);
   const defaults = {
     store_games: [], store_products: [], store_promos: demoPromos, store_articles: demoArticles,
-    store_homepage_settings: [{id:1,trending_enabled:true,trending_title:"Trending",trending_limit:6,trending_slugs:[],all_games_enabled:true,all_games_title:"All Games",all_games_initial_limit:12,show_all_games_button:true,all_games_slugs:[]}],
+    store_homepage_settings: [{id:1,trending_enabled:true,trending_title:"Trending",trending_limit:6,trending_slugs:["mobile-legends","free-fire","pubg-mobile","genshin-impact","honor-of-kings","valorant"],all_games_enabled:true,all_games_title:"All Games",all_games_initial_limit:12,show_all_games_button:true,all_games_slugs:[]}],
     store_game_accounts: [], store_account_listings: [], store_home_banners: demoHomeBanners, store_images: [],
     store_chat_conversations: [], store_chat_messages: [],
     store_accounts: [
@@ -118,6 +118,21 @@
       const known=new Set(products.map(p=>String(p.id)));
       const missing=demoExtraProducts.filter(p=>!known.has(String(p.id)));
       if(missing.length)write("store_products",products.concat(missing.map(p=>({...p,created_at:now(),updated_at:now()}))));
+    }
+    // Backfill the six default Trending games for existing demo browsers,
+    // but never overwrite a selection already configured by the admin.
+    const homepageRows=read("store_homepage_settings",[]);
+    const homepage=homepageRows.find(row=>Number(row.id)===1)||homepageRows[0];
+    const defaultTrending=["mobile-legends","free-fire","pubg-mobile","genshin-impact","honor-of-kings","valorant"];
+    if(homepage && (!Array.isArray(homepage.trending_slugs)||homepage.trending_slugs.length===0)){
+      const available=new Set(read("store_games",[]).filter(game=>game.is_active!==false).map(game=>game.slug));
+      const selected=defaultTrending.filter(slug=>available.has(slug));
+      if(selected.length){
+        homepage.trending_slugs=selected;
+        homepage.trending_limit=6;
+        if(!homepage.trending_title)homepage.trending_title="Trending";
+        write("store_homepage_settings",homepageRows);
+      }
     }
   }
   window.LEOOSTORE_SEED_LOCAL = seed;
